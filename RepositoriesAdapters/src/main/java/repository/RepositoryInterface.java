@@ -1,6 +1,7 @@
 package repository;
 
-import com.example.kregielniaspring.exceptions.LoginInUseException;
+
+import exceptions.LoginInUseException;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -12,7 +13,7 @@ public interface RepositoryInterface<T> {
 
     List<T> readAll();
     T readById(UUID uuid);
-    T create(T object) throws LoginInUseException;
+    T create(T object) throws LoginInUseException, LoginInUseException;
     T delete(UUID uuid);
     T update(T object) throws LoginInUseException;
 

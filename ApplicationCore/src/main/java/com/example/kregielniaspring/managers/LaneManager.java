@@ -1,9 +1,6 @@
 package com.example.kregielniaspring.managers;
 
-import com.example.kregielniaspring.model.LANE_TYPE;
-import com.example.kregielniaspring.model.Lane;
-import com.example.kregielniaspring.repository.LaneRepository;
-import com.example.kregielniaspring.repository.ReservationRepository;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -16,9 +13,6 @@ import java.util.UUID;
 @Service
 @RequiredArgsConstructor
 public class LaneManager {
-
-    private final LaneRepository laneRepository;
-    private final ReservationRepository reservationRepository;
 
     private Object lock = new Object();
 

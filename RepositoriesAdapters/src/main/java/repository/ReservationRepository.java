@@ -1,7 +1,7 @@
 package repository;
 
 
-import com.example.kregielniaspring.model.Reservation;
+
 import modelEnt.ReservationEnt;
 import org.springframework.stereotype.Repository;
 
