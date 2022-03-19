@@ -6,19 +6,15 @@ import com.example.kregielniaspring.model.Reservation;
 import java.util.List;
 import java.util.UUID;
 
-public interface ReservationPort extends Port<Reservation> {
-    @Override
+public interface ReservationPort {
+
     List<Reservation> readAll();
 
-    @Override
     Reservation readById(UUID uuid);
 
-    @Override
-    Reservation create(Reservation object) throws LoginInUseException;
+    Reservation create(Reservation object);
 
-    @Override
     Reservation delete(UUID uuid);
 
-    @Override
-    Reservation update(Reservation object) throws LoginInUseException;
+    Reservation update(Reservation object);
 }
