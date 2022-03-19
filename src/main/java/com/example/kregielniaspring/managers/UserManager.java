@@ -19,7 +19,7 @@ public class UserManager {
 
     private final UserRepository userRepository;
 
-    private Object lock = new Object();
+    private final Object lock = new Object();
 
 
     public List<User> readAllUser() {

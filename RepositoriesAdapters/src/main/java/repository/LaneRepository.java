@@ -1,7 +1,7 @@
 package repository;
 
 
-import modelEnt.LANE_TYPE_Ent;
+import com.example.kregielniaspring.model.LANE_TYPE;
 import modelEnt.LaneEnt;
 import org.springframework.stereotype.Repository;
 
@@ -17,12 +17,12 @@ public class LaneRepository implements RepositoryInterface<LaneEnt> {
 
     public LaneRepository() {
         this.laneList = new ArrayList<>();
-        this.create(new LaneEnt(UUID.fromString("9f77375c-7d30-4eca-a830-aebec2ddd8a7"), LANE_TYPE_Ent.normal));
-        this.create(new LaneEnt(UUID.fromString("c87d6205-a804-4f51-9640-29c58ac7a184"), LANE_TYPE_Ent.premium));
-        this.create(new LaneEnt(UUID.fromString("8cb3f9de-078c-4c83-97a9-ba120c12b67d"), LANE_TYPE_Ent.vip));
-        this.create(new LaneEnt(UUID.fromString("c3544044-2be2-4c3b-9fe7-3be0522c158f"), LANE_TYPE_Ent.normal));
-        this.create(new LaneEnt(UUID.fromString("759df6cf-66b2-4ea7-b20a-c93eee1d0e2b"), LANE_TYPE_Ent.premium));
-        this.create(new LaneEnt(UUID.fromString("3ccd5052-356c-4b17-8ec7-e2b1ecb57ee3"), LANE_TYPE_Ent.vip));
+        this.create(new LaneEnt(UUID.fromString("9f77375c-7d30-4eca-a830-aebec2ddd8a7"), LANE_TYPE.normal));
+        this.create(new LaneEnt(UUID.fromString("c87d6205-a804-4f51-9640-29c58ac7a184"), LANE_TYPE.premium));
+        this.create(new LaneEnt(UUID.fromString("8cb3f9de-078c-4c83-97a9-ba120c12b67d"), LANE_TYPE.vip));
+        this.create(new LaneEnt(UUID.fromString("c3544044-2be2-4c3b-9fe7-3be0522c158f"), LANE_TYPE.normal));
+        this.create(new LaneEnt(UUID.fromString("759df6cf-66b2-4ea7-b20a-c93eee1d0e2b"), LANE_TYPE.premium));
+        this.create(new LaneEnt(UUID.fromString("3ccd5052-356c-4b17-8ec7-e2b1ecb57ee3"), LANE_TYPE.vip));
     }
 
     @Override

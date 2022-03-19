@@ -1,35 +1,44 @@
 package adapters;
 
-import Port.Out.ReservationPort;
-import com.example.kregielniaspring.exceptions.LoginInUseException;
+import Port.Out.ReservationPortOut;
 import com.example.kregielniaspring.model.Reservation;
+import repository.ReservationRepository;
 
 import java.util.List;
 import java.util.UUID;
 
-public class ReservationPortAdapter implements ReservationPort {
+public class ReservationPortOutAdapter implements ReservationPortOut{
+
+    ReservationAdapter reservationAdapter = new ReservationAdapter();
+    ReservationRepository reservationRepository = new ReservationRepository();
+
     @Override
     public List<Reservation> readAll() {
-        return null;
+        return reservationAdapter.convertToListReservation(reservationRepository.readAll());
     }
 
     @Override
     public Reservation readById(UUID uuid) {
-        return null;
+        return reservationAdapter.convertToReservation(reservationRepository.readById(uuid));
     }
 
     @Override
-    public Reservation create(Reservation object) throws LoginInUseException {
-        return null;
+    public List<Reservation> pastClientReservations(UUID clientsUUID) {
+        return reservationAdapter.convertToListReservation(reservationRepository.pastClientReservations(clientsUUID));
     }
 
     @Override
-    public Reservation delete(UUID uuid) {
-        return null;
+    public List<Reservation> presentClientReservations(UUID clientsUUID) {
+        return reservationAdapter.convertToListReservation(reservationRepository.presentClientReservations(clientsUUID));
     }
 
     @Override
-    public Reservation update(Reservation object) throws LoginInUseException {
-        return null;
+    public List<Reservation> pastLaneReservations(UUID UUIDLane) {
+        return reservationAdapter.convertToListReservation(reservationRepository.pastLaneReservations(UUIDLane));
+    }
+
+    @Override
+    public List<Reservation> presentLaneReservations(UUID UUIDLane) {
+        return reservationAdapter.convertToListReservation(reservationRepository.presentLaneReservations(UUIDLane));
     }
 }

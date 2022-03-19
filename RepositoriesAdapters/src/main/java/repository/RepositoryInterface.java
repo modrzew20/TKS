@@ -13,7 +13,7 @@ public interface RepositoryInterface<T> {
 
     List<T> readAll();
     T readById(UUID uuid);
-    T create(T object) throws LoginInUseException, LoginInUseException;
+    T create(T object) throws LoginInUseException;
     T delete(UUID uuid);
     T update(T object) throws LoginInUseException;
 

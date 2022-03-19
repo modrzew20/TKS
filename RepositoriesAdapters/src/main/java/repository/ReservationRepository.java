@@ -13,7 +13,7 @@ import java.util.UUID;
 @Repository
 public class ReservationRepository implements RepositoryInterface<ReservationEnt> {
 
-    private final List<ReservationEnt> reservationList= new ArrayList<>();;
+    private final List<ReservationEnt> reservationList= new ArrayList<>();
 
     @Override
     public List<ReservationEnt> readAll() {

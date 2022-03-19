@@ -26,7 +26,7 @@ public class ReservationManager {
     private final UserRepository userRepository;
     private final ReservationRepository reservationRepository ;
 
-    private Object lock = new Object();
+    private final Object lock = new Object();
 
     public List<Reservation> readAllReservation() {
         synchronized(lock) {

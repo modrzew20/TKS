@@ -20,7 +20,7 @@ public class LaneManager {
     private final LaneRepository laneRepository;
     private final ReservationRepository reservationRepository;
 
-    private Object lock = new Object();
+    private final Object lock = new Object();
 
     public List<Lane> readAllLane() {
         synchronized(lock) {

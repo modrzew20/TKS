@@ -7,13 +7,13 @@ public class Reservation {
 
     private UUID uuid;
     private Lane lane;
-    private User client;
+    private User user;
     private LocalDateTime startReservation, endReservation;
 
     public Reservation(UUID uuid, Lane lane, User client, LocalDateTime startReservation, LocalDateTime endReservation) {
         this.uuid = uuid;
         this.lane = lane;
-        this.client = client;
+        this.user = client;
         this.startReservation = startReservation;
         this.endReservation = endReservation;
     }
@@ -22,8 +22,8 @@ public class Reservation {
         return lane;
     }
 
-    public User getClient() {
-        return client;
+    public User getUser() {
+        return user;
     }
 
     public LocalDateTime getStartReservation() {
@@ -46,8 +46,8 @@ public class Reservation {
         this.lane = lane;
     }
 
-    public void setClient(User client) {
-        this.client = client;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public void setStartReservation(LocalDateTime startReservation) {

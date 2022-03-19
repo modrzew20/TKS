@@ -99,8 +99,7 @@ public class UserRepository implements RepositoryInterface<UserEnt>{
 
     private static boolean canBeEdited(List<UserEnt> list, String login) {
         int count = (int) list.stream().filter(user -> login.equals(user.getLogin())).count();
-        if (count > 1) return true;
-        return false;
+        return count > 1;
     }
 
     private static boolean checkIfExists(List<UserEnt> list, UUID uuid) {

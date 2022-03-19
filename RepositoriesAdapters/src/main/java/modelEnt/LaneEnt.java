@@ -1,14 +1,16 @@
 package modelEnt;
 
+import com.example.kregielniaspring.model.LANE_TYPE;
+
 import java.util.Objects;
 import java.util.UUID;
 
 public class LaneEnt {
 
     private UUID uuid;
-    private LANE_TYPE_Ent type;
+    private LANE_TYPE type;
 
-    public LaneEnt(UUID uuid, LANE_TYPE_Ent type) {
+    public LaneEnt(UUID uuid, LANE_TYPE type) {
         this.uuid = uuid;
         this.type = type;
     }
@@ -21,7 +23,7 @@ public class LaneEnt {
         return uuid;
     }
 
-    public LANE_TYPE_Ent getType() {
+    public LANE_TYPE getType() {
         return type;
     }
 
@@ -46,7 +48,7 @@ public class LaneEnt {
         return Objects.hash(getUuid(), getType());
     }
 
-    public void setType(LANE_TYPE_Ent type) {
+    public void setType(LANE_TYPE type) {
         this.type = type;
     }
 }
