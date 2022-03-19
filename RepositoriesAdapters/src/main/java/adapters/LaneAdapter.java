@@ -9,8 +9,10 @@ import java.util.List;
 
 public class LaneAdapter {
 
+    LaneTypeAdapter laneTypeAdapter = new LaneTypeAdapter();
+
     public Lane convertToLane(LaneEnt laneEnt) {
-        return new Lane(laneEnt.getUuid(),laneEnt.getType());
+        return new Lane(laneEnt.getUuid(),laneTypeAdapter.convertToType(laneEnt.getType()));
     }
 
     public List<Lane> convertToLaneList(List<LaneEnt> laneEntList) {
@@ -22,7 +24,7 @@ public class LaneAdapter {
     }
 
     public LaneEnt convertFromLane(Lane lane) {
-        return new LaneEnt(lane.getUuid(),lane.getType());
+        return new LaneEnt(lane.getUuid(),laneTypeAdapter.convertFromType(lane.getType()));
     }
 
     public List<LaneEnt> convertFromLaneList(List<Lane> laneList) {
