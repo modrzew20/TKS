@@ -1,19 +1,13 @@
-package Port;
-
+package Port.In;
 
 import com.example.kregielniaspring.exceptions.LoginInUseException;
 import com.example.kregielniaspring.model.User;
 
-import java.util.List;
 import java.util.UUID;
 
-public interface UserPort {
+public interface UserPortIn {
 
-    List<User> readAll();
-
-    User readById(UUID uuid);
-
-    User create(User object) throws LoginInUseException;
+    User create(User user) throws LoginInUseException;
 
     User delete(UUID uuid);
 

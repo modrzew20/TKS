@@ -1,6 +1,6 @@
 package adapters;
 
-import Port.ReservationPort;
+import Port.Out.ReservationPort;
 import com.example.kregielniaspring.exceptions.LoginInUseException;
 import com.example.kregielniaspring.model.Reservation;
 
