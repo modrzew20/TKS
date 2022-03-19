@@ -2,6 +2,7 @@ package Port.In;
 
 import com.example.kregielniaspring.exceptions.LoginInUseException;
 import com.example.kregielniaspring.model.User;
+import modelEnt.UserEnt;
 
 import java.util.UUID;
 
@@ -12,4 +13,8 @@ public interface UserPortIn {
     User delete(UUID uuid);
 
     User update(User object) throws LoginInUseException;
+
+    User activate(UUID uuid);
+
+    User deactivate(UUID uuid);
 }

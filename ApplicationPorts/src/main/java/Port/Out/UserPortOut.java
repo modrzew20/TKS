@@ -10,4 +10,6 @@ public interface UserPortOut {
     List<User> readAll();
 
     User readById(UUID uuid);
+
+    List<User> readManyByLogin(String login);
 }
