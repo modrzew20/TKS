@@ -1,7 +1,6 @@
 package repository;
 
 
-import com.example.kregielniaspring.model.LANE_TYPE;
 import modelEnt.LANE_TYPE_Ent;
 import modelEnt.LaneEnt;
 import org.springframework.stereotype.Repository;
@@ -26,6 +25,10 @@ public class LaneRepository implements RepositoryInterface<LaneEnt> {
         this.create(new LaneEnt(UUID.fromString("3ccd5052-356c-4b17-8ec7-e2b1ecb57ee3"), LANE_TYPE_Ent.vip));
     }
 
+    private static boolean checkIfExists(List<LaneEnt> list, UUID uuid) {
+        return list.stream().anyMatch(lane -> lane.getUuid().equals(uuid));
+    }
+
     @Override
     public List<LaneEnt> readAll() {
         return laneList;
@@ -38,7 +41,7 @@ public class LaneRepository implements RepositoryInterface<LaneEnt> {
 
     @Override
     public LaneEnt create(LaneEnt object) {
-        if(object.getUuid()==null || checkIfExists(laneList,object.getUuid())) {
+        if (object.getUuid() == null || checkIfExists(laneList, object.getUuid())) {
             UUID uuid = UUID.randomUUID();
             while (checkIfExists(laneList, uuid)) {
                 uuid = UUID.randomUUID();
@@ -64,10 +67,6 @@ public class LaneRepository implements RepositoryInterface<LaneEnt> {
         LaneEnt lane = optional.orElse(null);
         if (lane != null) lane.setType(object.getType());
         return lane;
-    }
-
-    private static boolean checkIfExists(List<LaneEnt> list, UUID uuid) {
-        return list.stream().anyMatch(lane -> lane.getUuid().equals(uuid));
     }
 
 }

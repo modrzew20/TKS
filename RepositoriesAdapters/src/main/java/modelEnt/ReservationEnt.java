@@ -22,16 +22,32 @@ public class ReservationEnt {
         return lane;
     }
 
+    public void setLane(LaneEnt lane) {
+        this.lane = lane;
+    }
+
     public UserEnt getClient() {
         return client;
+    }
+
+    public void setClient(UserEnt client) {
+        this.client = client;
     }
 
     public LocalDateTime getStartReservation() {
         return startReservation;
     }
 
+    public void setStartReservation(LocalDateTime startReservation) {
+        this.startReservation = startReservation;
+    }
+
     public LocalDateTime getEndReservation() {
         return endReservation;
+    }
+
+    public void setEndReservation(LocalDateTime endReservation) {
+        this.endReservation = endReservation;
     }
 
     public UUID getUuid() {
@@ -40,21 +56,5 @@ public class ReservationEnt {
 
     public void setUuid(UUID uuid) {
         this.uuid = uuid;
-    }
-
-    public void setLane(LaneEnt lane) {
-        this.lane = lane;
-    }
-
-    public void setClient(UserEnt client) {
-        this.client = client;
-    }
-
-    public void setStartReservation(LocalDateTime startReservation) {
-        this.startReservation = startReservation;
-    }
-
-    public void setEndReservation(LocalDateTime endReservation) {
-        this.endReservation = endReservation;
     }
 }

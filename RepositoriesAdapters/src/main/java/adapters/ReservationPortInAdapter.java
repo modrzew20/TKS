@@ -29,11 +29,11 @@ public class ReservationPortInAdapter implements ReservationPortIn {
 
     @Override
     public Reservation endReservation(UUID uuid, LocalDateTime localDateTime) {
-        return reservationAdapter.convertToReservation(reservationRepository.endReservation(uuid,localDateTime));
+        return reservationAdapter.convertToReservation(reservationRepository.endReservation(uuid, localDateTime));
     }
 
     @Override
     public boolean reservedLine(UUID uuid, LocalDateTime start, LocalDateTime end) {
-        return reservationRepository.reservedLine(uuid,start,end);
+        return reservationRepository.reservedLine(uuid, start, end);
     }
 }

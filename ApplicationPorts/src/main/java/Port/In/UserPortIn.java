@@ -2,7 +2,6 @@ package Port.In;
 
 import com.example.kregielniaspring.exceptions.LoginInUseException;
 import com.example.kregielniaspring.model.User;
-import modelEnt.UserEnt;
 
 import java.util.UUID;
 

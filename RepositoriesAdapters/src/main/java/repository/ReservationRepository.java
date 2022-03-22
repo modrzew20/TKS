@@ -1,7 +1,6 @@
 package repository;
 
 
-
 import modelEnt.ReservationEnt;
 import org.springframework.stereotype.Repository;
 
@@ -13,7 +12,11 @@ import java.util.UUID;
 @Repository
 public class ReservationRepository implements RepositoryInterface<ReservationEnt> {
 
-    private final List<ReservationEnt> reservationList= new ArrayList<>();
+    private final List<ReservationEnt> reservationList = new ArrayList<>();
+
+    private static boolean checkIfExists(List<ReservationEnt> list, UUID uuid) {
+        return list.stream().anyMatch(reserv -> reserv.getUuid().equals(uuid));
+    }
 
     @Override
     public List<ReservationEnt> readAll() {
@@ -40,9 +43,9 @@ public class ReservationRepository implements RepositoryInterface<ReservationEnt
     public ReservationEnt delete(UUID uuid) {
         LocalDateTime time = LocalDateTime.now();
         for (int i = 0; i < reservationList.size(); i++) {
-            if( reservationList.get(i).getUuid().equals(uuid)
-                    && ( reservationList.get(i).getEndReservation().isBefore(time)
-                    ||  reservationList.get(i).getEndReservation() == null)) {
+            if (reservationList.get(i).getUuid().equals(uuid)
+                    && (reservationList.get(i).getEndReservation().isBefore(time)
+                    || reservationList.get(i).getEndReservation() == null)) {
                 ReservationEnt reservation = reservationList.get(i);
                 reservationList.remove(i);
                 return reservation;
@@ -55,10 +58,6 @@ public class ReservationRepository implements RepositoryInterface<ReservationEnt
     public ReservationEnt update(ReservationEnt object) {
         return null;
     }
-
-
-
-
 
     public List<ReservationEnt> pastClientReservations(UUID clientsUUID) {
         List<ReservationEnt> list = new ArrayList<>();
@@ -81,7 +80,6 @@ public class ReservationRepository implements RepositoryInterface<ReservationEnt
         return list;
     }
 
-
     public List<ReservationEnt> pastLaneReservations(UUID UUIDLane) {
         List<ReservationEnt> list = new ArrayList<>();
         LocalDateTime time = LocalDateTime.now();
@@ -103,7 +101,7 @@ public class ReservationRepository implements RepositoryInterface<ReservationEnt
         return list;
     }
 
-    public ReservationEnt endReservation (UUID uuid, LocalDateTime localDateTime) {
+    public ReservationEnt endReservation(UUID uuid, LocalDateTime localDateTime) {
         for (ReservationEnt value : reservationList) {
             if (value.getUuid().equals(uuid)) {
                 value.setEndReservation(localDateTime);
@@ -112,7 +110,6 @@ public class ReservationRepository implements RepositoryInterface<ReservationEnt
         }
         return null;
     }
-
 
     public boolean reservedLine(UUID uuidlane, LocalDateTime start, LocalDateTime end) {
         for (ReservationEnt reservation : reservationList) {
@@ -135,9 +132,5 @@ public class ReservationRepository implements RepositoryInterface<ReservationEnt
                     && reservation.getEndReservation().isEqual(end))) return true;
         }
         return false;
-    }
-
-    private static boolean checkIfExists(List<ReservationEnt> list, UUID uuid) {
-        return list.stream().anyMatch(reserv -> reserv.getUuid().equals(uuid));
     }
 }

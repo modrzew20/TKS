@@ -7,7 +7,7 @@ import repository.ReservationRepository;
 import java.util.List;
 import java.util.UUID;
 
-public class ReservationPortOutAdapter implements ReservationPortOut{
+public class ReservationPortOutAdapter implements ReservationPortOut {
 
     ReservationAdapter reservationAdapter = new ReservationAdapter();
     ReservationRepository reservationRepository = new ReservationRepository();
