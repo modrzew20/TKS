@@ -13,6 +13,7 @@ public abstract class User {
         this.uuid = uuid;
         this.login = login;
         this.password = password;
+        this.isActive = isActive;
     }
 
     public UUID getUuid() {
