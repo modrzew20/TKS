@@ -1,8 +1,8 @@
 package com.example.kregielniaspring.api;
 
 import com.example.kregielniaspring.exceptions.LoginInUseException;
+import com.example.kregielniaspring.model.AccessLevel;
 import com.example.kregielniaspring.service.UserService;
-
 import exceptions.LoginInUseExceptionEnt;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
@@ -31,7 +31,7 @@ public class UserController {
 
     @RequestMapping(value = "/{uuid}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity readUser(@PathVariable("uuid") @NotBlank @Pattern(regexp =
-            "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}") String uuid){
+            "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}") String uuid) {
         return ResponseEntity.ok(userService.readOneUser(UUID.fromString(uuid)));
     }
 
@@ -40,7 +40,7 @@ public class UserController {
                                   @RequestParam("login") @NotBlank String login,
                                   @RequestParam("password") @NotBlank String password) {
         try {
-            return ResponseEntity.ok(userService.addUser(accessLevel, login, password));
+            return ResponseEntity.ok(userService.addUser(AccessLevel.valueOf(accessLevel), login, password));
         } catch (LoginInUseException | LoginInUseExceptionEnt e) {
             return ResponseEntity.status(400).build();
         }
@@ -59,7 +59,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/readMany/{login}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity readManyUsers(@PathVariable("login") @NotBlank String login){
+    public ResponseEntity readManyUsers(@PathVariable("login") @NotBlank String login) {
         return ResponseEntity.ok(userService.readManyUser(login));
     }
 

@@ -1,7 +1,5 @@
 package modelEnt;
 
-import com.example.kregielniaspring.model.AccessLevel;
-
 import java.util.UUID;
 
 public class ResourceAdministratorEnt extends UserEnt {

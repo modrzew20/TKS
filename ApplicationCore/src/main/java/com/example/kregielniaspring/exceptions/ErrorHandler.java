@@ -14,7 +14,7 @@ public class ErrorHandler {
 
     @ExceptionHandler(ConstraintViolationException.class)
     public void handleConstraintViolationException(ConstraintViolationException exception, ServletWebRequest request) throws IOException {
-       request.getResponse().sendError(HttpServletResponse.SC_BAD_REQUEST, exception.getMessage());
+        request.getResponse().sendError(HttpServletResponse.SC_BAD_REQUEST, exception.getMessage());
     }
 
 }

@@ -6,7 +6,6 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
-import io.restassured.response.ResponseOptions;
 import org.apache.catalina.connector.Response;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -40,10 +39,12 @@ class LaneControllerTest {
 
         String json = RestAssured.given().contentType(contentType).get(request_uri).getBody().asString();
 
-        Type listType = new TypeToken<List<Lane>>() {}.getType();
+        Type listType = new TypeToken<List<Lane>>() {
+        }.getType();
         List<Lane> lanes = gson.fromJson(json, listType);
 
-        ArrayList<String> types = new ArrayList<>(3){};
+        ArrayList<String> types = new ArrayList<>(3) {
+        };
         types.add("normal");
         types.add("premium");
         types.add("vip");
@@ -198,7 +199,6 @@ class LaneControllerTest {
                 .body("uuid", equalTo(lane_uuid));
 
 
-
         RestAssured.given().contentType(contentType)
                 .formParam("id", bad_uuid)
                 .formParam("type", "normal").post(request_uri).then().assertThat()
@@ -207,7 +207,6 @@ class LaneControllerTest {
         RestAssured.given().contentType(contentType).get(read_all_uri + lane_uuid).then().assertThat()
                 .statusCode(Response.SC_OK).body("type", equalTo("normal"))
                 .body("uuid", equalTo(lane_uuid));
-
 
 
         RestAssured.given().contentType(contentType)
