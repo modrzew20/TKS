@@ -15,19 +15,20 @@ import java.util.List;
 public class UserAdapter {
 
     public User convertToUser(UserEnt userEnt) {
-        if (userEnt.getClass() == ClientEnt.class) {
-            return new Client(userEnt.getUuid(), userEnt.getLogin()
-                    , userEnt.getPassword(), userEnt.getActive());
+        switch (userEnt.getAccessLevel()) {
+            case Administrator -> {
+                return new Administrator(userEnt.getUuid(), userEnt.getLogin(), userEnt.getPassword(), userEnt.getActive());
+            }
+            case ResourceAdministrator -> {
+                return new ResourceAdministrator(userEnt.getUuid(), userEnt.getLogin(), userEnt.getPassword(), userEnt.getActive());
+            }
+            case Client -> {
+                return new Client(userEnt.getUuid(), userEnt.getLogin(), userEnt.getPassword(), userEnt.getActive());
+            }
+            default -> {
+                return null;
+            }
         }
-        if (userEnt.getClass() == AdministratorEnt.class) {
-            return new Administrator(userEnt.getUuid(), userEnt.getLogin()
-                    , userEnt.getPassword(), userEnt.getActive());
-        }
-        if (userEnt.getClass() == ResourceAdministratorEnt.class) {
-            return new ResourceAdministrator(userEnt.getUuid(), userEnt.getLogin()
-                    , userEnt.getPassword(), userEnt.getActive());
-        }
-        return null;
     }
 
     public List<User> convertToListUser(List<UserEnt> userEntList) {
@@ -40,19 +41,20 @@ public class UserAdapter {
 
 
     public UserEnt convertFromUser(User user) {
-        if (user.getClass() == Client.class) {
-            return new ClientEnt(user.getUuid(), user.getLogin()
-                    , user.getPassword(), user.getActive());
+        switch (user.getAccessLevel()) {
+            case Administrator -> {
+                return new AdministratorEnt(user.getUuid(), user.getLogin(), user.getPassword(), user.getActive());
+            }
+            case ResourceAdministrator -> {
+                return new ResourceAdministratorEnt(user.getUuid(), user.getLogin(), user.getPassword(), user.getActive());
+            }
+            case Client -> {
+                return new ClientEnt(user.getUuid(), user.getLogin(), user.getPassword(), user.getActive());
+            }
+            default -> {
+                return null;
+            }
         }
-        if (user.getClass() == Administrator.class) {
-            return new AdministratorEnt(user.getUuid(), user.getLogin()
-                    , user.getPassword(), user.getActive());
-        }
-        if (user.getClass() == ResourceAdministrator.class) {
-            return new ResourceAdministratorEnt(user.getUuid(), user.getLogin()
-                    , user.getPassword(), user.getActive());
-        }
-        return null;
     }
 
     public List<UserEnt> convertFromListUser(List<User> userList) {

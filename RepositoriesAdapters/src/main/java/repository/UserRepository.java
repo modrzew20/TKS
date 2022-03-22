@@ -1,13 +1,13 @@
 package repository;
 
 import exceptions.LoginInUseExceptionEnt;
-import modelEnt.*;
+import modelEnt.AdministratorEnt;
+import modelEnt.ClientEnt;
+import modelEnt.ResourceAdministratorEnt;
+import modelEnt.UserEnt;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -47,19 +47,20 @@ public class UserRepository implements RepositoryInterface<UserEnt> {
     }
 
     @Override
-    public UserEnt create(UserEnt object) throws LoginInUseExceptionEnt {
-        if (object.getLogin() == "") throw new LoginInUseExceptionEnt("Login cannot be empty");
-        if (loginExists(userList, object.getLogin())) throw new LoginInUseExceptionEnt("This login is already in use.");
-        if (object.getUuid() == null || checkIfExists(userList, object.getUuid())) {
-            if (loginExists(userList, object.getLogin())) return null;
+    public UserEnt create(UserEnt userEnt) throws LoginInUseExceptionEnt {
+        if (Objects.equals(userEnt.getLogin(), "")) throw new LoginInUseExceptionEnt("Login cannot be empty");
+        if (loginExists(userList, userEnt.getLogin()))
+            throw new LoginInUseExceptionEnt("This login is already in use.");
+        if (userEnt.getUuid() == null || checkIfExists(userList, userEnt.getUuid())) {
+            if (loginExists(userList, userEnt.getLogin())) return null;
             UUID uuid = UUID.randomUUID();
             while (checkIfExists(userList, uuid)) {
                 uuid = UUID.randomUUID();
             }
-            object.setUuid(uuid);
+            userEnt.setUuid(uuid);
         }
-        userList.add(object);
-        return object;
+        userList.add(userEnt);
+        return userEnt;
     }
 
     @Override
@@ -76,7 +77,7 @@ public class UserRepository implements RepositoryInterface<UserEnt> {
             if (loginExists(userList, object.getLogin()))
                 throw new LoginInUseExceptionEnt("This login is already in use.");
             if (object.getLogin() != null) {
-                if (object.getLogin() == "") throw new LoginInUseExceptionEnt("Login cannot be empty");
+                if (Objects.equals(object.getLogin(), "")) throw new LoginInUseExceptionEnt("Login cannot be empty");
                 user.setLogin(object.getLogin());
             }
             if (object.getPassword() != null) user.setPassword(object.getPassword());
