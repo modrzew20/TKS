@@ -17,15 +17,15 @@ public class UserAdapter {
     public User convertToUser(UserEnt userEnt) {
         if (userEnt.getClass() == ClientEnt.class) {
             return new Client(userEnt.getUuid(), userEnt.getLogin()
-                    , userEnt.getPassword(), userEnt.getActive(), userEnt.getAccessLevel());
+                    , userEnt.getPassword(), userEnt.getActive());
         }
         if (userEnt.getClass() == AdministratorEnt.class) {
             return new Administrator(userEnt.getUuid(), userEnt.getLogin()
-                    , userEnt.getPassword(), userEnt.getActive(), userEnt.getAccessLevel());
+                    , userEnt.getPassword(), userEnt.getActive());
         }
         if (userEnt.getClass() == ResourceAdministratorEnt.class) {
             return new ResourceAdministrator(userEnt.getUuid(), userEnt.getLogin()
-                    , userEnt.getPassword(), userEnt.getActive(), userEnt.getAccessLevel());
+                    , userEnt.getPassword(), userEnt.getActive());
         }
         return null;
     }
@@ -42,15 +42,15 @@ public class UserAdapter {
     public UserEnt convertFromUser(User user) {
         if (user.getClass() == Client.class) {
             return new ClientEnt(user.getUuid(), user.getLogin()
-                    , user.getPassword(), user.getActive(), user.getAccessLevel());
+                    , user.getPassword(), user.getActive());
         }
         if (user.getClass() == Administrator.class) {
             return new AdministratorEnt(user.getUuid(), user.getLogin()
-                    , user.getPassword(), user.getActive(), user.getAccessLevel());
+                    , user.getPassword(), user.getActive());
         }
         if (user.getClass() == ResourceAdministrator.class) {
             return new ResourceAdministratorEnt(user.getUuid(), user.getLogin()
-                    , user.getPassword(), user.getActive(), user.getAccessLevel());
+                    , user.getPassword(), user.getActive());
         }
         return null;
     }

@@ -3,6 +3,7 @@ package com.example.kregielniaspring.api;
 import com.example.kregielniaspring.exceptions.LoginInUseException;
 import com.example.kregielniaspring.service.UserService;
 
+import exceptions.LoginInUseExceptionEnt;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -40,7 +41,7 @@ public class UserController {
                                   @RequestParam("password") @NotBlank String password) {
         try {
             return ResponseEntity.ok(userService.addUser(accessLevel, login, password));
-        } catch (LoginInUseException e) {
+        } catch (LoginInUseException | LoginInUseExceptionEnt e) {
             return ResponseEntity.status(400).build();
         }
     }
@@ -52,7 +53,7 @@ public class UserController {
                                      @RequestParam("password") String password) {
         try {
             return ResponseEntity.ok(userService.updateUser(UUID.fromString(uuid), login, password));
-        } catch (LoginInUseException e) {
+        } catch (LoginInUseException | LoginInUseExceptionEnt e) {
             return ResponseEntity.status(400).build();
         }
     }

@@ -4,10 +4,8 @@ package com.example.kregielniaspring.service;
 import Port.In.UserPortIn;
 import Port.Out.UserPortOut;
 import com.example.kregielniaspring.exceptions.LoginInUseException;
-import com.example.kregielniaspring.model.Administrator;
-import com.example.kregielniaspring.model.Client;
-import com.example.kregielniaspring.model.ResourceAdministrator;
-import com.example.kregielniaspring.model.User;
+import com.example.kregielniaspring.model.*;
+import exceptions.LoginInUseExceptionEnt;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -30,28 +28,28 @@ public class UserService {
         }
     }
 
-    public User addUser(String accessLevel, String login, String password) throws LoginInUseException {
+    public User addUser(String accessLevel, String login, String password) throws LoginInUseExceptionEnt, LoginInUseException {
         synchronized (lock) {
             if (accessLevel.equals("ResourceAdministrator"))
-                return userPortIn.create(new ResourceAdministrator(UUID.randomUUID(), login, password, true, "ResourceAdministrator"));
+                return userPortIn.create(new ResourceAdministrator(UUID.randomUUID(), login, password, true));
             if (accessLevel.equals("Administrator"))
-                return userPortIn.create(new Administrator(UUID.randomUUID(), login, password, true, "Administrator"));
+                return userPortIn.create(new Administrator(UUID.randomUUID(), login, password, true));
             if (accessLevel.equals("Client"))
-                return userPortIn.create(new Client(UUID.randomUUID(), login, password, true, "Client"));
+                return userPortIn.create(new Client(UUID.randomUUID(), login, password, true));
             return null;
         }
     }
 
-    public User updateUser(UUID uuid, String login, String password) throws LoginInUseException {
+    public User updateUser(UUID uuid, String login, String password) throws LoginInUseException, LoginInUseExceptionEnt {
         synchronized (lock) {
             User user = userPortOut.readById(uuid);
             String accessLevel = user.getClass().getSimpleName();
             if (accessLevel.equals("ResourceAdministrator"))
-                return userPortIn.update(new ResourceAdministrator(uuid, login, password, user.getActive(), "ResourceAdministrator"));
+                return userPortIn.update(new ResourceAdministrator(uuid, login, password, user.getActive()));
             if (accessLevel.equals("Administrator"))
-                return userPortIn.update(new Administrator(uuid, login, password, user.getActive(), "Administrator"));
+                return userPortIn.update(new Administrator(uuid, login, password, user.getActive()));
             if (accessLevel.equals("Client"))
-                return userPortIn.update(new Client(uuid, login, password, user.getActive(), "Client"));
+                return userPortIn.update(new Client(uuid, login, password, user.getActive()));
             return null;
         }
     }

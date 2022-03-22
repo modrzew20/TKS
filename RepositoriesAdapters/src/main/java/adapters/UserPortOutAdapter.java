@@ -2,7 +2,7 @@ package adapters;
 
 import Port.Out.UserPortOut;
 import com.example.kregielniaspring.model.User;
-import exceptions.LoginInUseException;
+import exceptions.LoginInUseExceptionEnt;
 import repository.UserRepository;
 
 import java.util.List;
@@ -13,7 +13,7 @@ public class UserPortOutAdapter implements UserPortOut {
     UserAdapter userAdapter = new UserAdapter();
     UserRepository userRepository = new UserRepository();
 
-    public UserPortOutAdapter() throws LoginInUseException {
+    public UserPortOutAdapter() throws LoginInUseExceptionEnt {
     }
 
     @Override

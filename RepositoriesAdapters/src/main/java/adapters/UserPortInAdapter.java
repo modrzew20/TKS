@@ -2,7 +2,7 @@ package adapters;
 
 import Port.In.UserPortIn;
 import com.example.kregielniaspring.model.User;
-import exceptions.LoginInUseException;
+import exceptions.LoginInUseExceptionEnt;
 import repository.UserRepository;
 
 import java.util.UUID;
@@ -12,11 +12,11 @@ public class UserPortInAdapter implements UserPortIn {
     UserAdapter userAdapter = new UserAdapter();
     UserRepository userRepository = new UserRepository();
 
-    public UserPortInAdapter() throws LoginInUseException {
+    public UserPortInAdapter() throws LoginInUseExceptionEnt {
     }
 
     @Override
-    public User create(User user) throws exceptions.LoginInUseException {
+    public User create(User user) throws LoginInUseExceptionEnt {
         return userAdapter.convertToUser(userRepository.create(userAdapter.convertFromUser(user)));
     }
 
@@ -26,7 +26,7 @@ public class UserPortInAdapter implements UserPortIn {
     }
 
     @Override
-    public User update(User object) throws LoginInUseException {
+    public User update(User object) throws LoginInUseExceptionEnt {
         return userAdapter.convertToUser(userRepository.update(userAdapter.convertFromUser(object)));
     }
 
