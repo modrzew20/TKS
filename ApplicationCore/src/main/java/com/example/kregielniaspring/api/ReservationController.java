@@ -1,17 +1,16 @@
 package com.example.kregielniaspring.api;
 
-import com.example.kregielniaspring.service.ReservationService;
 import com.example.kregielniaspring.model.Reservation;
+import com.example.kregielniaspring.service.ReservationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import javax.validation.constraints.NotBlank;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import java.time.LocalDateTime;
-import java.lang.String;
 import java.util.UUID;
 
 @RestController
@@ -29,7 +28,7 @@ public class ReservationController {
 
 
     @RequestMapping(value = "/{uuid}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity readReserv(@PathVariable("uuid") @NotBlank @Pattern(regexp = "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}") String uuid){
+    public ResponseEntity readReserv(@PathVariable("uuid") @NotBlank @Pattern(regexp = "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}") String uuid) {
         return ResponseEntity.ok(reservationService.readOneReservation(UUID.fromString(uuid)));
 
     }
@@ -43,8 +42,8 @@ public class ReservationController {
                                          @RequestParam @NotBlank @Pattern(regexp =
                                                  "[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}") String end) {
 
-        Reservation reservation = reservationService.addReservation(UUID.fromString(clientsUUID), UUID.fromString(laneUUID),LocalDateTime.parse(start),LocalDateTime.parse(end));
-        if(reservation== null)  return ResponseEntity.status(400).build();
+        Reservation reservation = reservationService.addReservation(UUID.fromString(clientsUUID), UUID.fromString(laneUUID), LocalDateTime.parse(start), LocalDateTime.parse(end));
+        if (reservation == null) return ResponseEntity.status(400).build();
         return ResponseEntity.ok(reservation);
     }
 
@@ -73,19 +72,19 @@ public class ReservationController {
     public ResponseEntity updateReservation(@RequestParam @NotBlank @Pattern(regexp = "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}") String uuid,
                                             @RequestParam @NotBlank @Pattern(regexp =
                                                     "[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}") String end) {
-        return ResponseEntity.ok(reservationService.endReservation(UUID.fromString(uuid),LocalDateTime.parse(end)));
+        return ResponseEntity.ok(reservationService.endReservation(UUID.fromString(uuid), LocalDateTime.parse(end)));
     }
 
     @RequestMapping(value = "/end/{uuid}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity endReserv(@PathVariable("uuid") @NotBlank @Pattern(regexp = "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}") String uuid){
-        return ResponseEntity.ok(reservationService.endReservation(UUID.fromString(uuid),LocalDateTime.now()));
+    public ResponseEntity endReserv(@PathVariable("uuid") @NotBlank @Pattern(regexp = "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}") String uuid) {
+        return ResponseEntity.ok(reservationService.endReservation(UUID.fromString(uuid), LocalDateTime.now()));
 
     }
 
     @RequestMapping(value = "/delete/{param}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity deleteReserv(@PathVariable("param") @NotBlank @Pattern(regexp = "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}") String uuid ) {
+    public ResponseEntity deleteReserv(@PathVariable("param") @NotBlank @Pattern(regexp = "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}") String uuid) {
         Reservation reservation = reservationService.delete(UUID.fromString(uuid));
-        if(reservation==null) return ResponseEntity.status(400).build();
+        if (reservation == null) return ResponseEntity.status(400).build();
         return ResponseEntity.ok(reservation);
     }
 

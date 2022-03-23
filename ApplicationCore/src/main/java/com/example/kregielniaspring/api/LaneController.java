@@ -1,9 +1,9 @@
 package com.example.kregielniaspring.api;
 
 import com.example.kregielniaspring.exceptions.LoginInUseException;
-import com.example.kregielniaspring.service.LaneService;
 import com.example.kregielniaspring.model.LANE_TYPE;
 import com.example.kregielniaspring.model.Lane;
+import com.example.kregielniaspring.service.LaneService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -41,9 +41,9 @@ public class LaneController {
 
 
     @RequestMapping(value = "/{uuid}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity readLane(@PathVariable("uuid") @NotBlank @Pattern(regexp = "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}") String uuid){
+    public ResponseEntity readLane(@PathVariable("uuid") @NotBlank @Pattern(regexp = "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}") String uuid) {
         Lane lane = laneService.readOneLane(UUID.fromString(uuid));
-        if (lane==null) return ResponseEntity.status(404).build();
+        if (lane == null) return ResponseEntity.status(404).build();
         return ResponseEntity.ok(lane);
     }
 
@@ -58,14 +58,14 @@ public class LaneController {
 
 
     @RequestMapping(value = "/update", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity updateLine(@RequestParam("id") @NotBlank @Pattern(regexp = "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}") String uuid , @RequestParam @NotBlank @Pattern(regexp = "vip|normal|premium") String type) {
+    public ResponseEntity updateLine(@RequestParam("id") @NotBlank @Pattern(regexp = "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}") String uuid, @RequestParam @NotBlank @Pattern(regexp = "vip|normal|premium") String type) {
         Lane lane = laneService.updateLane(UUID.fromString(uuid), type);
         if (lane == null) return ResponseEntity.status(404).build();
         return ResponseEntity.ok().build();
     }
 
     @RequestMapping(value = "/delete/{uuid}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity deleteLane(@PathVariable("uuid") @NotBlank @Pattern(regexp = "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}") String uuid ) {
+    public ResponseEntity deleteLane(@PathVariable("uuid") @NotBlank @Pattern(regexp = "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}") String uuid) {
         Lane lane = laneService.deleteLine(UUID.fromString(uuid));
         if (lane == null) return ResponseEntity.status(404).build();
         return ResponseEntity.ok().build();

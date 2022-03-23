@@ -10,7 +10,7 @@ import javax.validation.ConstraintViolationException;
 import java.io.IOException;
 
 @ControllerAdvice
-public class ErrorHandler {
+public class ErrorHandlerEnt {
 
     @ExceptionHandler(ConstraintViolationException.class)
     public void handleConstraintViolationException(ConstraintViolationException exception, ServletWebRequest request) throws IOException {

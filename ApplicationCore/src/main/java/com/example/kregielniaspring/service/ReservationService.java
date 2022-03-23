@@ -19,12 +19,11 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class ReservationService {
 
+    private final Object lock = new Object();
     private ReservationPortOut reservationPortOut;
     private ReservationPortIn reservationPortIn;
     private LanePortOut lanePortOut;
     private UserPortOut userPort;
-
-    private final Object lock = new Object();
 
     public List<Reservation> readAllReservation() {
         synchronized (lock) {

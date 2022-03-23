@@ -1,17 +1,14 @@
 package com.example.kregielniaspring.api;
 
-import com.example.kregielniaspring.managers.ReservationManager;
-import com.example.kregielniaspring.repository.ReservationRepository;
 import io.restassured.RestAssured;
-import static io.restassured.RestAssured.given;
 import io.restassured.http.ContentType;
 import io.restassured.parsing.Parser;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.Test;
 
-
 import java.util.List;
 
+import static io.restassured.RestAssured.given;
 import static org.hamcrest.core.Is.is;
 
 public class ReservationControllerTest {
@@ -32,9 +29,9 @@ public class ReservationControllerTest {
 
         String clientsUUID = RestAssured.given()
                 .contentType("application/x-www-form-urlencoded; charset=utf-8")
-                .formParam("accessLevel","ResourceAdministrator")
-                .formParam("login","testdfer3")
-                .formParam("password","testPassword3")
+                .formParam("accessLevel", "ResourceAdministrator")
+                .formParam("login", "testdfer3")
+                .formParam("password", "testPassword3")
                 .when().post("http://localhost:8080/Kregielnia-1.0-SNAPSHOT/api/user/add")
                 .then()
                 .assertThat()
@@ -43,7 +40,7 @@ public class ReservationControllerTest {
 
         String laneUUID = RestAssured.given()
                 .contentType("application/x-www-form-urlencoded; charset=utf-8")
-                .formParam("type","vip")
+                .formParam("type", "vip")
                 .when().post("http://localhost:8080/Kregielnia-1.0-SNAPSHOT/api/lane/add")
                 .then()
                 .assertThat()
@@ -57,17 +54,17 @@ public class ReservationControllerTest {
 
         RestAssured.given()
                 .contentType("application/x-www-form-urlencoded; charset=utf-8")
-                .formParam("clientsUUID",clientsUUID)
-                .formParam("laneUUID",laneUUID)
-                .formParam("start","2021-12-13T12:10:31")
-                .formParam("end","2021-12-13T12:30:31")
+                .formParam("clientsUUID", clientsUUID)
+                .formParam("laneUUID", laneUUID)
+                .formParam("start", "2021-12-13T12:10:31")
+                .formParam("end", "2021-12-13T12:30:31")
                 .when().post("http://localhost:8080/Kregielnia-1.0-SNAPSHOT/api/reservation/add")
                 .then()
                 .assertThat()
                 .statusCode(200);
 
         RestAssured.given().contentType("application/x-www-form-urlencoded; charset=utf-8").get("http://localhost:8080/Kregielnia-1.0-SNAPSHOT/api/reservation").then().assertThat()
-                .statusCode(200).body("size()", is(size+1));
+                .statusCode(200).body("size()", is(size + 1));
 
 
     }
@@ -78,9 +75,9 @@ public class ReservationControllerTest {
 
         String clientsUUID = RestAssured.given()
                 .contentType("application/x-www-form-urlencoded; charset=utf-8")
-                .formParam("accessLevel","ResourceAdministrator")
-                .formParam("login","testdfer4")
-                .formParam("password","testPassword3")
+                .formParam("accessLevel", "ResourceAdministrator")
+                .formParam("login", "testdfer4")
+                .formParam("password", "testPassword3")
                 .when().post("http://localhost:8080/Kregielnia-1.0-SNAPSHOT/api/user/add")
                 .then()
                 .assertThat()
@@ -89,7 +86,7 @@ public class ReservationControllerTest {
 
         String laneUUID = RestAssured.given()
                 .contentType("application/x-www-form-urlencoded; charset=utf-8")
-                .formParam("type","vip")
+                .formParam("type", "vip")
                 .when().post("http://localhost:8080/Kregielnia-1.0-SNAPSHOT/api/lane/add")
                 .then()
                 .assertThat()
@@ -98,10 +95,10 @@ public class ReservationControllerTest {
 
         String reservUUID = RestAssured.given()
                 .contentType("application/x-www-form-urlencoded; charset=utf-8")
-                .formParam("clientsUUID",clientsUUID)
-                .formParam("laneUUID",laneUUID)
-                .formParam("start","2021-12-13T12:10:31")
-                .formParam("end","2021-12-13T12:30:31")
+                .formParam("clientsUUID", clientsUUID)
+                .formParam("laneUUID", laneUUID)
+                .formParam("start", "2021-12-13T12:10:31")
+                .formParam("end", "2021-12-13T12:30:31")
                 .when().post("http://localhost:8080/Kregielnia-1.0-SNAPSHOT/api/reservation/add")
                 .then()
                 .assertThat()
@@ -117,7 +114,7 @@ public class ReservationControllerTest {
                 .statusCode(200);
 
         RestAssured.given().contentType("application/x-www-form-urlencoded; charset=utf-8").get("http://localhost:8080/Kregielnia-1.0-SNAPSHOT/api/reservation").then().assertThat()
-                .statusCode(200).body("size()", is(size-1));
+                .statusCode(200).body("size()", is(size - 1));
 
 
     }
@@ -129,9 +126,9 @@ public class ReservationControllerTest {
 
         String clientsUUID = RestAssured.given()
                 .contentType("application/x-www-form-urlencoded; charset=utf-8")
-                .formParam("accessLevel","ResourceAdministrator")
-                .formParam("login","testdfer0")
-                .formParam("password","testPassword3")
+                .formParam("accessLevel", "ResourceAdministrator")
+                .formParam("login", "testdfer0")
+                .formParam("password", "testPassword3")
                 .when().post("http://localhost:8080/Kregielnia-1.0-SNAPSHOT/api/user/add")
                 .then()
                 .assertThat()
@@ -140,7 +137,7 @@ public class ReservationControllerTest {
 
         String laneUUID = RestAssured.given()
                 .contentType("application/x-www-form-urlencoded; charset=utf-8")
-                .formParam("type","vip")
+                .formParam("type", "vip")
                 .when().post("http://localhost:8080/Kregielnia-1.0-SNAPSHOT/api/lane/add")
                 .then()
                 .assertThat()
@@ -149,10 +146,10 @@ public class ReservationControllerTest {
 
         String reservUUID = RestAssured.given()
                 .contentType("application/x-www-form-urlencoded; charset=utf-8")
-                .formParam("clientsUUID",clientsUUID)
-                .formParam("laneUUID",laneUUID)
-                .formParam("start","2021-12-13T12:10:31")
-                .formParam("end","2025-12-13T12:30:31")
+                .formParam("clientsUUID", clientsUUID)
+                .formParam("laneUUID", laneUUID)
+                .formParam("start", "2021-12-13T12:10:31")
+                .formParam("end", "2025-12-13T12:30:31")
                 .when().post("http://localhost:8080/Kregielnia-1.0-SNAPSHOT/api/reservation/add")
                 .then()
                 .assertThat()
@@ -179,9 +176,9 @@ public class ReservationControllerTest {
         // create user
         String clientsUUID = RestAssured.given()
                 .contentType("application/x-www-form-urlencoded; charset=utf-8")
-                .formParam("accessLevel","ResourceAdministrator")
-                .formParam("login","test2")
-                .formParam("password","testPassword3")
+                .formParam("accessLevel", "ResourceAdministrator")
+                .formParam("login", "test2")
+                .formParam("password", "testPassword3")
                 .when().post("http://localhost:8080/Kregielnia-1.0-SNAPSHOT/api/user/add")
                 .then()
                 .assertThat()
@@ -190,7 +187,7 @@ public class ReservationControllerTest {
 
         String laneUUID = RestAssured.given()
                 .contentType("application/x-www-form-urlencoded; charset=utf-8")
-                .formParam("type","vip")
+                .formParam("type", "vip")
                 .when().post("http://localhost:8080/Kregielnia-1.0-SNAPSHOT/api/lane/add")
                 .then()
                 .assertThat()
@@ -200,10 +197,10 @@ public class ReservationControllerTest {
         // dodanie rezerwacji poprawne
         RestAssured.given()
                 .contentType("application/x-www-form-urlencoded; charset=utf-8")
-                .formParam("clientsUUID",clientsUUID)
-                .formParam("laneUUID",laneUUID)
-                .formParam("start","2021-12-13T12:10:31")
-                .formParam("end","2021-12-13T12:30:31")
+                .formParam("clientsUUID", clientsUUID)
+                .formParam("laneUUID", laneUUID)
+                .formParam("start", "2021-12-13T12:10:31")
+                .formParam("end", "2021-12-13T12:30:31")
                 .when().post("http://localhost:8080/Kregielnia-1.0-SNAPSHOT/api/reservation/add")
                 .then()
                 .assertThat()
@@ -212,10 +209,10 @@ public class ReservationControllerTest {
         // w tym samym czasie
         RestAssured.given()
                 .contentType("application/x-www-form-urlencoded; charset=utf-8")
-                .formParam("clientsUUID",clientsUUID)
-                .formParam("laneUUID",laneUUID)
-                .formParam("start","2021-12-13T12:10:31")
-                .formParam("end","2021-12-13T12:30:31")
+                .formParam("clientsUUID", clientsUUID)
+                .formParam("laneUUID", laneUUID)
+                .formParam("start", "2021-12-13T12:10:31")
+                .formParam("end", "2021-12-13T12:30:31")
                 .when().post("http://localhost:8080/Kregielnia-1.0-SNAPSHOT/api/reservation/add")
                 .then()
                 .assertThat()
@@ -224,10 +221,10 @@ public class ReservationControllerTest {
         // gdy naklada sie na poprzednia rezerwacje
         RestAssured.given()
                 .contentType("application/x-www-form-urlencoded; charset=utf-8")
-                .formParam("clientsUUID",clientsUUID)
-                .formParam("laneUUID",laneUUID)
-                .formParam("start","2021-12-13T12:00:31")
-                .formParam("end","2021-12-13T13:00:31")
+                .formParam("clientsUUID", clientsUUID)
+                .formParam("laneUUID", laneUUID)
+                .formParam("start", "2021-12-13T12:00:31")
+                .formParam("end", "2021-12-13T13:00:31")
                 .when().post("http://localhost:8080/Kregielnia-1.0-SNAPSHOT/api/reservation/add")
                 .then()
                 .assertThat()
@@ -236,10 +233,10 @@ public class ReservationControllerTest {
         // gdy zawiera sie w innej rezerwacji
         RestAssured.given()
                 .contentType("application/x-www-form-urlencoded; charset=utf-8")
-                .formParam("clientsUUID",clientsUUID)
-                .formParam("laneUUID",laneUUID)
-                .formParam("start","2021-12-13T12:15:31")
-                .formParam("end","2021-12-13T12:20:31")
+                .formParam("clientsUUID", clientsUUID)
+                .formParam("laneUUID", laneUUID)
+                .formParam("start", "2021-12-13T12:15:31")
+                .formParam("end", "2021-12-13T12:20:31")
                 .when().post("http://localhost:8080/Kregielnia-1.0-SNAPSHOT/api/reservation/add")
                 .then()
                 .assertThat()
@@ -249,10 +246,10 @@ public class ReservationControllerTest {
         //gdy konczy sie w trakcie innej rezrewacji
         RestAssured.given()
                 .contentType("application/x-www-form-urlencoded; charset=utf-8")
-                .formParam("clientsUUID",clientsUUID)
-                .formParam("laneUUID",laneUUID)
-                .formParam("start","2021-12-13T12:05:31")
-                .formParam("end","2021-12-13T12:25:31")
+                .formParam("clientsUUID", clientsUUID)
+                .formParam("laneUUID", laneUUID)
+                .formParam("start", "2021-12-13T12:05:31")
+                .formParam("end", "2021-12-13T12:25:31")
                 .when().post("http://localhost:8080/Kregielnia-1.0-SNAPSHOT/api/reservation/add")
                 .then()
                 .assertThat()
@@ -261,10 +258,10 @@ public class ReservationControllerTest {
         //gdy zaczyna sie w trakcie innej rezerwacji
         RestAssured.given()
                 .contentType("application/x-www-form-urlencoded; charset=utf-8")
-                .formParam("clientsUUID",clientsUUID)
-                .formParam("laneUUID",laneUUID)
-                .formParam("start","2021-12-13T12:15:31")
-                .formParam("end","2021-12-13T12:40:31")
+                .formParam("clientsUUID", clientsUUID)
+                .formParam("laneUUID", laneUUID)
+                .formParam("start", "2021-12-13T12:15:31")
+                .formParam("end", "2021-12-13T12:40:31")
                 .when().post("http://localhost:8080/Kregielnia-1.0-SNAPSHOT/api/reservation/add")
                 .then()
                 .assertThat()

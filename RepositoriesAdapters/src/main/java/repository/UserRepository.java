@@ -1,17 +1,13 @@
 package repository;
 
-
-import exceptions.LoginInUseException;
+import exceptions.LoginInUseExceptionEnt;
 import modelEnt.AdministratorEnt;
 import modelEnt.ClientEnt;
 import modelEnt.ResourceAdministratorEnt;
 import modelEnt.UserEnt;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -20,11 +16,11 @@ public class UserRepository implements RepositoryInterface<UserEnt> {
 
     private final List<UserEnt> userList;
 
-    public UserRepository() throws LoginInUseException {
+    public UserRepository() throws LoginInUseExceptionEnt {
         this.userList = new ArrayList<>();
-        this.create(new AdministratorEnt(UUID.fromString("484e945c-9174-417a-b4e4-7736254ade4f"), "miciukaciu", "czesc", true, "Administrator"));
-        this.create(new ClientEnt(UUID.fromString("b2998c63-4621-443e-bf59-1e39e1f80170"), "pypensz", "czesc", true, "Client"));
-        this.create(new ResourceAdministratorEnt(UUID.fromString("6286cfa3-2993-44d3-aff4-a26ca9b2b75b"), "fici", "czesc", true, "ResourceAdministrator"));
+        this.create(new AdministratorEnt(UUID.fromString("484e945c-9174-417a-b4e4-7736254ade4f"), "miciukaciu", "czesc", true));
+        this.create(new ClientEnt(UUID.fromString("b2998c63-4621-443e-bf59-1e39e1f80170"), "pypensz", "czesc", true));
+        this.create(new ResourceAdministratorEnt(UUID.fromString("6286cfa3-2993-44d3-aff4-a26ca9b2b75b"), "fici", "czesc", true));
     }
 
     private static boolean loginExists(List<UserEnt> list, String login) {
@@ -51,19 +47,20 @@ public class UserRepository implements RepositoryInterface<UserEnt> {
     }
 
     @Override
-    public UserEnt create(UserEnt object) throws LoginInUseException {
-        if (object.getLogin() == "") throw new LoginInUseException("Login cannot be empty");
-        if (loginExists(userList, object.getLogin())) throw new LoginInUseException("This login is already in use.");
-        if (object.getUuid() == null || checkIfExists(userList, object.getUuid())) {
-            if (loginExists(userList, object.getLogin())) return null;
+    public UserEnt create(UserEnt userEnt) throws LoginInUseExceptionEnt {
+        if (Objects.equals(userEnt.getLogin(), "")) throw new LoginInUseExceptionEnt("Login cannot be empty");
+        if (loginExists(userList, userEnt.getLogin()))
+            throw new LoginInUseExceptionEnt("This login is already in use.");
+        if (userEnt.getUuid() == null || checkIfExists(userList, userEnt.getUuid())) {
+            if (loginExists(userList, userEnt.getLogin())) return null;
             UUID uuid = UUID.randomUUID();
             while (checkIfExists(userList, uuid)) {
                 uuid = UUID.randomUUID();
             }
-            object.setUuid(uuid);
+            userEnt.setUuid(uuid);
         }
-        userList.add(object);
-        return object;
+        userList.add(userEnt);
+        return userEnt;
     }
 
     @Override
@@ -72,15 +69,15 @@ public class UserRepository implements RepositoryInterface<UserEnt> {
     }
 
     @Override
-    public UserEnt update(UserEnt object) throws LoginInUseException {
+    public UserEnt update(UserEnt object) throws LoginInUseExceptionEnt {
         UUID uuid = object.getUuid();
         Optional<UserEnt> optional = userList.stream().filter(user -> uuid.equals(user.getUuid())).findFirst();
         UserEnt user = optional.orElse(null);
         if (user != null) {
             if (loginExists(userList, object.getLogin()))
-                throw new LoginInUseException("This login is already in use.");
+                throw new LoginInUseExceptionEnt("This login is already in use.");
             if (object.getLogin() != null) {
-                if (object.getLogin() == "") throw new LoginInUseException("Login cannot be empty");
+                if (Objects.equals(object.getLogin(), "")) throw new LoginInUseExceptionEnt("Login cannot be empty");
                 user.setLogin(object.getLogin());
             }
             if (object.getPassword() != null) user.setPassword(object.getPassword());

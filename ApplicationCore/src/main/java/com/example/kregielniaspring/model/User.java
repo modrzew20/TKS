@@ -8,14 +8,12 @@ public abstract class User {
     private String login;
     private String password;
     private Boolean isActive;
-    private String accessLevel;
 
-    public User(UUID uuid, String login, String password, Boolean isActive, String accessLevel) {
+    public User(UUID uuid, String login, String password, Boolean isActive) {
         this.uuid = uuid;
         this.login = login;
         this.password = password;
         this.isActive = isActive;
-        this.accessLevel = accessLevel;
     }
 
     public UUID getUuid() {
@@ -50,11 +48,5 @@ public abstract class User {
         isActive = active;
     }
 
-    public String getAccessLevel() {
-        return accessLevel;
-    }
-
-    public void setAccessLevel(String accessLevel) {
-        this.accessLevel = accessLevel;
-    }
+    public abstract AccessLevel getAccessLevel();
 }

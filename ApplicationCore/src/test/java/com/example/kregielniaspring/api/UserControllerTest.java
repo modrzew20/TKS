@@ -1,8 +1,6 @@
 package com.example.kregielniaspring.api;
 
 import io.restassured.RestAssured;
-import io.restassured.RestAssured.*;
-import io.restassured.matcher.RestAssuredMatchers.*;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.equalTo;
@@ -13,9 +11,9 @@ public class UserControllerTest {
         // create user
         RestAssured.given()
                 .contentType("application/x-www-form-urlencoded; charset=utf-8")
-                .formParam("accessLevel","Client")
-                .formParam("login","testUser1")
-                .formParam("password","testPassword1")
+                .formParam("accessLevel", "Client")
+                .formParam("login", "testUser1")
+                .formParam("password", "testPassword1")
                 .when().post("http://localhost:8080/Kregielnia-1.0-SNAPSHOT/api/user/add")
                 .then()
                 .assertThat()
@@ -30,9 +28,9 @@ public class UserControllerTest {
         // create user
         String uuid = RestAssured.given()
                 .contentType("application/x-www-form-urlencoded; charset=utf-8")
-                .formParam("accessLevel","Administrator")
-                .formParam("login","testUser2")
-                .formParam("password","testPassword2")
+                .formParam("accessLevel", "Administrator")
+                .formParam("login", "testUser2")
+                .formParam("password", "testPassword2")
                 .when().post("http://localhost:8080/Kregielnia-1.0-SNAPSHOT/api/user/add")
                 .then()
                 .assertThat()
@@ -55,9 +53,9 @@ public class UserControllerTest {
         // create user
         String uuid = RestAssured.given()
                 .contentType("application/x-www-form-urlencoded; charset=utf-8")
-                .formParam("accessLevel","ResourceAdministrator")
-                .formParam("login","testUser3")
-                .formParam("password","testPassword3")
+                .formParam("accessLevel", "ResourceAdministrator")
+                .formParam("login", "testUser3")
+                .formParam("password", "testPassword3")
                 .when().post("http://localhost:8080/Kregielnia-1.0-SNAPSHOT/api/user/add")
                 .then()
                 .assertThat()
@@ -67,8 +65,8 @@ public class UserControllerTest {
         // update user
         RestAssured.given()
                 .contentType("application/x-www-form-urlencoded; charset=utf-8")
-                .formParam("id",uuid)
-                .formParam("login","updatedUser3")
+                .formParam("id", uuid)
+                .formParam("login", "updatedUser3")
                 .when().post("http://localhost:8080/Kregielnia-1.0-SNAPSHOT/api/user/update")
                 .then()
                 .assertThat()
@@ -84,9 +82,9 @@ public class UserControllerTest {
         // create user
         String uuid = RestAssured.given()
                 .contentType("application/x-www-form-urlencoded; charset=utf-8")
-                .formParam("accessLevel","ResourceAdministrator")
-                .formParam("login","testUser3")
-                .formParam("password","testPassword3")
+                .formParam("accessLevel", "ResourceAdministrator")
+                .formParam("login", "testUser3")
+                .formParam("password", "testPassword3")
                 .when().post("http://localhost:8080/Kregielnia-1.0-SNAPSHOT/api/user/add")
                 .then()
                 .assertThat()
@@ -96,8 +94,8 @@ public class UserControllerTest {
         // update user
         RestAssured.given()
                 .contentType("application/x-www-form-urlencoded; charset=utf-8")
-                .formParam("id",uuid)
-                .formParam("login","")
+                .formParam("id", uuid)
+                .formParam("login", "")
                 .when().post("http://localhost:8080/Kregielnia-1.0-SNAPSHOT/api/user/update")
                 .then()
                 .assertThat()
@@ -109,9 +107,9 @@ public class UserControllerTest {
         // invalid accessLevel
         RestAssured.given()
                 .contentType("application/x-www-form-urlencoded; charset=utf-8")
-                .formParam("accessLevel","invalidAccessLevel")
-                .formParam("login","testUser4")
-                .formParam("password","testPassword4")
+                .formParam("accessLevel", "invalidAccessLevel")
+                .formParam("login", "testUser4")
+                .formParam("password", "testPassword4")
                 .when().post("http://localhost:8080/Kregielnia-1.0-SNAPSHOT/api/user/add")
                 .then()
                 .assertThat()
@@ -120,9 +118,9 @@ public class UserControllerTest {
         // valid accessLevel
         RestAssured.given()
                 .contentType("application/x-www-form-urlencoded; charset=utf-8")
-                .formParam("accessLevel","Administrator")
-                .formParam("login","testUser4")
-                .formParam("password","testPassword4")
+                .formParam("accessLevel", "Administrator")
+                .formParam("login", "testUser4")
+                .formParam("password", "testPassword4")
                 .when().post("http://localhost:8080/Kregielnia-1.0-SNAPSHOT/api/user/add")
                 .then()
                 .assertThat()
@@ -131,9 +129,9 @@ public class UserControllerTest {
         // invalid uuid
         RestAssured.given()
                 .contentType("application/x-www-form-urlencoded; charset=utf-8")
-                .formParam("id","invalidId")
-                .formParam("login","testUser4")
-                .formParam("password","testPassword4")
+                .formParam("id", "invalidId")
+                .formParam("login", "testUser4")
+                .formParam("password", "testPassword4")
                 .when().post("http://localhost:8080/Kregielnia-1.0-SNAPSHOT/api/user/update")
                 .then()
                 .assertThat()
@@ -145,9 +143,9 @@ public class UserControllerTest {
         // create user
         RestAssured.given()
                 .contentType("application/x-www-form-urlencoded; charset=utf-8")
-                .formParam("accessLevel","ResourceAdministrator")
-                .formParam("login","testUser5")
-                .formParam("password","testPassword5")
+                .formParam("accessLevel", "ResourceAdministrator")
+                .formParam("login", "testUser5")
+                .formParam("password", "testPassword5")
                 .when().post("http://localhost:8080/Kregielnia-1.0-SNAPSHOT/api/user/add")
                 .then()
                 .assertThat()
@@ -155,9 +153,9 @@ public class UserControllerTest {
         // create user with same login
         RestAssured.given()
                 .contentType("application/x-www-form-urlencoded; charset=utf-8")
-                .formParam("accessLevel","ResourceAdministrator")
-                .formParam("login","testUser5")
-                .formParam("password","testPassword5")
+                .formParam("accessLevel", "ResourceAdministrator")
+                .formParam("login", "testUser5")
+                .formParam("password", "testPassword5")
                 .when().post("http://localhost:8080/Kregielnia-1.0-SNAPSHOT/api/user/add")
                 .then()
                 .assertThat()
@@ -169,9 +167,9 @@ public class UserControllerTest {
         // create user with empty login
         RestAssured.given()
                 .contentType("application/x-www-form-urlencoded; charset=utf-8")
-                .formParam("accessLevel","ResourceAdministrator")
-                .formParam("login","")
-                .formParam("password","testPassword5")
+                .formParam("accessLevel", "ResourceAdministrator")
+                .formParam("login", "")
+                .formParam("password", "testPassword5")
                 .when().post("http://localhost:8080/Kregielnia-1.0-SNAPSHOT/api/user/add")
                 .then()
                 .assertThat()
@@ -183,9 +181,9 @@ public class UserControllerTest {
         // create user
         String uuid = RestAssured.given()
                 .contentType("application/x-www-form-urlencoded; charset=utf-8")
-                .formParam("accessLevel","ResourceAdministrator")
-                .formParam("login","testUser6")
-                .formParam("password","testPassword6")
+                .formParam("accessLevel", "ResourceAdministrator")
+                .formParam("login", "testUser6")
+                .formParam("password", "testPassword6")
                 .when().post("http://localhost:8080/Kregielnia-1.0-SNAPSHOT/api/user/add")
                 .then()
                 .assertThat()

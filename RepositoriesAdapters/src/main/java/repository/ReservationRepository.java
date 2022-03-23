@@ -15,7 +15,7 @@ public class ReservationRepository implements RepositoryInterface<ReservationEnt
     private final List<ReservationEnt> reservationList = new ArrayList<>();
 
     private static boolean checkIfExists(List<ReservationEnt> list, UUID uuid) {
-        return list.stream().anyMatch(reserv -> reserv.getUuid().equals(uuid));
+        return list.stream().anyMatch(r -> r.getUuid().equals(uuid));
     }
 
     @Override
@@ -111,23 +111,23 @@ public class ReservationRepository implements RepositoryInterface<ReservationEnt
         return null;
     }
 
-    public boolean reservedLine(UUID uuidlane, LocalDateTime start, LocalDateTime end) {
+    public boolean reservedLine(UUID uuid, LocalDateTime start, LocalDateTime end) {
         for (ReservationEnt reservation : reservationList) {
-            if (reservation.getLane().getUuid().equals(uuidlane)
+            if (reservation.getLane().getUuid().equals(uuid)
                     && (reservation.getEndReservation().isAfter(start)
                     && reservation.getEndReservation().isBefore(end))) return true;
-            if (reservation.getLane().getUuid().equals(uuidlane)
+            if (reservation.getLane().getUuid().equals(uuid)
                     && (reservation.getStartReservation().isAfter(start)
                     && reservation.getStartReservation().isBefore(end)
                     && reservation.getEndReservation().isAfter(start)
                     && reservation.getEndReservation().isBefore(end))) return true;
-            if (reservation.getLane().getUuid().equals(uuidlane)
+            if (reservation.getLane().getUuid().equals(uuid)
                     && (reservation.getStartReservation().isAfter(start)
                     && reservation.getStartReservation().isBefore(end))) return true;
-            if (reservation.getLane().getUuid().equals(uuidlane)
+            if (reservation.getLane().getUuid().equals(uuid)
                     && (reservation.getStartReservation().isBefore(start)
                     && reservation.getEndReservation().isAfter(end))) return true;
-            if (reservation.getLane().getUuid().equals(uuidlane)
+            if (reservation.getLane().getUuid().equals(uuid)
                     && (reservation.getStartReservation().isEqual(start)
                     && reservation.getEndReservation().isEqual(end))) return true;
         }
