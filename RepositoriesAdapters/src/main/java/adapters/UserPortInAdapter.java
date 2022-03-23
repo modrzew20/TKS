@@ -1,6 +1,7 @@
 package adapters;
 
 import Port.In.UserPortIn;
+import com.example.kregielniaspring.exceptions.LoginInUseException;
 import com.example.kregielniaspring.model.User;
 import exceptions.LoginInUseExceptionEnt;
 import repository.UserRepository;
@@ -16,8 +17,12 @@ public class UserPortInAdapter implements UserPortIn {
     }
 
     @Override
-    public User create(User user) throws LoginInUseExceptionEnt {
-        return userAdapter.convertToUser(userRepository.create(userAdapter.convertFromUser(user)));
+    public User create(User user) throws LoginInUseException {
+        try {
+            return userAdapter.convertToUser(userRepository.create(userAdapter.convertFromUser(user)));
+        } catch (LoginInUseExceptionEnt e) {
+            throw new LoginInUseException(e.getMessage());
+        }
     }
 
     @Override
@@ -26,8 +31,12 @@ public class UserPortInAdapter implements UserPortIn {
     }
 
     @Override
-    public User update(User object) throws LoginInUseExceptionEnt {
-        return userAdapter.convertToUser(userRepository.update(userAdapter.convertFromUser(object)));
+    public User update(User object) throws LoginInUseException {
+        try {
+            return userAdapter.convertToUser(userRepository.update(userAdapter.convertFromUser(object)));
+        } catch (LoginInUseExceptionEnt e) {
+            throw new LoginInUseException(e.getMessage());
+        }
     }
 
     @Override
