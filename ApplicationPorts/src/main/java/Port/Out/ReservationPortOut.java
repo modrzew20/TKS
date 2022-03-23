@@ -1,6 +1,6 @@
 package Port.Out;
 
-import com.example.kregielniaspring.model.Reservation;
+import model.Reservation;
 
 import java.util.List;
 import java.util.UUID;

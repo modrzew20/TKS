@@ -1,6 +1,6 @@
 package Port.In;
 
-import com.example.kregielniaspring.model.Reservation;
+import model.Reservation;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
