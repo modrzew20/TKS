@@ -1,10 +1,9 @@
 package api;
 
-import service.UserService;
 import exceptions.LoginInUseException;
-import exceptions.LoginInUseExceptionEnt;
-import lombok.RequiredArgsConstructor;
 import model.AccessLevel;
+import service.UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -41,7 +40,7 @@ public class UserController {
                                   @RequestParam("password") @NotBlank String password) {
         try {
             return ResponseEntity.ok(userService.addUser(AccessLevel.valueOf(accessLevel), login, password));
-        } catch (LoginInUseException | LoginInUseExceptionEnt e) {
+        } catch (LoginInUseException e) {
             return ResponseEntity.status(400).build();
         }
     }
@@ -53,7 +52,7 @@ public class UserController {
                                      @RequestParam("password") String password) {
         try {
             return ResponseEntity.ok(userService.updateUser(UUID.fromString(uuid), login, password));
-        } catch (LoginInUseException | LoginInUseExceptionEnt e) {
+        } catch (LoginInUseException e) {
             return ResponseEntity.status(400).build();
         }
     }
