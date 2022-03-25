@@ -4,7 +4,6 @@ package service;
 import Port.In.UserPortIn;
 import Port.Out.UserPortOut;
 import exceptions.LoginInUseException;
-import exceptions.LoginInUseExceptionEnt;
 import lombok.RequiredArgsConstructor;
 import model.*;
 import org.springframework.stereotype.Service;
@@ -26,7 +25,7 @@ public class UserService {
         }
     }
 
-    public User addUser(AccessLevel accessLevel, String login, String password) throws LoginInUseExceptionEnt, LoginInUseException {
+    public User addUser(AccessLevel accessLevel, String login, String password) throws LoginInUseException {
         synchronized (lock) {
             switch (accessLevel) {
                 case Administrator -> {
@@ -46,7 +45,7 @@ public class UserService {
     }
 
     public User updateUser(UUID uuid, String login, String password) throws
-            LoginInUseException, LoginInUseExceptionEnt {
+            LoginInUseException {
         synchronized (lock) {
             User user = userPortOut.readById(uuid);
             switch (user.getAccessLevel()) {
