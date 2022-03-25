@@ -1,13 +1,12 @@
-package com.example.kregielniaspring.api;
-
-import com.example.kregielniaspring.model.LANE_TYPE;
-import com.example.kregielniaspring.model.Lane;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import model.LANE_TYPE;
+import model.Lane;
 import org.apache.catalina.connector.Response;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
@@ -23,6 +22,7 @@ import static org.hamcrest.core.IsEqual.equalTo;
 
 @SpringBootTest
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
+@Disabled
 class LaneControllerTest {
 
     private final String URL = "http://localhost:8080/Kregielnia-1.0-SNAPSHOT/api/";

@@ -1,9 +1,9 @@
-package com.example.kregielniaspring.api;
-
 import io.restassured.RestAssured;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
-public class initReservation {
+@Disabled
+public class InitReservation {
 
 
     @Test

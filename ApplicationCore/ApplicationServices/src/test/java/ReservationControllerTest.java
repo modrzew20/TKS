@@ -1,9 +1,8 @@
-package com.example.kregielniaspring.api;
-
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.parsing.Parser;
 import io.restassured.response.Response;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -11,8 +10,8 @@ import java.util.List;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.core.Is.is;
 
+@Disabled
 public class ReservationControllerTest {
-
 
     public static Response doGetRequest(String endpoint) {
         RestAssured.defaultParser = Parser.JSON;

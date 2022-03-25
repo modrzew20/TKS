@@ -1,10 +1,10 @@
-package com.example.kregielniaspring.api;
-
 import io.restassured.RestAssured;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.equalTo;
 
+@Disabled
 public class UserControllerTest {
     @Test
     public void create() {
