@@ -18,7 +18,7 @@ import java.util.UUID;
 public class UserService {
 
     private final Object lock = new Object();
-    private ReadUserPort userPortOut;
+    private ReadUserPort readUserPort;
     private CreateUserPort createUserPort;
     private DeleteUserPort deleteUserPort;
     private UpdateUserPort updateUserPort;
@@ -26,7 +26,7 @@ public class UserService {
 
     public List<User> readAllUser() {
         synchronized (lock) {
-            return userPortOut.readAll();
+            return readUserPort.readAll();
         }
     }
 
@@ -52,7 +52,7 @@ public class UserService {
     public User updateUser(UUID uuid, String login, String password) throws
             LoginInUseException {
         synchronized (lock) {
-            User user = userPortOut.readById(uuid);
+            User user = readUserPort.readById(uuid);
             switch (user.getAccessLevel()) {
                 case Administrator -> {
                     return updateUserPort.update(new Administrator(uuid, login, password, user.getActive()));
@@ -73,13 +73,13 @@ public class UserService {
 
     public User readOneUser(UUID uuid) {
         synchronized (lock) {
-            return userPortOut.readById(uuid);
+            return readUserPort.readById(uuid);
         }
     }
 
     public List<User> readManyUser(String login) {
         synchronized (lock) {
-            return userPortOut.readManyByLogin(login);
+            return readUserPort.readManyByLogin(login);
         }
     }
 
