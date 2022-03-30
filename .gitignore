@@ -25,3 +25,6 @@ hs_err_pid*
 /.idea/
 /.mvn/
 /ApplicationCore/DomainModel/target/
+/ApplicationCore/ApplicationServices/target/
+/ApplicationPorts/target/
+/RepositoriesAdapters/target/
