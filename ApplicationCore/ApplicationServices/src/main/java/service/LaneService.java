@@ -1,9 +1,11 @@
 package service;
 
 
-import Port.In.LanePortIn;
-import Port.Out.LanePortOut;
-import Port.Out.ReservationPortOut;
+import Port.In.CreateLanePort;
+import Port.In.DeleteLanePort;
+import Port.In.UpdateLanePort;
+import Port.Out.ReadLanePort;
+import Port.Out.LanesReservationPort;
 import lombok.RequiredArgsConstructor;
 import model.LANE_TYPE;
 import model.Lane;
@@ -17,39 +19,41 @@ import java.util.UUID;
 public class LaneService {
 
     private final Object lock = new Object();
-    private LanePortOut lanePortOut;
-    private LanePortIn lanePortIn;
-    private ReservationPortOut reservationPortOut;
+    private ReadLanePort readLanePort;
+    private CreateLanePort createLanePort;
+    private DeleteLanePort deleteLanePort;
+    private UpdateLanePort updateLanePort;
+    private LanesReservationPort reservationPortOut;
 
     public List<Lane> readAllLane() {
         synchronized (lock) {
-            return lanePortOut.readAll();
+            return readLanePort.readAll();
         }
     }
 
     public Lane addLane(String lane_type) {
         synchronized (lock) {
-            return lanePortIn.create(new Lane(null, LANE_TYPE.valueOf(lane_type)));
+            return createLanePort.create(new Lane(null, LANE_TYPE.valueOf(lane_type)));
         }
     }
 
     public Lane updateLane(UUID uuid, String lane_type) {
         if (reservationPortOut.presentLaneReservations(uuid).size() != 0) return null;
         synchronized (lock) {
-            return lanePortIn.update(new Lane(uuid, LANE_TYPE.valueOf(lane_type)));
+            return updateLanePort.update(new Lane(uuid, LANE_TYPE.valueOf(lane_type)));
         }
     }
 
     public Lane readOneLane(UUID uuid) {
         synchronized (lock) {
-            return lanePortOut.readById(uuid);
+            return readLanePort.readById(uuid);
         }
     }
 
     public Lane deleteLine(UUID uuid) {
         if (reservationPortOut.presentLaneReservations(uuid).size() != 0) return null;
         synchronized (lock) {
-            return lanePortIn.delete(uuid);
+            return deleteLanePort.delete(uuid);
         }
     }
 }

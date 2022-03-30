@@ -1,16 +1,16 @@
 package adapters;
 
-import Port.Out.UserPortOut;
+import Port.Out.ReadUserPort;
 import exceptions.LoginInUseExceptionEnt;
 import model.User;
 import repository.UserRepository;
-
 import java.util.List;
 import java.util.UUID;
+import static aggregates.UserAdapter.convertToListUser;
+import static aggregates.UserAdapter.convertToUser;
 
-public class UserPortOutAdapter implements UserPortOut {
+public class UserPortOutAdapter implements ReadUserPort {
 
-    UserAdapter userAdapter = new UserAdapter();
     UserRepository userRepository = new UserRepository();
 
     public UserPortOutAdapter() throws LoginInUseExceptionEnt {
@@ -18,16 +18,16 @@ public class UserPortOutAdapter implements UserPortOut {
 
     @Override
     public List<User> readAll() {
-        return userAdapter.convertToListUser(userRepository.readAll());
+        return convertToListUser(userRepository.readAll());
     }
 
     @Override
     public User readById(UUID uuid) {
-        return userAdapter.convertToUser(userRepository.readById(uuid));
+        return convertToUser(userRepository.readById(uuid));
     }
 
     @Override
     public List<User> readManyByLogin(String login) {
-        return userAdapter.convertToListUser(userRepository.readManyByLogin(login));
+        return convertToListUser(userRepository.readManyByLogin(login));
     }
 }

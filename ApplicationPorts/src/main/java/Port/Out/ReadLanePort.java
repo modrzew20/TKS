@@ -5,7 +5,7 @@ import model.Lane;
 import java.util.List;
 import java.util.UUID;
 
-public interface LanePortOut {
+public interface ReadLanePort {
 
     List<Lane> readAll();
 

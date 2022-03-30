@@ -1,24 +1,24 @@
 package adapters;
 
-import Port.Out.LanePortOut;
+import Port.Out.ReadLanePort;
 import model.Lane;
 import repository.LaneRepository;
-
 import java.util.List;
 import java.util.UUID;
+import static aggregates.LaneAdapter.convertToLane;
+import static aggregates.LaneAdapter.convertToLaneList;
 
-public class LanePortOutAdapter implements LanePortOut {
+public class LanePortOutAdapter implements ReadLanePort {
 
-    LaneAdapter laneAdapter = new LaneAdapter();
     LaneRepository laneRepository = new LaneRepository();
 
     @Override
     public List<Lane> readAll() {
-        return laneAdapter.convertToLaneList(laneRepository.readAll());
+        return convertToLaneList(laneRepository.readAll());
     }
 
     @Override
     public Lane readById(UUID uuid) {
-        return laneAdapter.convertToLane(laneRepository.readById(uuid));
+        return convertToLane(laneRepository.readById(uuid));
     }
 }

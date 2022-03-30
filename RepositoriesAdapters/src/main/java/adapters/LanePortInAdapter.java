@@ -1,28 +1,30 @@
 package adapters;
 
-import Port.In.LanePortIn;
+import Port.In.CreateLanePort;
+import Port.In.DeleteLanePort;
+import Port.In.UpdateLanePort;
 import model.Lane;
 import repository.LaneRepository;
-
 import java.util.UUID;
+import static aggregates.LaneAdapter.convertFromLane;
+import static aggregates.LaneAdapter.convertToLane;
 
-public class LanePortInAdapter implements LanePortIn {
+public class LanePortInAdapter implements CreateLanePort, DeleteLanePort, UpdateLanePort {
 
     LaneRepository laneRepository = new LaneRepository();
-    LaneAdapter laneAdapter = new LaneAdapter();
 
     @Override
     public Lane create(Lane lane) {
-        return laneAdapter.convertToLane(laneRepository.create(laneAdapter.convertFromLane(lane)));
+        return convertToLane(laneRepository.create(convertFromLane(lane)));
     }
 
     @Override
     public Lane delete(UUID uuid) {
-        return laneAdapter.convertToLane(laneRepository.delete(uuid));
+        return convertToLane(laneRepository.delete(uuid));
     }
 
     @Override
     public Lane update(Lane lane) {
-        return laneAdapter.convertToLane(laneRepository.update(laneAdapter.convertFromLane(lane)));
+        return convertToLane(laneRepository.update(convertFromLane(lane)));
     }
 }

@@ -1,8 +1,10 @@
 package service;
 
 
-import Port.In.UserPortIn;
-import Port.Out.UserPortOut;
+import Port.In.CreateUserPort;
+import Port.In.DeleteUserPort;
+import Port.In.UpdateUserPort;
+import Port.Out.ReadUserPort;
 import exceptions.LoginInUseException;
 import lombok.RequiredArgsConstructor;
 import model.*;
@@ -16,8 +18,11 @@ import java.util.UUID;
 public class UserService {
 
     private final Object lock = new Object();
-    private UserPortOut userPortOut;
-    private UserPortIn userPortIn;
+    private ReadUserPort userPortOut;
+    private CreateUserPort createUserPort;
+    private DeleteUserPort deleteUserPort;
+    private UpdateUserPort updateUserPort;
+
 
     public List<User> readAllUser() {
         synchronized (lock) {
@@ -29,13 +34,13 @@ public class UserService {
         synchronized (lock) {
             switch (accessLevel) {
                 case Administrator -> {
-                    return userPortIn.create(new Administrator(UUID.randomUUID(), login, password, true));
+                    return createUserPort.create(new Administrator(UUID.randomUUID(), login, password, true));
                 }
                 case ResourceAdministrator -> {
-                    return userPortIn.create(new ResourceAdministrator(UUID.randomUUID(), login, password, true));
+                    return createUserPort.create(new ResourceAdministrator(UUID.randomUUID(), login, password, true));
                 }
                 case Client -> {
-                    return userPortIn.create(new Client(UUID.randomUUID(), login, password, true));
+                    return createUserPort.create(new Client(UUID.randomUUID(), login, password, true));
                 }
                 default -> {
                     return null;
@@ -50,13 +55,13 @@ public class UserService {
             User user = userPortOut.readById(uuid);
             switch (user.getAccessLevel()) {
                 case Administrator -> {
-                    return userPortIn.update(new Administrator(uuid, login, password, user.getActive()));
+                    return updateUserPort.update(new Administrator(uuid, login, password, user.getActive()));
                 }
                 case ResourceAdministrator -> {
-                    return userPortIn.update(new ResourceAdministrator(uuid, login, password, user.getActive()));
+                    return updateUserPort.update(new ResourceAdministrator(uuid, login, password, user.getActive()));
                 }
                 case Client -> {
-                    return userPortIn.update(new Client(uuid, login, password, user.getActive()));
+                    return updateUserPort.update(new Client(uuid, login, password, user.getActive()));
                 }
                 default -> {
                     return null;
@@ -81,13 +86,13 @@ public class UserService {
 
     public User deactivateUser(UUID uuid) {
         synchronized (lock) {
-            return userPortIn.deactivate(uuid);
+            return updateUserPort.deactivate(uuid);
         }
     }
 
     public User activateUser(UUID uuid) {
         synchronized (lock) {
-            return userPortIn.activate(uuid);
+            return updateUserPort.activate(uuid);
         }
     }
 

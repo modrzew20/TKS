@@ -1,10 +1,10 @@
 package service;
 
 
-import Port.In.ReservationPortIn;
-import Port.Out.LanePortOut;
-import Port.Out.ReservationPortOut;
-import Port.Out.UserPortOut;
+import Port.In.CreateReservationPort;
+import Port.In.DeleteReservationPort;
+import Port.In.UpdateReservationPort;
+import Port.Out.*;
 import model.Lane;
 import model.Reservation;
 import model.User;
@@ -20,69 +20,73 @@ import java.util.UUID;
 public class ReservationService {
 
     private final Object lock = new Object();
-    private ReservationPortOut reservationPortOut;
-    private ReservationPortIn reservationPortIn;
-    private LanePortOut lanePortOut;
-    private UserPortOut userPort;
+    private ReadReservationPort readReservationPort;
+    private ReadLanePort readLanePort;
+    private ReadUserPort readUserPort;
+    private CreateReservationPort createReservationPort;
+    private UpdateReservationPort updateReservationPort;
+    private DeleteReservationPort deleteReservationPort;
+    private ClientsReservationPort clientsReservationPort;
+    private LanesReservationPort lanesReservationPort;
 
     public List<Reservation> readAllReservation() {
         synchronized (lock) {
-            return reservationPortOut.readAll();
+            return readReservationPort.readAll();
         }
     }
 
     public Reservation addReservation(UUID clientsUUID, UUID UUIDLane, LocalDateTime start, LocalDateTime end) {
 
-        Lane lane = lanePortOut.readById(UUIDLane);
-        User client = userPort.readById(clientsUUID);
-        if (!userPort.readById(clientsUUID).getActive() || reservationPortIn.reservedLine(UUIDLane, start, end) || lane == null || client == null)
+        Lane lane = readLanePort.readById(UUIDLane);
+        User client = readUserPort.readById(clientsUUID);
+        if (!readUserPort.readById(clientsUUID).getActive() || createReservationPort.reservedLine(UUIDLane, start, end) || lane == null || client == null)
             return null;
         synchronized (lock) {
             Reservation reservation = new Reservation(UUID.randomUUID(), lane, client, start, end);
-            reservationPortIn.create(reservation);
+            createReservationPort.create(reservation);
             return reservation;
         }
     }
 
     public Reservation readOneReservation(UUID uuid) {
         synchronized (lock) {
-            return reservationPortOut.readById(uuid);
+            return readReservationPort.readById(uuid);
         }
     }
 
     public List<Reservation> pastClientReservations(UUID clientsUUID) {
         synchronized (lock) {
-            return reservationPortOut.pastClientReservations(clientsUUID);
+            return clientsReservationPort.pastClientReservations(clientsUUID);
         }
     }
 
     public List<Reservation> presentClientReservations(UUID clientsUUID) {
         synchronized (lock) {
-            return reservationPortOut.presentClientReservations(clientsUUID);
+            return clientsReservationPort.presentClientReservations(clientsUUID);
         }
     }
 
     public List<Reservation> pastLaneReservations(UUID UUIDLane) {
         synchronized (lock) {
-            return reservationPortOut.pastLaneReservations(UUIDLane);
+            return lanesReservationPort.pastLaneReservations(UUIDLane);
         }
     }
 
     public List<Reservation> presentLaneReservations(UUID UUIDLane) {
         synchronized (lock) {
-            return reservationPortOut.presentLaneReservations(UUIDLane);
+            return lanesReservationPort.presentLaneReservations(UUIDLane);
         }
     }
 
     public Reservation endReservation(UUID uuid, LocalDateTime localDateTime) {
         synchronized (lock) {
-            return reservationPortIn.endReservation(uuid, localDateTime);
+            return deleteReservationPort.endReservation(uuid, localDateTime);
         }
     }
 
     public Reservation delete(UUID uuid) {
         synchronized (lock) {
-            return reservationPortIn.delete(uuid);
+            return deleteReservationPort.delete(uuid);
         }
     }
 

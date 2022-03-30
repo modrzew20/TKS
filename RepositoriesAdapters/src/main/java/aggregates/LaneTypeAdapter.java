@@ -1,11 +1,11 @@
-package adapters;
+package aggregates;
 
 import model.LANE_TYPE;
 import modelEnt.LANE_TYPE_Ent;
 
 public class LaneTypeAdapter {
 
-    public LANE_TYPE_Ent convertFromType(LANE_TYPE lane_type) {
+    public static LANE_TYPE_Ent convertFromType(LANE_TYPE lane_type) {
         switch (lane_type) {
             case normal -> {
                 return LANE_TYPE_Ent.normal;
@@ -22,7 +22,7 @@ public class LaneTypeAdapter {
         }
     }
 
-    public LANE_TYPE convertToType(LANE_TYPE_Ent lane_type_ent) {
+    public static LANE_TYPE convertToType(LANE_TYPE_Ent lane_type_ent) {
         switch (lane_type_ent) {
             case normal -> {
                 return LANE_TYPE.normal;

@@ -1,35 +1,37 @@
 package adapters;
 
-import Port.In.ReservationPortIn;
+import Port.In.CreateReservationPort;
+import Port.In.DeleteReservationPort;
+import Port.In.UpdateReservationPort;
 import model.Reservation;
 import repository.ReservationRepository;
-
 import java.time.LocalDateTime;
 import java.util.UUID;
+import static aggregates.ReservationAdapter.convertFromReservation;
+import static aggregates.ReservationAdapter.convertToReservation;
 
-public class ReservationPortInAdapter implements ReservationPortIn {
+public class ReservationPortInAdapter implements CreateReservationPort, DeleteReservationPort, UpdateReservationPort {
 
-    ReservationAdapter reservationAdapter = new ReservationAdapter();
     ReservationRepository reservationRepository = new ReservationRepository();
 
     @Override
     public Reservation create(Reservation reservation) {
-        return reservationAdapter.convertToReservation(reservationRepository.create(reservationAdapter.convertFromReservation(reservation)));
+        return convertToReservation(reservationRepository.create(convertFromReservation(reservation)));
     }
 
     @Override
     public Reservation delete(UUID uuid) {
-        return reservationAdapter.convertToReservation(reservationRepository.delete(uuid));
+        return convertToReservation(reservationRepository.delete(uuid));
     }
 
     @Override
     public Reservation update(Reservation reservation) {
-        return reservationAdapter.convertToReservation(reservationRepository.update(reservationAdapter.convertFromReservation(reservation)));
+        return convertToReservation(reservationRepository.update(convertFromReservation(reservation)));
     }
 
     @Override
     public Reservation endReservation(UUID uuid, LocalDateTime localDateTime) {
-        return reservationAdapter.convertToReservation(reservationRepository.endReservation(uuid, localDateTime));
+        return convertToReservation(reservationRepository.endReservation(uuid, localDateTime));
     }
 
     @Override

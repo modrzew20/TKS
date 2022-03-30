@@ -1,5 +1,4 @@
-package adapters;
-
+package aggregates;
 
 import model.Administrator;
 import model.Client;
@@ -9,13 +8,12 @@ import modelEnt.AdministratorEnt;
 import modelEnt.ClientEnt;
 import modelEnt.ResourceAdministratorEnt;
 import modelEnt.UserEnt;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserAdapter {
 
-    public User convertToUser(UserEnt userEnt) {
+    public static User convertToUser(UserEnt userEnt) {
         switch (userEnt.getAccessLevel()) {
             case Administrator -> {
                 return new Administrator(userEnt.getUuid(), userEnt.getLogin(), userEnt.getPassword(), userEnt.getActive());
@@ -32,7 +30,7 @@ public class UserAdapter {
         }
     }
 
-    public List<User> convertToListUser(List<UserEnt> userEntList) {
+    public static List<User> convertToListUser(List<UserEnt> userEntList) {
         List<User> convertedList = new ArrayList<>();
         for (UserEnt user : userEntList) {
             convertedList.add(convertToUser(user));
@@ -41,7 +39,7 @@ public class UserAdapter {
     }
 
 
-    public UserEnt convertFromUser(User user) {
+    public static UserEnt convertFromUser(User user) {
         switch (user.getAccessLevel()) {
             case Administrator -> {
                 return new AdministratorEnt(user.getUuid(), user.getLogin(), user.getPassword(), user.getActive());
@@ -58,7 +56,7 @@ public class UserAdapter {
         }
     }
 
-    public List<UserEnt> convertFromListUser(List<User> userList) {
+    public static List<UserEnt> convertFromListUser(List<User> userList) {
         List<UserEnt> convertedList = new ArrayList<>();
         for (User user : userList) {
             convertedList.add(convertFromUser(user));

@@ -5,7 +5,7 @@ import model.User;
 import java.util.List;
 import java.util.UUID;
 
-public interface UserPortOut {
+public interface ReadUserPort {
 
     List<User> readAll();
 
