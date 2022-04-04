@@ -4,10 +4,12 @@ import Port.Out.ReadUserPort;
 import exceptions.LoginInUseExceptionEnt;
 import model.User;
 import repository.UserRepository;
+
 import java.util.List;
 import java.util.UUID;
-import static aggregates.UserAdapter.convertToListUser;
-import static aggregates.UserAdapter.convertToUser;
+
+import static converters.UserConverter.convertToListUser;
+import static converters.UserConverter.convertToUser;
 
 public class UserPortOutAdapter implements ReadUserPort {
 

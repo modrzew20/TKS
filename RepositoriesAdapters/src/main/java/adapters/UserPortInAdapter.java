@@ -7,9 +7,11 @@ import exceptions.LoginInUseException;
 import exceptions.LoginInUseExceptionEnt;
 import model.User;
 import repository.UserRepository;
+
 import java.util.UUID;
-import static aggregates.UserAdapter.convertFromUser;
-import static aggregates.UserAdapter.convertToUser;
+
+import static converters.UserConverter.convertFromUser;
+import static converters.UserConverter.convertToUser;
 
 public class UserPortInAdapter implements CreateUserPort, DeleteUserPort, UpdateUserPort {
 

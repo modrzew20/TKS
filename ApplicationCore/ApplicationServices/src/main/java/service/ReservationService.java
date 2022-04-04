@@ -5,10 +5,10 @@ import Port.In.CreateReservationPort;
 import Port.In.DeleteReservationPort;
 import Port.In.UpdateReservationPort;
 import Port.Out.*;
+import lombok.RequiredArgsConstructor;
 import model.Lane;
 import model.Reservation;
 import model.User;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;

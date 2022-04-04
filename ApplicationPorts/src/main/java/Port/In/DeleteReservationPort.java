@@ -7,5 +7,6 @@ import java.util.UUID;
 
 public interface DeleteReservationPort {
     Reservation delete(UUID uuid);
+
     Reservation endReservation(UUID uuid, LocalDateTime localDateTime);
 }

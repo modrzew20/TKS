@@ -5,10 +5,12 @@ import Port.Out.LanesReservationPort;
 import Port.Out.ReadReservationPort;
 import model.Reservation;
 import repository.ReservationRepository;
+
 import java.util.List;
 import java.util.UUID;
-import static aggregates.ReservationAdapter.convertToListReservation;
-import static aggregates.ReservationAdapter.convertToReservation;
+
+import static converters.ReservationConverter.convertToListReservation;
+import static converters.ReservationConverter.convertToReservation;
 
 
 public class ReservationPortOutAdapter implements LanesReservationPort, ReadReservationPort, ClientsReservationPort {

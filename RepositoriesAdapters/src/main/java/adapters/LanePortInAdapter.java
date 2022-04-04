@@ -1,13 +1,16 @@
 package adapters;
 
+
 import Port.In.CreateLanePort;
 import Port.In.DeleteLanePort;
 import Port.In.UpdateLanePort;
 import model.Lane;
 import repository.LaneRepository;
+
 import java.util.UUID;
-import static aggregates.LaneAdapter.convertFromLane;
-import static aggregates.LaneAdapter.convertToLane;
+
+import static converters.LaneConverter.convertFromLane;
+import static converters.LaneConverter.convertToLane;
 
 public class LanePortInAdapter implements CreateLanePort, DeleteLanePort, UpdateLanePort {
 

@@ -4,9 +4,8 @@ package service;
 import Port.In.CreateLanePort;
 import Port.In.DeleteLanePort;
 import Port.In.UpdateLanePort;
-import Port.Out.ReadLanePort;
 import Port.Out.LanesReservationPort;
-import lombok.RequiredArgsConstructor;
+import Port.Out.ReadLanePort;
 import model.LANE_TYPE;
 import model.Lane;
 import org.springframework.stereotype.Service;
@@ -15,7 +14,6 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
-@RequiredArgsConstructor
 public class LaneService {
 
     private final Object lock = new Object();

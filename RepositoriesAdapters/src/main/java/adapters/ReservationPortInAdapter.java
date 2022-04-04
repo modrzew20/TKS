@@ -5,10 +5,12 @@ import Port.In.DeleteReservationPort;
 import Port.In.UpdateReservationPort;
 import model.Reservation;
 import repository.ReservationRepository;
+
 import java.time.LocalDateTime;
 import java.util.UUID;
-import static aggregates.ReservationAdapter.convertFromReservation;
-import static aggregates.ReservationAdapter.convertToReservation;
+
+import static converters.ReservationConverter.convertFromReservation;
+import static converters.ReservationConverter.convertToReservation;
 
 public class ReservationPortInAdapter implements CreateReservationPort, DeleteReservationPort, UpdateReservationPort {
 
