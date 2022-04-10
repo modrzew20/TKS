@@ -3,6 +3,8 @@ package adapters;
 import Port.Out.ReadUserPort;
 import exceptions.LoginInUseExceptionEnt;
 import model.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import repository.UserRepository;
 
 import java.util.List;
@@ -11,9 +13,11 @@ import java.util.UUID;
 import static converters.UserConverter.convertToListUser;
 import static converters.UserConverter.convertToUser;
 
+@Component
 public class UserPortOutAdapter implements ReadUserPort {
 
-    UserRepository userRepository = new UserRepository();
+    @Autowired
+    UserRepository userRepository;
 
     public UserPortOutAdapter() throws LoginInUseExceptionEnt {
     }

@@ -4,6 +4,8 @@ import Port.Out.ClientsReservationPort;
 import Port.Out.LanesReservationPort;
 import Port.Out.ReadReservationPort;
 import model.Reservation;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import repository.ReservationRepository;
 
 import java.util.List;
@@ -12,10 +14,11 @@ import java.util.UUID;
 import static converters.ReservationConverter.convertToListReservation;
 import static converters.ReservationConverter.convertToReservation;
 
-
+@Component
 public class ReservationPortOutAdapter implements LanesReservationPort, ReadReservationPort, ClientsReservationPort {
 
-    ReservationRepository reservationRepository = new ReservationRepository();
+    @Autowired
+    ReservationRepository reservationRepository;
 
     @Override
     public List<Reservation> readAll() {

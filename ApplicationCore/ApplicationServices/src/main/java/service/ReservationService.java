@@ -5,10 +5,10 @@ import Port.In.CreateReservationPort;
 import Port.In.DeleteReservationPort;
 import Port.In.UpdateReservationPort;
 import Port.Out.*;
-import lombok.RequiredArgsConstructor;
 import model.Lane;
 import model.Reservation;
 import model.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -16,18 +16,29 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
-@RequiredArgsConstructor
 public class ReservationService {
 
     private final Object lock = new Object();
-    private ReadReservationPort readReservationPort;
-    private ReadLanePort readLanePort;
-    private ReadUserPort readUserPort;
-    private CreateReservationPort createReservationPort;
-    private UpdateReservationPort updateReservationPort;
-    private DeleteReservationPort deleteReservationPort;
-    private ClientsReservationPort clientsReservationPort;
-    private LanesReservationPort lanesReservationPort;
+    private final ReadReservationPort readReservationPort;
+    private final ReadLanePort readLanePort;
+    private final ReadUserPort readUserPort;
+    private final CreateReservationPort createReservationPort;
+    private final UpdateReservationPort updateReservationPort;
+    private final DeleteReservationPort deleteReservationPort;
+    private final ClientsReservationPort clientsReservationPort;
+    private final LanesReservationPort lanesReservationPort;
+
+    @Autowired
+    public ReservationService(ReadReservationPort readReservationPort, ReadLanePort readLanePort, ReadUserPort readUserPort, CreateReservationPort createReservationPort, UpdateReservationPort updateReservationPort, DeleteReservationPort deleteReservationPort, ClientsReservationPort clientsReservationPort, LanesReservationPort lanesReservationPort) {
+        this.readReservationPort = readReservationPort;
+        this.readLanePort = readLanePort;
+        this.readUserPort = readUserPort;
+        this.createReservationPort = createReservationPort;
+        this.updateReservationPort = updateReservationPort;
+        this.deleteReservationPort = deleteReservationPort;
+        this.clientsReservationPort = clientsReservationPort;
+        this.lanesReservationPort = lanesReservationPort;
+    }
 
     public List<Reservation> readAllReservation() {
         synchronized (lock) {

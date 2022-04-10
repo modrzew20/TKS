@@ -3,6 +3,6 @@
 /ApplicationController/.mvn
 /ApplicationController/.gitignore
 
-/ApplicationCore/ApplicationServices/target/
-/ApplicationCore/DomainModel/target/
-/ApplicationPorts/target/
+target/
+
+*.iml

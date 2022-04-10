@@ -4,6 +4,8 @@ import Port.In.CreateReservationPort;
 import Port.In.DeleteReservationPort;
 import Port.In.UpdateReservationPort;
 import model.Reservation;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import repository.ReservationRepository;
 
 import java.time.LocalDateTime;
@@ -12,9 +14,11 @@ import java.util.UUID;
 import static converters.ReservationConverter.convertFromReservation;
 import static converters.ReservationConverter.convertToReservation;
 
+@Component
 public class ReservationPortInAdapter implements CreateReservationPort, DeleteReservationPort, UpdateReservationPort {
 
-    ReservationRepository reservationRepository = new ReservationRepository();
+    @Autowired
+    ReservationRepository reservationRepository;
 
     @Override
     public Reservation create(Reservation reservation) {

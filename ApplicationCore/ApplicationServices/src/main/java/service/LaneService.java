@@ -8,6 +8,7 @@ import Port.Out.LanesReservationPort;
 import Port.Out.ReadLanePort;
 import model.LANE_TYPE;
 import model.Lane;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,11 +18,20 @@ import java.util.UUID;
 public class LaneService {
 
     private final Object lock = new Object();
-    private ReadLanePort readLanePort;
-    private CreateLanePort createLanePort;
-    private DeleteLanePort deleteLanePort;
-    private UpdateLanePort updateLanePort;
-    private LanesReservationPort reservationPortOut;
+    private final ReadLanePort readLanePort;
+    private final CreateLanePort createLanePort;
+    private final DeleteLanePort deleteLanePort;
+    private final UpdateLanePort updateLanePort;
+    private final LanesReservationPort reservationPortOut;
+
+    @Autowired
+    public LaneService(ReadLanePort readLanePort, CreateLanePort createLanePort, DeleteLanePort deleteLanePort, UpdateLanePort updateLanePort, LanesReservationPort reservationPortOut) {
+        this.readLanePort = readLanePort;
+        this.createLanePort = createLanePort;
+        this.deleteLanePort = deleteLanePort;
+        this.updateLanePort = updateLanePort;
+        this.reservationPortOut = reservationPortOut;
+    }
 
     public List<Lane> readAllLane() {
         synchronized (lock) {

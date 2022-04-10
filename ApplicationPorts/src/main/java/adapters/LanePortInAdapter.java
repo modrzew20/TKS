@@ -5,6 +5,9 @@ import Port.In.CreateLanePort;
 import Port.In.DeleteLanePort;
 import Port.In.UpdateLanePort;
 import model.Lane;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import repository.LaneRepository;
 
 import java.util.UUID;
@@ -12,9 +15,11 @@ import java.util.UUID;
 import static converters.LaneConverter.convertFromLane;
 import static converters.LaneConverter.convertToLane;
 
+@Component
 public class LanePortInAdapter implements CreateLanePort, DeleteLanePort, UpdateLanePort {
 
-    LaneRepository laneRepository = new LaneRepository();
+    @Autowired
+    LaneRepository laneRepository;
 
     @Override
     public Lane create(Lane lane) {

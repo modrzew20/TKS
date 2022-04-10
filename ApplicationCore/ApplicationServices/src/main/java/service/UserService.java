@@ -6,23 +6,29 @@ import Port.In.DeleteUserPort;
 import Port.In.UpdateUserPort;
 import Port.Out.ReadUserPort;
 import exceptions.LoginInUseException;
-import lombok.RequiredArgsConstructor;
 import model.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
 
 @Service
-@RequiredArgsConstructor
 public class UserService {
 
     private final Object lock = new Object();
-    private ReadUserPort readUserPort;
-    private CreateUserPort createUserPort;
-    private DeleteUserPort deleteUserPort;
-    private UpdateUserPort updateUserPort;
+    private final ReadUserPort readUserPort;
+    private final CreateUserPort createUserPort;
+    private final DeleteUserPort deleteUserPort;
+    private final UpdateUserPort updateUserPort;
 
+    @Autowired
+    public UserService(ReadUserPort readUserPort, CreateUserPort createUserPort, DeleteUserPort deleteUserPort, UpdateUserPort updateUserPort) {
+        this.readUserPort = readUserPort;
+        this.createUserPort = createUserPort;
+        this.deleteUserPort = deleteUserPort;
+        this.updateUserPort = updateUserPort;
+    }
 
     public List<User> readAllUser() {
         synchronized (lock) {

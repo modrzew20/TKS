@@ -6,6 +6,8 @@ import Port.In.UpdateUserPort;
 import exceptions.LoginInUseException;
 import exceptions.LoginInUseExceptionEnt;
 import model.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import repository.UserRepository;
 
 import java.util.UUID;
@@ -13,12 +15,11 @@ import java.util.UUID;
 import static converters.UserConverter.convertFromUser;
 import static converters.UserConverter.convertToUser;
 
+@Component
 public class UserPortInAdapter implements CreateUserPort, DeleteUserPort, UpdateUserPort {
 
-    UserRepository userRepository = new UserRepository();
-
-    public UserPortInAdapter() throws LoginInUseExceptionEnt {
-    }
+    @Autowired
+    UserRepository userRepository;
 
     @Override
     public User create(User user) throws LoginInUseException {
