@@ -1,55 +1,67 @@
 package service;
 
 
-import Port.In.LanePortIn;
-import Port.Out.LanePortOut;
-import Port.Out.ReservationPortOut;
-import lombok.RequiredArgsConstructor;
+import Port.In.CreateLanePort;
+import Port.In.DeleteLanePort;
+import Port.In.UpdateLanePort;
+import Port.Out.LanesReservationPort;
+import Port.Out.ReadLanePort;
 import model.LANE_TYPE;
 import model.Lane;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
 
 @Service
-@RequiredArgsConstructor
 public class LaneService {
 
     private final Object lock = new Object();
-    private LanePortOut lanePortOut;
-    private LanePortIn lanePortIn;
-    private ReservationPortOut reservationPortOut;
+    private final ReadLanePort readLanePort;
+    private final CreateLanePort createLanePort;
+    private final DeleteLanePort deleteLanePort;
+    private final UpdateLanePort updateLanePort;
+    private final LanesReservationPort reservationPortOut;
+
+    @Autowired
+    public LaneService(ReadLanePort readLanePort, CreateLanePort createLanePort, DeleteLanePort deleteLanePort, UpdateLanePort updateLanePort, LanesReservationPort reservationPortOut) {
+        this.readLanePort = readLanePort;
+        this.createLanePort = createLanePort;
+        this.deleteLanePort = deleteLanePort;
+        this.updateLanePort = updateLanePort;
+        this.reservationPortOut = reservationPortOut;
+    }
 
     public List<Lane> readAllLane() {
         synchronized (lock) {
-            return lanePortOut.readAll();
+            return readLanePort.readAll();
         }
     }
 
     public Lane addLane(String lane_type) {
         synchronized (lock) {
-            return lanePortIn.create(new Lane(null, LANE_TYPE.valueOf(lane_type)));
+            return createLanePort.create(new Lane(null, LANE_TYPE.valueOf(lane_type)));
         }
     }
 
     public Lane updateLane(UUID uuid, String lane_type) {
         if (reservationPortOut.presentLaneReservations(uuid).size() != 0) return null;
         synchronized (lock) {
-            return lanePortIn.update(new Lane(uuid, LANE_TYPE.valueOf(lane_type)));
+            return updateLanePort.update(new Lane(uuid, LANE_TYPE.valueOf(lane_type)));
         }
     }
 
     public Lane readOneLane(UUID uuid) {
         synchronized (lock) {
-            return lanePortOut.readById(uuid);
+            return readLanePort.readById(uuid);
         }
     }
 
     public Lane deleteLine(UUID uuid) {
         if (reservationPortOut.presentLaneReservations(uuid).size() != 0) return null;
         synchronized (lock) {
-            return lanePortIn.delete(uuid);
+            return deleteLanePort.delete(uuid);
         }
     }
 }
