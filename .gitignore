@@ -1,7 +1,7 @@
 /.idea/
-/ApplicationController/target
-/ApplicationController/.mvn
-/ApplicationController/.gitignore
+/ApplicationREST/target
+/ApplicationREST/.mvn
+/ApplicationREST/.gitignore
 
 target/
 
