@@ -7,7 +7,6 @@ import Port.In.UpdateLanePort;
 import model.Lane;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 import repository.LaneRepository;
 
 import java.util.UUID;
