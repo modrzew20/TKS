@@ -80,21 +80,21 @@ public class ReservationRepository implements RepositoryInterface<ReservationEnt
         return list;
     }
 
-    public List<ReservationEnt> pastLaneReservations(UUID UUIDLane) {
+    public List<ReservationEnt> pastLaneReservations(UUID laneUUID) {
         List<ReservationEnt> list = new ArrayList<>();
         LocalDateTime time = LocalDateTime.now();
         for (ReservationEnt reservation : reservationList) {
-            if (reservation.getLane().getUuid().equals(UUIDLane)
+            if (reservation.getLane().getUuid().equals(laneUUID)
                     && reservation.getEndReservation().isBefore(time)) list.add(reservation);
         }
         return list;
     }
 
-    public List<ReservationEnt> presentLaneReservations(UUID UUIDLane) {
+    public List<ReservationEnt> presentLaneReservations(UUID laneUUID) {
         List<ReservationEnt> list = new ArrayList<>();
         LocalDateTime time = LocalDateTime.now();
         for (ReservationEnt reservation : reservationList) {
-            if (reservation.getLane().getUuid().equals(UUIDLane)
+            if (reservation.getLane().getUuid().equals(laneUUID)
                     && (reservation.getEndReservation().isAfter(time)
                     || reservation.getEndReservation() == null)) list.add(reservation);
         }

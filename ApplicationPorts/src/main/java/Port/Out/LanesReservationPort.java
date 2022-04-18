@@ -8,7 +8,7 @@ import java.util.UUID;
 public interface LanesReservationPort {
 
 
-    List<Reservation> pastLaneReservations(UUID UUIDLane);
+    List<Reservation> pastLaneReservations(UUID laneUUID);
 
-    List<Reservation> presentLaneReservations(UUID UUIDLane);
+    List<Reservation> presentLaneReservations(UUID laneUUID);
 }

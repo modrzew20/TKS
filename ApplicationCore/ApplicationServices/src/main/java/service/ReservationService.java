@@ -46,11 +46,11 @@ public class ReservationService {
         }
     }
 
-    public Reservation addReservation(UUID clientsUUID, UUID UUIDLane, LocalDateTime start, LocalDateTime end) {
+    public Reservation addReservation(UUID clientsUUID, UUID laneUUID, LocalDateTime start, LocalDateTime end) {
 
-        Lane lane = readLanePort.readById(UUIDLane);
+        Lane lane = readLanePort.readById(laneUUID);
         User client = readUserPort.readById(clientsUUID);
-        if (!readUserPort.readById(clientsUUID).getActive() || createReservationPort.reservedLine(UUIDLane, start, end) || lane == null || client == null)
+        if (!readUserPort.readById(clientsUUID).getActive() || createReservationPort.reservedLine(laneUUID, start, end) || lane == null || client == null)
             return null;
         synchronized (lock) {
             Reservation reservation = new Reservation(UUID.randomUUID(), lane, client, start, end);
@@ -77,15 +77,15 @@ public class ReservationService {
         }
     }
 
-    public List<Reservation> pastLaneReservations(UUID UUIDLane) {
+    public List<Reservation> pastLaneReservations(UUID laneUUID) {
         synchronized (lock) {
-            return lanesReservationPort.pastLaneReservations(UUIDLane);
+            return lanesReservationPort.pastLaneReservations(laneUUID);
         }
     }
 
-    public List<Reservation> presentLaneReservations(UUID UUIDLane) {
+    public List<Reservation> presentLaneReservations(UUID laneUUID) {
         synchronized (lock) {
-            return lanesReservationPort.presentLaneReservations(UUIDLane);
+            return lanesReservationPort.presentLaneReservations(laneUUID);
         }
     }
 

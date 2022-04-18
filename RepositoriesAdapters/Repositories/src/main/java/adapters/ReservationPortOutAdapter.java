@@ -41,12 +41,12 @@ public class ReservationPortOutAdapter implements LanesReservationPort, ReadRese
     }
 
     @Override
-    public List<Reservation> pastLaneReservations(UUID UUIDLane) {
-        return convertToListReservation(reservationRepository.pastLaneReservations(UUIDLane));
+    public List<Reservation> pastLaneReservations(UUID laneUUID) {
+        return convertToListReservation(reservationRepository.pastLaneReservations(laneUUID));
     }
 
     @Override
-    public List<Reservation> presentLaneReservations(UUID UUIDLane) {
-        return convertToListReservation(reservationRepository.presentLaneReservations(UUIDLane));
+    public List<Reservation> presentLaneReservations(UUID laneUUID) {
+        return convertToListReservation(reservationRepository.presentLaneReservations(laneUUID));
     }
 }

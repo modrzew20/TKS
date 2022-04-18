@@ -10,7 +10,7 @@ import java.util.UUID;
 public interface ReservationServicePort {
     List<ReservationView> readAllReservation();
 
-    ReservationView addReservation(UUID clientsUUID, UUID UUIDLane, LocalDateTime start, LocalDateTime end);
+    ReservationView addReservation(UUID clientsUUID, UUID laneUUID, LocalDateTime start, LocalDateTime end);
 
     ReservationView readOneReservation(UUID uuid);
 
@@ -18,9 +18,9 @@ public interface ReservationServicePort {
 
     List<ReservationView> presentClientReservations(UUID clientsUUID);
 
-    List<ReservationView> pastLaneReservations(UUID UUIDLane);
+    List<ReservationView> pastLaneReservations(UUID laneUUID);
 
-    List<ReservationView> presentLaneReservations(UUID UUIDLane);
+    List<ReservationView> presentLaneReservations(UUID laneUUID);
 
     ReservationView endReservation(UUID uuid, LocalDateTime localDateTime);
 
