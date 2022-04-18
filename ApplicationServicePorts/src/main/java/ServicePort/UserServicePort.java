@@ -3,23 +3,24 @@ package ServicePort;
 import exceptions.LoginInUseException;
 import model.AccessLevel;
 import model.User;
+import modelView.UserView;
 
 import java.util.List;
 import java.util.UUID;
 
 public interface UserServicePort {
-    List<User> readAllUser();
+    List<UserView> readAllUser();
 
-    User addUser(AccessLevel accessLevel, String login, String password) throws LoginInUseException;
+    UserView addUser(AccessLevel accessLevel, String login, String password) throws LoginInUseException;
 
-    User updateUser(UUID uuid, String login, String password) throws
+    UserView updateUser(UUID uuid, String login, String password) throws
             LoginInUseException;
 
-    User readOneUser(UUID uuid);
+    UserView readOneUser(UUID uuid);
 
-    List<User> readManyUser(String login);
+    List<UserView> readManyUser(String login);
 
-    User deactivateUser(UUID uuid);
+    UserView deactivateUser(UUID uuid);
 
-    User activateUser(UUID uuid);
+    UserView activateUser(UUID uuid);
 }
