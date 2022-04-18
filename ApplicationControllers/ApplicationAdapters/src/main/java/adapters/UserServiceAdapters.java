@@ -6,11 +6,13 @@ import exceptions.LoginInUseException;
 import model.AccessLevel;
 import modelView.UserView;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import service.UserService;
 
 import java.util.List;
 import java.util.UUID;
 
+@Service
 public class UserServiceAdapters implements UserServicePort {
 
     @Autowired

@@ -4,17 +4,19 @@ import ServicePort.ReservationServicePort;
 import converters.ReservationViewConverter;
 import modelView.ReservationView;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import service.ReservationService;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
+@Service
 public class ReservationServiceAdapters implements ReservationServicePort {
-    
+
     @Autowired
     ReservationService reservationService;
-    
+
     @Override
     public List<ReservationView> readAllReservation() {
         return reservationService.readAllReservation().stream().map(ReservationViewConverter::convertFromReservation).toList();

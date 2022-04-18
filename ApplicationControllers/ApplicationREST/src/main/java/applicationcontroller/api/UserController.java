@@ -1,12 +1,12 @@
 package applicationcontroller.api;
 
+import adapters.UserServiceAdapters;
 import exceptions.LoginInUseException;
 import model.AccessLevel;
-import model.User;
+import modelView.UserView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-import service.UserService;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
@@ -17,56 +17,56 @@ import java.util.UUID;
 @RequestMapping("/user")
 public class UserController {
 
-    private final UserService userService;
+    private final UserServiceAdapters userServiceAdapters;
 
     @Autowired
-    public UserController(UserService userService) {
-        this.userService = userService;
+    public UserController(UserServiceAdapters userService) {
+        this.userServiceAdapters = userService;
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<User> readAllUser() {
-        return userService.readAllUser();
+    public List<UserView> readAllUser() {
+        return userServiceAdapters.readAllUser();
     }
 
 
     @GetMapping(value = "/{uuid}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public User readUser(@PathVariable("uuid") @NotBlank @Pattern(regexp =
+    public UserView readUser(@PathVariable("uuid") @NotBlank @Pattern(regexp =
             "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}") String uuid) {
-        return userService.readOneUser(UUID.fromString(uuid));
+        return userServiceAdapters.readOneUser(UUID.fromString(uuid));
     }
 
     @PostMapping(value = "/add", produces = MediaType.APPLICATION_JSON_VALUE)
-    public User addUser(@RequestParam("accessLevel") @NotBlank @Pattern(regexp = "Administrator|Client|ResourceAdministrator", message = "Field accessLevel must be Administrator|Client|ResourceAdministrator.") String accessLevel,
-                        @RequestParam("login") @NotBlank String login,
-                        @RequestParam("password") @NotBlank String password) throws LoginInUseException {
-        return userService.addUser(AccessLevel.valueOf(accessLevel), login, password);
+    public UserView addUser(@RequestParam("accessLevel") @NotBlank @Pattern(regexp = "Administrator|Client|ResourceAdministrator", message = "Field accessLevel must be Administrator|Client|ResourceAdministrator.") String accessLevel,
+                            @RequestParam("login") @NotBlank String login,
+                            @RequestParam("password") @NotBlank String password) throws LoginInUseException {
+        return userServiceAdapters.addUser(AccessLevel.valueOf(accessLevel), login, password);
     }
 
     @PostMapping(value = "/update", produces = MediaType.APPLICATION_JSON_VALUE)
-    public User updateUser(@RequestParam("id") @NotBlank @Pattern(regexp =
+    public UserView updateUser(@RequestParam("id") @NotBlank @Pattern(regexp =
             "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}") String uuid,
-                           @RequestParam("login") String login,
-                           @RequestParam("password") String password) throws LoginInUseException {
+                               @RequestParam("login") String login,
+                               @RequestParam("password") String password) throws LoginInUseException {
 
-        return userService.updateUser(UUID.fromString(uuid), login, password);
+        return userServiceAdapters.updateUser(UUID.fromString(uuid), login, password);
     }
 
     @GetMapping(value = "/readMany/{login}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<User> readManyUsers(@PathVariable("login") @NotBlank String login) {
-        return userService.readManyUser(login);
+    public List<UserView> readManyUsers(@PathVariable("login") @NotBlank String login) {
+        return userServiceAdapters.readManyUser(login);
     }
 
     @PostMapping(value = "/deactivate/{uuid}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public User deactivateUser(@PathVariable @NotBlank @Pattern(regexp =
+    public UserView deactivateUser(@PathVariable @NotBlank @Pattern(regexp =
             "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}") String uuid) {
-        return userService.deactivateUser(UUID.fromString(uuid));
+        return userServiceAdapters.deactivateUser(UUID.fromString(uuid));
     }
 
     @PostMapping(value = "/activate/{uuid}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public User activateUser(@PathVariable @NotBlank @Pattern(regexp =
+    public UserView activateUser(@PathVariable @NotBlank @Pattern(regexp =
             "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}") String uuid) {
-        return userService.activateUser(UUID.fromString(uuid));
+        return userServiceAdapters.activateUser(UUID.fromString(uuid));
     }
 
 }

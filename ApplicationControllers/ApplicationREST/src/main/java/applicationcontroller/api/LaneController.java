@@ -1,12 +1,12 @@
 package applicationcontroller.api;
 
+import adapters.LaneServiceAdapters;
 import exceptions.LoginInUseException;
-import model.LANE_TYPE;
-import model.Lane;
+import modelView.LANE_TYPE_View;
+import modelView.LaneView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-import service.LaneService;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
@@ -18,46 +18,46 @@ import java.util.stream.Collectors;
 @RequestMapping(value = "/lane")
 public class LaneController {
 
-    private final LaneService laneService;
+    private final LaneServiceAdapters laneServiceAdapters;
 
     @Autowired
-    public LaneController(LaneService laneService) {
-        this.laneService = laneService;
+    public LaneController(LaneServiceAdapters laneServiceAdapters) {
+        this.laneServiceAdapters = laneServiceAdapters;
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Lane> readAllLane() {
-        return laneService.readAllLane();
+    public List<LaneView> readAllLane() {
+        return laneServiceAdapters.readAllLane();
     }
 
     @CrossOrigin(origins = "*")
     @GetMapping(value = "/filter/{type}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Lane> filterLines(@PathVariable() @NotBlank @Pattern(regexp = "vip|normal|premium") String type) {
-        return laneService.readAllLane().stream().filter(lane -> lane.getType().equals(LANE_TYPE.valueOf(type))).collect(Collectors.toList());
+    public List<LaneView> filterLines(@PathVariable() @NotBlank @Pattern(regexp = "vip|normal|premium") String type) {
+        return laneServiceAdapters.readAllLane().stream().filter(lane -> lane.getType().equals(LANE_TYPE_View.valueOf(type))).collect(Collectors.toList());
     }
 
 
     @GetMapping(value = "/{uuid}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Lane readLane(@PathVariable("uuid") @NotBlank @Pattern(regexp = "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}") String uuid) {
-        return laneService.readOneLane(UUID.fromString(uuid));
+    public LaneView readLane(@PathVariable("uuid") @NotBlank @Pattern(regexp = "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}") String uuid) {
+        return laneServiceAdapters.readOneLane(UUID.fromString(uuid));
     }
 
     //@Pattern(regexp = "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}")
     //@Pattern(regexp = "vip|normal|premium")
     @PostMapping(value = "/add", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Lane addLine(@RequestParam("type") @NotBlank @Pattern(regexp = "vip|normal|premium") String type) throws LoginInUseException {
-        return laneService.addLane(type);
+    public LaneView addLine(@RequestParam("type") @NotBlank @Pattern(regexp = "vip|normal|premium") String type) throws LoginInUseException {
+        return laneServiceAdapters.addLane(type);
     }
 
 
     @PostMapping(value = "/update", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Lane updateLine(@RequestParam("id") @NotBlank @Pattern(regexp = "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}") String uuid, @RequestParam @NotBlank @Pattern(regexp = "vip|normal|premium") String type) {
-        return laneService.updateLane(UUID.fromString(uuid), type);
+    public LaneView updateLine(@RequestParam("id") @NotBlank @Pattern(regexp = "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}") String uuid, @RequestParam @NotBlank @Pattern(regexp = "vip|normal|premium") String type) {
+        return laneServiceAdapters.updateLane(UUID.fromString(uuid), type);
     }
 
     @DeleteMapping(value = "/delete/{uuid}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Lane deleteLane(@PathVariable("uuid") @NotBlank @Pattern(regexp = "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}") String uuid) {
-        return laneService.deleteLine(UUID.fromString(uuid));
+    public LaneView deleteLane(@PathVariable("uuid") @NotBlank @Pattern(regexp = "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}") String uuid) {
+        return laneServiceAdapters.deleteLine(UUID.fromString(uuid));
     }
 
 }
