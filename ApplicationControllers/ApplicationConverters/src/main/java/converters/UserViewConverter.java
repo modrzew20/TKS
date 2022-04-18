@@ -31,15 +31,6 @@ public class UserViewConverter {
         }
     }
 
-    public static List<User> convertToListUser(List<UserView> userViewList) {
-        List<User> convertedList = new ArrayList<>();
-        for (UserView user : userViewList) {
-            convertedList.add(convertToUser(user));
-        }
-        return convertedList;
-    }
-
-
     public static UserView convertFromUser(User user) {
         switch (user.getAccessLevel()) {
             case Administrator -> {
@@ -55,13 +46,5 @@ public class UserViewConverter {
                 return null;
             }
         }
-    }
-
-    public static List<UserView> convertFromListUser(List<User> userList) {
-        List<UserView> convertedList = new ArrayList<>();
-        for (User user : userList) {
-            convertedList.add(convertFromUser(user));
-        }
-        return convertedList;
     }
 }
