@@ -3,7 +3,6 @@ package converters;
 import model.Reservation;
 import modelEnt.ReservationEnt;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static converters.LaneConverter.convertFromLane;
@@ -19,12 +18,8 @@ public class ReservationConverter {
                 reservationEnt.getStartReservation(), reservationEnt.getEndReservation());
     }
 
-    public static List<Reservation> convertToListReservation(List<ReservationEnt> reservationEntsList) {
-        List<Reservation> convertedList = new ArrayList<>();
-        for (ReservationEnt reservation : reservationEntsList) {
-            convertedList.add(convertToReservation(reservation));
-        }
-        return convertedList;
+    public static List<Reservation> convertToListReservation(List<ReservationEnt> reservationEntList) {
+        return reservationEntList.stream().map(ReservationConverter::convertToReservation).toList();
     }
 
     public static ReservationEnt convertFromReservation(Reservation reservation) {
@@ -34,11 +29,7 @@ public class ReservationConverter {
     }
 
     public static List<ReservationEnt> convertFromListReservation(List<Reservation> reservationList) {
-        List<ReservationEnt> convertedList = new ArrayList<>();
-        for (Reservation reservation : reservationList) {
-            convertedList.add(convertFromReservation(reservation));
-        }
-        return convertedList;
+        return reservationList.stream().map(ReservationConverter::convertFromReservation).toList();
     }
 
 }

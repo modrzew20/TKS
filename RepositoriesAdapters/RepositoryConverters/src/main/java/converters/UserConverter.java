@@ -58,10 +58,6 @@ public class UserConverter {
     }
 
     public static List<UserEnt> convertFromListUser(List<User> userList) {
-        List<UserEnt> convertedList = new ArrayList<>();
-        for (User user : userList) {
-            convertedList.add(convertFromUser(user));
-        }
-        return convertedList;
+        return userList.stream().map(UserConverter::convertFromUser).toList();
     }
 }

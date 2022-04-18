@@ -13,16 +13,11 @@ public class LaneConverter {
 
 
     public static Lane convertToLane(LaneEnt laneEnt) {
-
         return new Lane(laneEnt.getUuid(), convertToType(laneEnt.getType()));
     }
 
     public static List<Lane> convertToLaneList(List<LaneEnt> laneEntList) {
-        List<Lane> convertedList = new ArrayList<>();
-        for (LaneEnt laneEnt : laneEntList) {
-            convertedList.add(convertToLane(laneEnt));
-        }
-        return convertedList;
+        return laneEntList.stream().map(LaneConverter::convertToLane).toList();
     }
 
     public static LaneEnt convertFromLane(Lane lane) {
@@ -30,10 +25,6 @@ public class LaneConverter {
     }
 
     public static List<LaneEnt> convertFromLaneList(List<Lane> laneList) {
-        List<LaneEnt> convertedList = new ArrayList<>();
-        for (Lane lane : laneList) {
-            convertedList.add(convertFromLane(lane));
-        }
-        return convertedList;
+        return laneList.stream().map(LaneConverter::convertFromLane).toList();
     }
 }
