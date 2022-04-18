@@ -4,7 +4,7 @@ import Port.In.CreateUserPort;
 import Port.In.DeleteUserPort;
 import Port.In.UpdateUserPort;
 import exceptions.LoginInUseException;
-import exceptions.LoginInUseExceptionEnt;
+import exceptionsEnt.LoginInUseExceptionEnt;
 import model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

@@ -1,7 +1,7 @@
 package adapters;
 
 import Port.Out.ReadUserPort;
-import exceptions.LoginInUseExceptionEnt;
+import exceptionsEnt.LoginInUseExceptionEnt;
 import model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

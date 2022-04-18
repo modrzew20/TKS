@@ -1,7 +1,7 @@
 package repository;
 
 
-import exceptions.LoginInUseExceptionEnt;
+import exceptionsEnt.LoginInUseExceptionEnt;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

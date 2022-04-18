@@ -1,6 +1,6 @@
 package repository;
 
-import exceptions.LoginInUseExceptionEnt;
+import exceptionsEnt.LoginInUseExceptionEnt;
 import modelEnt.AdministratorEnt;
 import modelEnt.ClientEnt;
 import modelEnt.ResourceAdministratorEnt;
