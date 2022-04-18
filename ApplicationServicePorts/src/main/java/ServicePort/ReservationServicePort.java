@@ -1,6 +1,5 @@
 package ServicePort;
 
-import model.Reservation;
 import modelView.ReservationView;
 
 import java.time.LocalDateTime;

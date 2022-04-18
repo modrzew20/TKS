@@ -2,7 +2,6 @@ package ServicePort;
 
 import exceptions.LoginInUseException;
 import model.AccessLevel;
-import model.User;
 import modelView.UserView;
 
 import java.util.List;

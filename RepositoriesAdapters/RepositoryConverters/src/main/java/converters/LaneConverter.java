@@ -3,7 +3,6 @@ package converters;
 import model.Lane;
 import modelEnt.LaneEnt;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static converters.LaneTypeConverter.convertFromType;

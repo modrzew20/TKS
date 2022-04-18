@@ -1,6 +1,5 @@
 package ServicePort;
 
-import model.Lane;
 import modelView.LaneView;
 
 import java.util.List;

@@ -3,9 +3,6 @@ package converters;
 import model.Reservation;
 import modelView.ReservationView;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import static converters.LaneViewConverter.convertFromLane;
 import static converters.LaneViewConverter.convertToLane;
 import static converters.UserViewConverter.convertFromUser;

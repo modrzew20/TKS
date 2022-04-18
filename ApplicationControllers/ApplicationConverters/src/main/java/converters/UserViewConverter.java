@@ -9,9 +9,6 @@ import modelView.ClientView;
 import modelView.ResourceAdministratorView;
 import modelView.UserView;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class UserViewConverter {
 
     public static User convertToUser(UserView userView) {
