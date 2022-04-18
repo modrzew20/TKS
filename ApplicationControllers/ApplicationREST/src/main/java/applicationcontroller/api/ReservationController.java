@@ -3,14 +3,13 @@ package applicationcontroller.api;
 import model.Reservation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import service.ReservationService;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -24,71 +23,66 @@ public class ReservationController {
         this.reservationService = reservationService;
     }
 
-    @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity readAllLane() {
-        return ResponseEntity.ok(reservationService.readAllReservation());
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Reservation> readAllReservation() {
+        return reservationService.readAllReservation();
     }
 
 
-    @RequestMapping(value = "/{uuid}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity readReserv(@PathVariable("uuid") @NotBlank @Pattern(regexp = "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}") String uuid) {
-        return ResponseEntity.ok(reservationService.readOneReservation(UUID.fromString(uuid)));
+    @GetMapping(value = "/{uuid}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Reservation readOneReservation(@PathVariable("uuid") @NotBlank @Pattern(regexp = "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}") String uuid) {
+        return reservationService.readOneReservation(UUID.fromString(uuid));
 
     }
 
 
-    @RequestMapping(value = "/add", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity addReservation(@RequestParam @NotBlank @Pattern(regexp = "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}") String clientsUUID,
-                                         @RequestParam @NotBlank @Pattern(regexp = "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}") String laneUUID,
-                                         @RequestParam @NotBlank @Pattern(regexp =
-                                                 "[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}") String start,
+    @PostMapping(value = "/add", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Reservation addReservation(@RequestParam @NotBlank @Pattern(regexp = "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}") String clientsUUID,
+                                      @RequestParam @NotBlank @Pattern(regexp = "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}") String laneUUID,
+                                      @RequestParam @NotBlank @Pattern(regexp =
+                                              "[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}") String start,
+                                      @RequestParam @NotBlank @Pattern(regexp =
+                                              "[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}") String end) {
+        return reservationService.addReservation(UUID.fromString(clientsUUID), UUID.fromString(laneUUID), LocalDateTime.parse(start), LocalDateTime.parse(end));
+    }
+
+
+    @GetMapping(value = "/pastClientReservations/{uuid}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Reservation> pastClientReservations(@PathVariable("uuid") @NotBlank @Pattern(regexp = "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}") String uuid) {
+        return reservationService.pastClientReservations(UUID.fromString(uuid));
+    }
+
+    @GetMapping(value = "/presentClientReservations/{uuid}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Reservation> presentClientReservations(@PathVariable("uuid") @NotBlank @Pattern(regexp = "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}") String uuid) {
+        return reservationService.presentClientReservations(UUID.fromString(uuid));
+    }
+
+    @GetMapping(value = "/pastLaneReservations/{uuid}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Reservation> pastLaneReservations(@PathVariable("uuid") @NotBlank @Pattern(regexp = "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}") String uuid) {
+        return reservationService.pastLaneReservations(UUID.fromString(uuid));
+    }
+
+    @GetMapping(value = "/presentLaneReservations/{uuid}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Reservation> presentLaneReservations(@PathVariable("uuid") @NotBlank @Pattern(regexp = "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}") String uuid) {
+        return reservationService.presentLaneReservations(UUID.fromString(uuid));
+    }
+
+    @PostMapping(value = "/update", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Reservation updateReservation(@RequestParam @NotBlank @Pattern(regexp = "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}") String uuid,
                                          @RequestParam @NotBlank @Pattern(regexp =
                                                  "[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}") String end) {
-
-        Reservation reservation = reservationService.addReservation(UUID.fromString(clientsUUID), UUID.fromString(laneUUID), LocalDateTime.parse(start), LocalDateTime.parse(end));
-        if (reservation == null) return ResponseEntity.status(400).build();
-        return ResponseEntity.ok(reservation);
+        return reservationService.endReservation(UUID.fromString(uuid), LocalDateTime.parse(end));
     }
 
-
-    @RequestMapping(value = "/pastClientsReserv/{uuid}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity pastClientReserv(@PathVariable("uuid") @NotBlank @Pattern(regexp = "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}") String uuid) {
-        return ResponseEntity.ok(reservationService.pastClientReservations(UUID.fromString(uuid)));
-    }
-
-    @RequestMapping(value = "/presentClientsReserv/{uuid}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity presentClientReserv(@PathVariable("uuid") @NotBlank @Pattern(regexp = "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}") String uuid) {
-        return ResponseEntity.ok(reservationService.presentClientReservations(UUID.fromString(uuid)));
-    }
-
-    @RequestMapping(value = "/pastLaneReserv/{uuid}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity pastLaneReserv(@PathVariable("uuid") @NotBlank @Pattern(regexp = "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}") String uuid) {
-        return ResponseEntity.ok(reservationService.pastLaneReservations(UUID.fromString(uuid)));
-    }
-
-    @RequestMapping(value = "/presentLaneReserv/{uuid}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity presentLaneReserv(@PathVariable("uuid") @NotBlank @Pattern(regexp = "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}") String uuid) {
-        return ResponseEntity.ok(reservationService.presentLaneReservations(UUID.fromString(uuid)));
-    }
-
-    @RequestMapping(value = "/update", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity updateReservation(@RequestParam @NotBlank @Pattern(regexp = "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}") String uuid,
-                                            @RequestParam @NotBlank @Pattern(regexp =
-                                                    "[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}") String end) {
-        return ResponseEntity.ok(reservationService.endReservation(UUID.fromString(uuid), LocalDateTime.parse(end)));
-    }
-
-    @RequestMapping(value = "/end/{uuid}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity endReserv(@PathVariable("uuid") @NotBlank @Pattern(regexp = "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}") String uuid) {
-        return ResponseEntity.ok(reservationService.endReservation(UUID.fromString(uuid), LocalDateTime.now()));
+    @PostMapping(value = "/end/{uuid}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Reservation endReservation(@PathVariable("uuid") @NotBlank @Pattern(regexp = "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}") String uuid) {
+        return reservationService.endReservation(UUID.fromString(uuid), LocalDateTime.now());
 
     }
 
-    @RequestMapping(value = "/delete/{param}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity deleteReserv(@PathVariable("param") @NotBlank @Pattern(regexp = "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}") String uuid) {
-        Reservation reservation = reservationService.delete(UUID.fromString(uuid));
-        if (reservation == null) return ResponseEntity.status(400).build();
-        return ResponseEntity.ok(reservation);
+    @DeleteMapping(value = "/delete/{param}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Reservation deleteReservation(@PathVariable("param") @NotBlank @Pattern(regexp = "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}") String uuid) {
+        return reservationService.delete(UUID.fromString(uuid));
     }
 
 }
