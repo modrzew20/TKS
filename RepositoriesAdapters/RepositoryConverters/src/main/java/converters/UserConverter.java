@@ -8,7 +8,6 @@ import modelEnt.AdministratorEnt;
 import modelEnt.ClientEnt;
 import modelEnt.ResourceAdministratorEnt;
 import modelEnt.UserEnt;
-import modelEnt.AccessLevelEnt;
 
 import java.util.ArrayList;
 import java.util.List;
