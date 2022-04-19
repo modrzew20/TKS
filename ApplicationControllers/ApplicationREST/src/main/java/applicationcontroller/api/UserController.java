@@ -1,9 +1,9 @@
 package applicationcontroller.api;
 
-import adapters.UserServiceAdapters;
+import applicationcontroller.adapters.UserServiceAdapters;
 import exceptions.LoginInUseException;
 import model.AccessLevel;
-import modelView.UserView;
+import applicationcontroller.modelRest.modelView.UserView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;

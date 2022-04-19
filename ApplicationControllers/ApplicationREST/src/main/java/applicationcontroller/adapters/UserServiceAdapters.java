@@ -1,11 +1,12 @@
-package adapters;
+package applicationcontroller.adapters;
 
 import ServicePort.UserServicePort;
-import converters.UserViewConverter;
+import applicationcontroller.converters.UserViewConverter;
+import applicationcontroller.modelRest.modelView.UserView;
 import exceptions.LoginInUseException;
 import model.AccessLevel;
-import modelView.UserView;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import service.UserService;
 
@@ -13,7 +14,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
-public class UserServiceAdapters implements UserServicePort {
+public class UserServiceAdapters implements UserServicePort<UserView> {
 
     @Autowired
     UserService userService;

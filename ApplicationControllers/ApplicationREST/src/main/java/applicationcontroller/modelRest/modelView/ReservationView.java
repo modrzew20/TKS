@@ -1,4 +1,4 @@
-package modelView;
+package applicationcontroller.modelRest.modelView;
 
 import java.time.LocalDateTime;
 import java.util.UUID;

@@ -1,7 +1,7 @@
 package applicationcontroller.api;
 
-import adapters.ReservationServiceAdapters;
-import modelView.ReservationView;
+import applicationcontroller.adapters.ReservationServiceAdapters;
+import applicationcontroller.modelRest.modelView.ReservationView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;

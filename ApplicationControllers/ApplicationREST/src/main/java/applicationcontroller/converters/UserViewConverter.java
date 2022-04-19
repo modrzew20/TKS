@@ -1,13 +1,14 @@
-package converters;
+package applicationcontroller.converters;
 
+import applicationcontroller.modelRest.modelView.AdministratorView;
+import applicationcontroller.modelRest.modelView.ClientView;
+import applicationcontroller.modelRest.modelView.ResourceAdministratorView;
+import applicationcontroller.modelRest.modelView.UserView;
 import model.Administrator;
 import model.Client;
 import model.ResourceAdministrator;
 import model.User;
-import modelView.AdministratorView;
-import modelView.ClientView;
-import modelView.ResourceAdministratorView;
-import modelView.UserView;
+
 
 public class UserViewConverter {
 

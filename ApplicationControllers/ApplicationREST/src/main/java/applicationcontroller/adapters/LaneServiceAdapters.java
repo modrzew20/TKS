@@ -1,17 +1,17 @@
-package adapters;
+package applicationcontroller.adapters;
+
 
 import ServicePort.LaneServicePort;
-import converters.LaneViewConverter;
-import modelView.LaneView;
+import applicationcontroller.converters.LaneViewConverter;
+import applicationcontroller.modelRest.modelView.LaneView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import service.LaneService;
-
 import java.util.List;
 import java.util.UUID;
 
 @Service
-public class LaneServiceAdapters implements LaneServicePort {
+public class LaneServiceAdapters implements LaneServicePort<LaneView> {
 
     @Autowired
     LaneService laneService;

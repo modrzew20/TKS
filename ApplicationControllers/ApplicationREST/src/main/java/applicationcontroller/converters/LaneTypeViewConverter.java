@@ -1,7 +1,8 @@
-package converters;
+package applicationcontroller.converters;
 
+import applicationcontroller.modelRest.modelView.LANE_TYPE_View;
 import model.LANE_TYPE;
-import modelView.LANE_TYPE_View;
+
 
 public class LaneTypeViewConverter {
 

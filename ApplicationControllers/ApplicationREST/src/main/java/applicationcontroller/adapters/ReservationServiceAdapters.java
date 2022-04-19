@@ -1,9 +1,11 @@
-package adapters;
+package applicationcontroller.adapters;
+
 
 import ServicePort.ReservationServicePort;
-import converters.ReservationViewConverter;
-import modelView.ReservationView;
+import applicationcontroller.converters.ReservationViewConverter;
+import applicationcontroller.modelRest.modelView.ReservationView;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import service.ReservationService;
 
@@ -12,7 +14,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
-public class ReservationServiceAdapters implements ReservationServicePort {
+public class ReservationServiceAdapters implements ReservationServicePort<ReservationView> {
 
     @Autowired
     ReservationService reservationService;

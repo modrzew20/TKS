@@ -1,4 +1,4 @@
-package modelView;
+package applicationcontroller.modelRest.modelView;
 
 import java.util.UUID;
 

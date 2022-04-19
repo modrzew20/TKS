@@ -1,20 +1,18 @@
 package ServicePort;
 
-import modelView.LaneView;
-
 import java.util.List;
 import java.util.UUID;
 
 //TODO split into smaller interfaces
-public interface LaneServicePort {
+public interface LaneServicePort<T> {
 
-    List<LaneView> readAllLane();
+    List<T> readAllLane();
 
-    LaneView addLane(String lane_type);
+    T addLane(String lane_type);
 
-    LaneView updateLane(UUID uuid, String lane_type);
+    T updateLane(UUID uuid, String lane_type);
 
-    LaneView readOneLane(UUID uuid);
+    T readOneLane(UUID uuid);
 
-    LaneView deleteLine(UUID uuid);
+    T deleteLine(UUID uuid);
 }

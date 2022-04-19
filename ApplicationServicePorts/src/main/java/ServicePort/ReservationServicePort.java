@@ -1,27 +1,24 @@
 package ServicePort;
-
-import modelView.ReservationView;
-
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
-public interface ReservationServicePort {
-    List<ReservationView> readAllReservation();
+public interface ReservationServicePort<T> {
+    List<T> readAllReservation();
 
-    ReservationView addReservation(UUID clientsUUID, UUID laneUUID, LocalDateTime start, LocalDateTime end);
+    T addReservation(UUID clientsUUID, UUID laneUUID, LocalDateTime start, LocalDateTime end);
 
-    ReservationView readOneReservation(UUID uuid);
+    T readOneReservation(UUID uuid);
 
-    List<ReservationView> pastClientReservations(UUID clientsUUID);
+    List<T> pastClientReservations(UUID clientsUUID);
 
-    List<ReservationView> presentClientReservations(UUID clientsUUID);
+    List<T> presentClientReservations(UUID clientsUUID);
 
-    List<ReservationView> pastLaneReservations(UUID laneUUID);
+    List<T> pastLaneReservations(UUID laneUUID);
 
-    List<ReservationView> presentLaneReservations(UUID laneUUID);
+    List<T> presentLaneReservations(UUID laneUUID);
 
-    ReservationView endReservation(UUID uuid, LocalDateTime localDateTime);
+    T endReservation(UUID uuid, LocalDateTime localDateTime);
 
-    ReservationView delete(UUID uuid);
+    T delete(UUID uuid);
 }
