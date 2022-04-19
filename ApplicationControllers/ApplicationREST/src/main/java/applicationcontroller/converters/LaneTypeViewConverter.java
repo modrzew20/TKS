@@ -7,6 +7,7 @@ import model.LANE_TYPE;
 public class LaneTypeViewConverter {
 
     public static LANE_TYPE_View convertFromType(LANE_TYPE lane_type) {
+        if (lane_type == null) return null;
         switch (lane_type) {
             case normal -> {
                 return LANE_TYPE_View.normal;
@@ -24,6 +25,7 @@ public class LaneTypeViewConverter {
     }
 
     public static LANE_TYPE convertToType(LANE_TYPE_View lane_type_view) {
+        if (lane_type_view == null) return null;
         switch (lane_type_view) {
             case normal -> {
                 return LANE_TYPE.normal;

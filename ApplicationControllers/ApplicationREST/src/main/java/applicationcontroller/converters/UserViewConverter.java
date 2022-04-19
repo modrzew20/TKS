@@ -13,6 +13,7 @@ import model.User;
 public class UserViewConverter {
 
     public static User convertToUser(UserView userView) {
+        if (userView == null) return null;
         switch (userView.getAccessLevel()) {
             case Administrator -> {
                 return new Administrator(userView.getUuid(), userView.getLogin(), userView.getPassword(), userView.getActive());
@@ -30,6 +31,7 @@ public class UserViewConverter {
     }
 
     public static UserView convertFromUser(User user) {
+        if (user == null) return null;
         switch (user.getAccessLevel()) {
             case Administrator -> {
                 return new AdministratorView(user.getUuid(), user.getLogin(), user.getPassword(), user.getActive());
