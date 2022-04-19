@@ -4,6 +4,7 @@ import applicationcontroller.adapters.ReservationServiceAdapters;
 import applicationcontroller.modelRest.modelView.ReservationView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.NotBlank;
@@ -17,6 +18,9 @@ import java.util.UUID;
 public class ReservationController {
 
     private final ReservationServiceAdapters reservationServiceAdapters;
+
+    // TODO change all functions in controllers ,
+    //  all of them should return Response/ResponseEntity and it should return 400 when action is not possible
 
     @Autowired
     public ReservationController(ReservationServiceAdapters reservationService) {
@@ -37,13 +41,15 @@ public class ReservationController {
 
 
     @PostMapping(value = "/add", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ReservationView addReservation(@RequestParam @NotBlank @Pattern(regexp = "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}") String clientsUUID,
-                                          @RequestParam @NotBlank @Pattern(regexp = "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}") String laneUUID,
-                                          @RequestParam @NotBlank @Pattern(regexp =
+    public ResponseEntity addReservation(@RequestParam @NotBlank @Pattern(regexp = "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}") String clientsUUID,
+                                         @RequestParam @NotBlank @Pattern(regexp = "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}") String laneUUID,
+                                         @RequestParam @NotBlank @Pattern(regexp =
                                                   "[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}") String start,
-                                          @RequestParam @NotBlank @Pattern(regexp =
+                                         @RequestParam @NotBlank @Pattern(regexp =
                                                   "[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}") String end) {
-        return reservationServiceAdapters.addReservation(UUID.fromString(clientsUUID), UUID.fromString(laneUUID), LocalDateTime.parse(start), LocalDateTime.parse(end));
+        ReservationView reservation = reservationServiceAdapters.addReservation(UUID.fromString(clientsUUID), UUID.fromString(laneUUID),LocalDateTime.parse(start),LocalDateTime.parse(end));
+        if(reservation== null)  return ResponseEntity.status(400).build();
+        return ResponseEntity.ok(reservation);
     }
 
 
@@ -81,8 +87,10 @@ public class ReservationController {
     }
 
     @DeleteMapping(value = "/delete/{param}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ReservationView deleteReservation(@PathVariable("param") @NotBlank @Pattern(regexp = "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}") String uuid) {
-        return reservationServiceAdapters.delete(UUID.fromString(uuid));
+    public ResponseEntity deleteReservation(@PathVariable("param") @NotBlank @Pattern(regexp = "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}") String uuid) {
+        ReservationView reservation = reservationServiceAdapters.delete(UUID.fromString(uuid));
+        if(reservation==null) return ResponseEntity.status(400).build();
+        return ResponseEntity.ok(reservation);
     }
 
 }

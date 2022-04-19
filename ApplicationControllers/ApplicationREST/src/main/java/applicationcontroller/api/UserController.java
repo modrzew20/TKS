@@ -6,6 +6,7 @@ import model.AccessLevel;
 import applicationcontroller.modelRest.modelView.UserView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.NotBlank;
@@ -37,10 +38,14 @@ public class UserController {
     }
 
     @PostMapping(value = "/add", produces = MediaType.APPLICATION_JSON_VALUE)
-    public UserView addUser(@RequestParam("accessLevel") @NotBlank @Pattern(regexp = "Administrator|Client|ResourceAdministrator", message = "Field accessLevel must be Administrator|Client|ResourceAdministrator.") String accessLevel,
-                            @RequestParam("login") @NotBlank String login,
-                            @RequestParam("password") @NotBlank String password) throws LoginInUseException {
-        return userServiceAdapters.addUser(AccessLevel.valueOf(accessLevel), login, password);
+    public ResponseEntity addUser(@RequestParam("accessLevel") @NotBlank @Pattern(regexp = "Administrator|Client|ResourceAdministrator", message = "Field accessLevel must be Administrator|Client|ResourceAdministrator.") String accessLevel,
+                                  @RequestParam("login") @NotBlank String login,
+                                  @RequestParam("password") @NotBlank String password){
+        try {
+            return ResponseEntity.ok(userServiceAdapters.addUser(AccessLevel.valueOf(accessLevel), login, password));
+        } catch (LoginInUseException e) {
+            return ResponseEntity.status(400).build();
+        }
     }
 
     @PostMapping(value = "/update", produces = MediaType.APPLICATION_JSON_VALUE)
