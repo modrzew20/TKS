@@ -2,20 +2,29 @@ package applicationcontroller;
 
 
 import io.restassured.RestAssured;
-import static io.restassured.RestAssured.given;
 import io.restassured.http.ContentType;
 import io.restassured.parsing.Parser;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.web.server.LocalServerPort;
+
+import javax.annotation.PostConstruct;
 import java.util.List;
 
+import static io.restassured.RestAssured.given;
 import static org.hamcrest.core.Is.is;
 
-@SpringBootTest
-public class ReservationControllerTest {
+public class ReservationControllerTest implements SpringTest {
 
-    private final String URL = "http://localhost:8080/";
+    @LocalServerPort
+    private int port;
+
+    private String URL;
+
+    @PostConstruct
+    private void init() {
+        URL = BASE_URL + port + "/";
+    }
 
     public static Response doGetRequest(String endpoint) {
         RestAssured.defaultParser = Parser.JSON;
@@ -32,9 +41,9 @@ public class ReservationControllerTest {
 
         String clientsUUID = RestAssured.given()
                 .contentType("application/x-www-form-urlencoded; charset=utf-8")
-                .formParam("accessLevel","ResourceAdministrator")
-                .formParam("login","login1")
-                .formParam("password","password1")
+                .formParam("accessLevel", "ResourceAdministrator")
+                .formParam("login", "login1")
+                .formParam("password", "password1")
                 .when().post(URL + "user/add")
                 .then()
                 .assertThat()
@@ -43,7 +52,7 @@ public class ReservationControllerTest {
 
         String laneUUID = RestAssured.given()
                 .contentType("application/x-www-form-urlencoded; charset=utf-8")
-                .formParam("type","vip")
+                .formParam("type", "vip")
                 .when().post(URL + "lane/add")
                 .then()
                 .assertThat()
@@ -57,17 +66,17 @@ public class ReservationControllerTest {
 
         RestAssured.given()
                 .contentType("application/x-www-form-urlencoded; charset=utf-8")
-                .formParam("clientsUUID",clientsUUID)
-                .formParam("laneUUID",laneUUID)
-                .formParam("start","2021-12-13T12:10:31")
-                .formParam("end","2021-12-13T12:30:31")
+                .formParam("clientsUUID", clientsUUID)
+                .formParam("laneUUID", laneUUID)
+                .formParam("start", "2021-12-13T12:10:31")
+                .formParam("end", "2021-12-13T12:30:31")
                 .when().post(URL + "reservation/add")
                 .then()
                 .assertThat()
                 .statusCode(200);
 
         RestAssured.given().contentType("application/x-www-form-urlencoded; charset=utf-8").get(URL + "reservation").then().assertThat()
-                .statusCode(200).body("size()", is(size+1));
+                .statusCode(200).body("size()", is(size + 1));
 
 
     }
@@ -79,9 +88,9 @@ public class ReservationControllerTest {
 
         String clientsUUID = RestAssured.given()
                 .contentType("application/x-www-form-urlencoded; charset=utf-8")
-                .formParam("accessLevel","ResourceAdministrator")
-                .formParam("login","login2")
-                .formParam("password","password2")
+                .formParam("accessLevel", "ResourceAdministrator")
+                .formParam("login", "login2")
+                .formParam("password", "password2")
                 .when().post(URL + "user/add")
                 .then()
                 .assertThat()
@@ -90,7 +99,7 @@ public class ReservationControllerTest {
 
         String laneUUID = RestAssured.given()
                 .contentType("application/x-www-form-urlencoded; charset=utf-8")
-                .formParam("type","vip")
+                .formParam("type", "vip")
                 .when().post(URL + "lane/add")
                 .then()
                 .assertThat()
@@ -99,10 +108,10 @@ public class ReservationControllerTest {
 
         String reservUUID = RestAssured.given()
                 .contentType("application/x-www-form-urlencoded; charset=utf-8")
-                .formParam("clientsUUID",clientsUUID)
-                .formParam("laneUUID",laneUUID)
-                .formParam("start","2021-12-13T12:10:31")
-                .formParam("end","2021-12-13T12:30:31")
+                .formParam("clientsUUID", clientsUUID)
+                .formParam("laneUUID", laneUUID)
+                .formParam("start", "2021-12-13T12:10:31")
+                .formParam("end", "2021-12-13T12:30:31")
                 .when().post(URL + "reservation/add")
                 .then()
                 .assertThat()
@@ -115,10 +124,10 @@ public class ReservationControllerTest {
 
 
         RestAssured.given().contentType(contentType).delete(URL + "reservation/delete/" + reservUUID).then().assertThat()
-                .statusCode(400);
+                .statusCode(200);
 
         RestAssured.given().contentType("application/x-www-form-urlencoded; charset=utf-8").get(URL + "reservation").then().assertThat()
-                .statusCode(200).body("size()", is(size-1));
+                .statusCode(200).body("size()", is(size - 1));
 
 
     }
@@ -130,9 +139,9 @@ public class ReservationControllerTest {
 
         String clientsUUID = RestAssured.given()
                 .contentType("application/x-www-form-urlencoded; charset=utf-8")
-                .formParam("accessLevel","ResourceAdministrator")
-                .formParam("login","login3")
-                .formParam("password","password3")
+                .formParam("accessLevel", "ResourceAdministrator")
+                .formParam("login", "login3")
+                .formParam("password", "password3")
                 .when().post(URL + "user/add")
                 .then()
                 .assertThat()
@@ -141,7 +150,7 @@ public class ReservationControllerTest {
 
         String laneUUID = RestAssured.given()
                 .contentType("application/x-www-form-urlencoded; charset=utf-8")
-                .formParam("type","vip")
+                .formParam("type", "vip")
                 .when().post(URL + "lane/add")
                 .then()
                 .assertThat()
@@ -150,10 +159,10 @@ public class ReservationControllerTest {
 
         String reservUUID = RestAssured.given()
                 .contentType("application/x-www-form-urlencoded; charset=utf-8")
-                .formParam("clientsUUID",clientsUUID)
-                .formParam("laneUUID",laneUUID)
-                .formParam("start","2021-12-13T12:10:31")
-                .formParam("end","2025-12-13T12:30:31")
+                .formParam("clientsUUID", clientsUUID)
+                .formParam("laneUUID", laneUUID)
+                .formParam("start", "2021-12-13T12:10:31")
+                .formParam("end", "2025-12-13T12:30:31")
                 .when().post(URL + "reservation/add")
                 .then()
                 .assertThat()
@@ -181,9 +190,9 @@ public class ReservationControllerTest {
         // create user
         String clientsUUID = RestAssured.given()
                 .contentType("application/x-www-form-urlencoded; charset=utf-8")
-                .formParam("accessLevel","ResourceAdministrator")
-                .formParam("login","login4")
-                .formParam("password","password4")
+                .formParam("accessLevel", "ResourceAdministrator")
+                .formParam("login", "login4")
+                .formParam("password", "password4")
                 .when().post(URL + "user/add")
                 .then()
                 .assertThat()
@@ -192,7 +201,7 @@ public class ReservationControllerTest {
 
         String laneUUID = RestAssured.given()
                 .contentType("application/x-www-form-urlencoded; charset=utf-8")
-                .formParam("type","vip")
+                .formParam("type", "vip")
                 .when().post(URL + "lane/add")
                 .then()
                 .assertThat()
@@ -202,10 +211,10 @@ public class ReservationControllerTest {
         // dodanie rezerwacji poprawne
         RestAssured.given()
                 .contentType("application/x-www-form-urlencoded; charset=utf-8")
-                .formParam("clientsUUID",clientsUUID)
-                .formParam("laneUUID",laneUUID)
-                .formParam("start","2021-12-13T12:10:31")
-                .formParam("end","2021-12-13T12:30:31")
+                .formParam("clientsUUID", clientsUUID)
+                .formParam("laneUUID", laneUUID)
+                .formParam("start", "2021-12-13T12:10:31")
+                .formParam("end", "2021-12-13T12:30:31")
                 .when().post(URL + "reservation/add")
                 .then()
                 .assertThat()
@@ -214,10 +223,10 @@ public class ReservationControllerTest {
         // w tym samym czasie
         RestAssured.given()
                 .contentType("application/x-www-form-urlencoded; charset=utf-8")
-                .formParam("clientsUUID",clientsUUID)
-                .formParam("laneUUID",laneUUID)
-                .formParam("start","2021-12-13T12:10:31")
-                .formParam("end","2021-12-13T12:30:31")
+                .formParam("clientsUUID", clientsUUID)
+                .formParam("laneUUID", laneUUID)
+                .formParam("start", "2021-12-13T12:10:31")
+                .formParam("end", "2021-12-13T12:30:31")
                 .when().post(URL + "reservation/add")
                 .then()
                 .assertThat()
@@ -226,10 +235,10 @@ public class ReservationControllerTest {
         // gdy naklada sie na poprzednia rezerwacje
         RestAssured.given()
                 .contentType("application/x-www-form-urlencoded; charset=utf-8")
-                .formParam("clientsUUID",clientsUUID)
-                .formParam("laneUUID",laneUUID)
-                .formParam("start","2021-12-13T12:00:31")
-                .formParam("end","2021-12-13T13:00:31")
+                .formParam("clientsUUID", clientsUUID)
+                .formParam("laneUUID", laneUUID)
+                .formParam("start", "2021-12-13T12:00:31")
+                .formParam("end", "2021-12-13T13:00:31")
                 .when().post(URL + "reservation/add")
                 .then()
                 .assertThat()
@@ -238,10 +247,10 @@ public class ReservationControllerTest {
         // gdy zawiera sie w innej rezerwacji
         RestAssured.given()
                 .contentType("application/x-www-form-urlencoded; charset=utf-8")
-                .formParam("clientsUUID",clientsUUID)
-                .formParam("laneUUID",laneUUID)
-                .formParam("start","2021-12-13T12:15:31")
-                .formParam("end","2021-12-13T12:20:31")
+                .formParam("clientsUUID", clientsUUID)
+                .formParam("laneUUID", laneUUID)
+                .formParam("start", "2021-12-13T12:15:31")
+                .formParam("end", "2021-12-13T12:20:31")
                 .when().post(URL + "reservation/add")
                 .then()
                 .assertThat()
@@ -251,10 +260,10 @@ public class ReservationControllerTest {
         //gdy konczy sie w trakcie innej rezrewacji
         RestAssured.given()
                 .contentType("application/x-www-form-urlencoded; charset=utf-8")
-                .formParam("clientsUUID",clientsUUID)
-                .formParam("laneUUID",laneUUID)
-                .formParam("start","2021-12-13T12:05:31")
-                .formParam("end","2021-12-13T12:25:31")
+                .formParam("clientsUUID", clientsUUID)
+                .formParam("laneUUID", laneUUID)
+                .formParam("start", "2021-12-13T12:05:31")
+                .formParam("end", "2021-12-13T12:25:31")
                 .when().post(URL + "reservation/add")
                 .then()
                 .assertThat()
@@ -263,10 +272,10 @@ public class ReservationControllerTest {
         //gdy zaczyna sie w trakcie innej rezerwacji
         RestAssured.given()
                 .contentType("application/x-www-form-urlencoded; charset=utf-8")
-                .formParam("clientsUUID",clientsUUID)
-                .formParam("laneUUID",laneUUID)
-                .formParam("start","2021-12-13T12:15:31")
-                .formParam("end","2021-12-13T12:40:31")
+                .formParam("clientsUUID", clientsUUID)
+                .formParam("laneUUID", laneUUID)
+                .formParam("start", "2021-12-13T12:15:31")
+                .formParam("end", "2021-12-13T12:40:31")
                 .when().post(URL + "reservation/add")
                 .then()
                 .assertThat()
