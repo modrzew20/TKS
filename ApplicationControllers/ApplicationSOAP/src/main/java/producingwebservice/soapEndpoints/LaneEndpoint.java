@@ -13,7 +13,7 @@ import java.util.UUID;
 
 @Endpoint
 public class LaneEndpoint {
-    private static final String URI = "http://localhost:8080/soap";
+    private static final String URI = "http://spring.io/guides/gs-producing-web-service";
 
     private final LaneServiceSoapAdapter laneServiceSoapAdapter;
 
@@ -22,7 +22,7 @@ public class LaneEndpoint {
         this.laneServiceSoapAdapter = laneServiceSoapAdapter;
     }
 
-    @PayloadRoot(namespace = URI, localPart = "readLaneRequest")
+    @PayloadRoot(namespace = URI, localPart = "ReadLaneRequest")
     @ResponsePayload
     public ReadLaneResponse readLaneResponse(@RequestPayload ReadLaneRequest request) {
         ReadLaneResponse response = new ReadLaneResponse();
