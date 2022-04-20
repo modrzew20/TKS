@@ -10,6 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
         "com.example.applicationsoap.soapEndpoints",
         "com.example.applicationsoap.soapmodel.lanemodel",
         "com.example.applicationsoap.soapmodel.usermodel",
+        "com.example.applicationsoap.soapmodel.reservationmodel",
         "service",
         "repository",
         "model",
