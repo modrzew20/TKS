@@ -6,7 +6,7 @@
 //
 
 
-package com.example.applicationsoap.soapmodel.lanemodel;
+package com.example.applicationsoap.soapmodel.usermodel;
 
 import javax.xml.bind.annotation.XmlEnum;
 import javax.xml.bind.annotation.XmlEnumValue;
@@ -14,34 +14,34 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for LANE_TYPE_Soap.
+ * <p>Java class for accessLevel_Type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * <p>
  * <pre>
- * &lt;simpleType name="LANE_TYPE_Soap"&gt;
+ * &lt;simpleType name="accessLevel_Type"&gt;
  *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
- *     &lt;enumeration value="normal"/&gt;
- *     &lt;enumeration value="premium"/&gt;
- *     &lt;enumeration value="vip"/&gt;
+ *     &lt;enumeration value="Administrator"/&gt;
+ *     &lt;enumeration value="ResourceAdministrator"/&gt;
+ *     &lt;enumeration value="Client"/&gt;
  *   &lt;/restriction&gt;
  * &lt;/simpleType&gt;
  * </pre>
  * 
  */
-@XmlType(name = "LANE_TYPE_Soap")
+@XmlType(name = "accessLevel_Type")
 @XmlEnum
-public enum LANETYPESoap {
+public enum AccessLevelType {
 
-    @XmlEnumValue("normal")
-    NORMAL("normal"),
-    @XmlEnumValue("premium")
-    PREMIUM("premium"),
-    @XmlEnumValue("vip")
-    VIP("vip");
+    @XmlEnumValue("Administrator")
+    ADMINISTRATOR("Administrator"),
+    @XmlEnumValue("ResourceAdministrator")
+    RESOURCE_ADMINISTRATOR("ResourceAdministrator"),
+    @XmlEnumValue("Client")
+    CLIENT("Client");
     private final String value;
 
-    LANETYPESoap(String v) {
+    AccessLevelType(String v) {
         value = v;
     }
 
@@ -49,8 +49,8 @@ public enum LANETYPESoap {
         return value;
     }
 
-    public static LANETYPESoap fromValue(String v) {
-        for (LANETYPESoap c: LANETYPESoap.values()) {
+    public static AccessLevelType fromValue(String v) {
+        for (AccessLevelType c: AccessLevelType.values()) {
             if (c.value.equals(v)) {
                 return c;
             }

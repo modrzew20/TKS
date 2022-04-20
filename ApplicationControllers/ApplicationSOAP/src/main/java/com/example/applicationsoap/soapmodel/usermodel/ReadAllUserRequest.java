@@ -6,7 +6,7 @@
 //
 
 
-package com.example.applicationsoap.soapmodel.lanemodel;
+package com.example.applicationsoap.soapmodel.usermodel;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -32,8 +32,8 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "")
-@XmlRootElement(name = "ReadAllLaneRequest")
-public class ReadAllLaneRequest {
+@XmlRootElement(name = "ReadAllUserRequest")
+public class ReadAllUserRequest {
 
 
 }

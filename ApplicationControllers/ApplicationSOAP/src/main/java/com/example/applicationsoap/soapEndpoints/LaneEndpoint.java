@@ -15,9 +15,7 @@ import java.util.UUID;
 public class LaneEndpoint {
     private static final String URI = "http://example.com/applicationsoap/soapmodel/lanemodel";
 
-    @Autowired
     LaneServiceSoapAdapter laneServiceSoapAdapter;
-
 
     @PayloadRoot(namespace = URI, localPart = "ReadAllLaneRequest")
     @ResponsePayload

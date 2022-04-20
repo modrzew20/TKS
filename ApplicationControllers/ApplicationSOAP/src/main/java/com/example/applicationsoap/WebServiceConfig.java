@@ -23,7 +23,7 @@ public class WebServiceConfig {
     }
 
     @Bean(name = "lanemodel")
-    public DefaultWsdl11Definition defaultWsdl11Definition(XsdSchema laneSchema) {
+    public DefaultWsdl11Definition laneWsdl11Definition(XsdSchema laneSchema) {
         DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
         wsdl11Definition.setPortTypeName("Lane");
         wsdl11Definition.setLocationUri("/ws");
@@ -33,7 +33,26 @@ public class WebServiceConfig {
     }
 
     @Bean
-    public XsdSchema lanesSchema() {
+    public XsdSchema laneSchema() {
         return new SimpleXsdSchema(new ClassPathResource("lanes.xsd"));
     }
+
+    @Bean(name = "usermodel")
+    public DefaultWsdl11Definition userWsdl11Definition(XsdSchema userSchema) {
+        DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
+        wsdl11Definition.setPortTypeName("User");
+        wsdl11Definition.setLocationUri("/ws");
+        wsdl11Definition.setTargetNamespace("http://example.com/applicationsoap/soapmodel/usermodel");
+        wsdl11Definition.setSchema(userSchema);
+        return wsdl11Definition;
+    }
+
+    @Bean
+    public XsdSchema userSchema() {
+        return new SimpleXsdSchema(new ClassPathResource("user.xsd"));
+    }
+
+
+
+
 }

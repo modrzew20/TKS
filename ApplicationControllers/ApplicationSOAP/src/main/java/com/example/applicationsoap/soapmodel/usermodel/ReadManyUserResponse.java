@@ -6,7 +6,7 @@
 //
 
 
-package com.example.applicationsoap.soapmodel.lanemodel;
+package com.example.applicationsoap.soapmodel.usermodel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +27,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element name="LaneSoap" type="{http://example.com/applicationsoap/soapmodel/lanemodel}LaneSoap" maxOccurs="unbounded" minOccurs="0"/&gt;
+ *         &lt;element name="UserSoap" type="{http://example.com/applicationsoap/soapmodel/usermodel}UserSoap" maxOccurs="unbounded" minOccurs="0"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -38,41 +38,41 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "laneSoap"
+    "userSoap"
 })
-@XmlRootElement(name = "ReadAllLaneResponse")
-public class ReadAllLaneResponse {
+@XmlRootElement(name = "ReadManyUserResponse")
+public class ReadManyUserResponse {
 
-    @XmlElement(name = "LaneSoap")
-    protected List<LaneSoap> laneSoap;
+    @XmlElement(name = "UserSoap")
+    protected List<UserSoap> userSoap;
 
     /**
-     * Gets the value of the laneSoap property.
+     * Gets the value of the userSoap property.
      * 
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the laneSoap property.
+     * This is why there is not a <CODE>set</CODE> method for the userSoap property.
      * 
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
-     *    getLaneSoap().add(newItem);
+     *    getUserSoap().add(newItem);
      * </pre>
      * 
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link LaneSoap }
+     * {@link UserSoap }
      * 
      * 
      */
-    public List<LaneSoap> getLaneSoap() {
-        if (laneSoap == null) {
-            laneSoap = new ArrayList<LaneSoap>();
+    public List<UserSoap> getUserSoap() {
+        if (userSoap == null) {
+            userSoap = new ArrayList<UserSoap>();
         }
-        return this.laneSoap;
+        return this.userSoap;
     }
 
 }

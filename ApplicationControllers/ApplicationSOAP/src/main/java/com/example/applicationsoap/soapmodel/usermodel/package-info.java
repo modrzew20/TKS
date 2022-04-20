@@ -5,5 +5,5 @@
 // Generated on: 2022.04.20 at 10:09:27 PM CEST 
 //
 
-@javax.xml.bind.annotation.XmlSchema(namespace = "http://example.com/applicationsoap/soapmodel/lanemodel", elementFormDefault = javax.xml.bind.annotation.XmlNsForm.QUALIFIED)
-package com.example.applicationsoap.soapmodel.lanemodel;
+@javax.xml.bind.annotation.XmlSchema(namespace = "http://example.com/applicationsoap/soapmodel/usermodel", elementFormDefault = javax.xml.bind.annotation.XmlNsForm.QUALIFIED)
+package com.example.applicationsoap.soapmodel.usermodel;
