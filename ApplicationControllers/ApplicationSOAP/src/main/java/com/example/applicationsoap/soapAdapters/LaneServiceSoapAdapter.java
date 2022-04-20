@@ -19,38 +19,31 @@ import static com.example.applicationsoap.soapConverters.LaneSoapConverter.conve
 @Service
 public class LaneServiceSoapAdapter implements LaneServicePort<LaneSoap> {
 
-    //TODO failure with autowiring laneservice becouse it doesnt see package
-    // when added package in main , problem with starting project
-   // @Autowired
-   // LaneService laneService;
+    @Autowired
+    LaneService laneService;
 
     @Override
     public List<LaneSoap> readAllLane() {
-        //return convertFromLaneList(laneService.readAllLane());
-        List<Lane> list = new ArrayList<>();
-        return convertFromLaneList(list);
+        return convertFromLaneList(laneService.readAllLane());
     }
 
     @Override
     public LaneSoap addLane(String lane_type) {
-        //return convertFromLane(laneService.addLane(lane_type));
-        return new LaneSoap();
+        return convertFromLane(laneService.addLane(lane_type));
     }
 
     @Override
     public LaneSoap updateLane(UUID uuid, String lane_type) {
-       // return convertFromLane(laneService.updateLane(uuid,lane_type));
-        return new LaneSoap();
+        return convertFromLane(laneService.updateLane(uuid,lane_type));
     }
 
     @Override
     public LaneSoap readOneLane(UUID uuid) {
-        return convertFromLane(new Lane(uuid, LANE_TYPE.normal));
-        //return convertFromLane(laneService.readOneLane(uuid));
+        return convertFromLane(laneService.readOneLane(uuid));
     }
 
     @Override
     public LaneSoap deleteLine(UUID uuid) {
-        return new LaneSoap();
+        return convertFromLane(laneService.deleteLine(uuid));
     }
 }

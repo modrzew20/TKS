@@ -3,16 +3,20 @@ package com.example.applicationsoap;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootApplication
-//(scanBasePackages = {
-//        "service",
-//        "repository",
-      //  "model",
-//        "adapters",
-//        "Port.In",
-//        "Port.Out",
-      //  "converters",
-//})
+@SpringBootApplication(scanBasePackages = {
+        "com.example.applicationsoap",
+        "com.example.applicationsoap.soapAdapters",
+        "com.example.applicationsoap.soapConverters",
+        "com.example.applicationsoap.soapEndpoints",
+        "com.example.applicationsoap.soapmodel.lanemodel",
+        "service",
+        "repository",
+        "model",
+        "adapters",
+        "Port.In",
+        "Port.Out",
+        "converters",
+})
 public class ApplicationSoapApplication {
 
     public static void main(String[] args) {
