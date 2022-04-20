@@ -1,7 +1,6 @@
-package com.producingwebservice.soap.soapConverters;
+package com.example.applicationsoap.soapConverters;//package com.example.applicationsoapapi.soapConverters;
 
-
-import com.producingwebservice.soap.soapmodel.lanemodel.LANETYPESoap;
+import com.example.applicationsoap.soapmodel.lanemodel.LANETYPESoap;
 import model.LANE_TYPE;
 
 public class LaneTypeSoapConverter {
