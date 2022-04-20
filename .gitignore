@@ -6,3 +6,4 @@
 target/
 
 *.iml
+/ApplicationControllers/ApplicationSOAP/src/main/java/META-INF/JAXB/*

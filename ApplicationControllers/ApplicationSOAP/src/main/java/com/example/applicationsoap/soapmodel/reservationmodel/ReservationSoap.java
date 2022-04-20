@@ -6,30 +6,29 @@
 //
 
 
-package com.example.applicationsoap.soapmodel.usermodel;
+package com.example.applicationsoap.soapmodel.reservationmodel;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for UserSoap complex type.
+ * <p>Java class for ReservationSoap complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="UserSoap"&gt;
+ * &lt;complexType name="ReservationSoap"&gt;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
  *         &lt;element name="uuid" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
- *         &lt;element name="login" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
- *         &lt;element name="password" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
- *         &lt;element name="isActive" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
- *         &lt;element name="accessLevel" type="{http://example.com/applicationsoap/soapmodel/usermodel}accessLevel_Type"/&gt;
+ *         &lt;element name="laneUuid" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="userUuid" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="startReservation" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="endReservation" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -39,25 +38,25 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "UserSoap", propOrder = {
+@XmlType(name = "ReservationSoap", propOrder = {
     "uuid",
-    "login",
-    "password",
-    "isActive",
-    "accessLevel"
+    "laneUuid",
+    "userUuid",
+    "startReservation",
+    "endReservation"
 })
-public class UserSoap {
+public class ReservationSoap {
 
     @XmlElement(required = true)
     protected String uuid;
     @XmlElement(required = true)
-    protected String login;
+    protected String laneUuid;
     @XmlElement(required = true)
-    protected String password;
-    protected boolean isActive;
+    protected String userUuid;
     @XmlElement(required = true)
-    @XmlSchemaType(name = "string")
-    protected AccessLevelType accessLevel;
+    protected String startReservation;
+    @XmlElement(required = true)
+    protected String endReservation;
 
     /**
      * Gets the value of the uuid property.
@@ -84,91 +83,99 @@ public class UserSoap {
     }
 
     /**
-     * Gets the value of the login property.
+     * Gets the value of the laneUuid property.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getLogin() {
-        return login;
+    public String getLaneUuid() {
+        return laneUuid;
     }
 
     /**
-     * Sets the value of the login property.
+     * Sets the value of the laneUuid property.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setLogin(String value) {
-        this.login = value;
+    public void setLaneUuid(String value) {
+        this.laneUuid = value;
     }
 
     /**
-     * Gets the value of the password property.
+     * Gets the value of the userUuid property.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getPassword() {
-        return password;
+    public String getUserUuid() {
+        return userUuid;
     }
 
     /**
-     * Sets the value of the password property.
+     * Sets the value of the userUuid property.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setPassword(String value) {
-        this.password = value;
+    public void setUserUuid(String value) {
+        this.userUuid = value;
     }
 
     /**
-     * Gets the value of the isActive property.
-     * 
-     */
-    public boolean isIsActive() {
-        return isActive;
-    }
-
-    /**
-     * Sets the value of the isActive property.
-     * 
-     */
-    public void setIsActive(boolean value) {
-        this.isActive = value;
-    }
-
-    /**
-     * Gets the value of the accessLevel property.
+     * Gets the value of the startReservation property.
      * 
      * @return
      *     possible object is
-     *     {@link AccessLevelType }
+     *     {@link String }
      *     
      */
-    public AccessLevelType getAccessLevel() {
-        return accessLevel;
+    public String getStartReservation() {
+        return startReservation;
     }
 
     /**
-     * Sets the value of the accessLevel property.
+     * Sets the value of the startReservation property.
      * 
      * @param value
      *     allowed object is
-     *     {@link AccessLevelType }
+     *     {@link String }
      *     
      */
-    public void setAccessLevel(AccessLevelType value) {
-        this.accessLevel = value;
+    public void setStartReservation(String value) {
+        this.startReservation = value;
+    }
+
+    /**
+     * Gets the value of the endReservation property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getEndReservation() {
+        return endReservation;
+    }
+
+    /**
+     * Sets the value of the endReservation property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setEndReservation(String value) {
+        this.endReservation = value;
     }
 
 }

@@ -5,8 +5,6 @@ import com.example.applicationsoap.soapmodel.usermodel.UserSoap;
 import model.AccessLevel;
 import model.User;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class UserSoapConverter {
 
@@ -23,14 +21,6 @@ public class UserSoapConverter {
         userSoap.setUuid(userSoap.getUuid());
         userSoap.setIsActive(user.getActive());
         return userSoap;
-    }
-
-    public static List<UserSoap> convertFromUserList(List<User> list) {
-        List<UserSoap> userSoapList = new ArrayList<>();
-        for ( User user : list) {
-            userSoapList.add(convertFromUser(user));
-        }
-        return userSoapList;
     }
 
     public static AccessLevel convertToAccessLevel (AccessLevelType accessLevelType){

@@ -16,12 +16,4 @@ public class LaneSoapConverter {
         return laneSoap;
     }
 
-    public static List<LaneSoap> convertFromLaneList(List<Lane> list) {
-        List<LaneSoap> soapList = new ArrayList<>();
-        for (Lane lane: list) {
-            soapList.add(convertFromLane(lane));
-        }
-        return soapList;
-    }
-
 }

@@ -6,7 +6,7 @@
 //
 
 
-package com.example.applicationsoap.soapmodel.usermodel;
+package com.example.applicationsoap.soapmodel.reservationmodel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +27,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element name="UserSoap" type="{http://example.com/applicationsoap/soapmodel/usermodel}UserSoap" maxOccurs="unbounded" minOccurs="0"/&gt;
+ *         &lt;element name="ReservationSoap" type="{http://example.com/applicationsoap/soapmodel/reservationmodel}ReservationSoap" maxOccurs="unbounded" minOccurs="0"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -38,41 +38,41 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "userSoap"
+    "reservationSoap"
 })
-@XmlRootElement(name = "ReadAllUserResponse")
-public class ReadAllUserResponse {
+@XmlRootElement(name = "ReadAllReservationResponse")
+public class ReadAllReservationResponse {
 
-    @XmlElement(name = "UserSoap")
-    protected List<UserSoap> userSoap;
+    @XmlElement(name = "ReservationSoap")
+    protected List<ReservationSoap> reservationSoap;
 
     /**
-     * Gets the value of the userSoap property.
+     * Gets the value of the reservationSoap property.
      * 
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the userSoap property.
+     * This is why there is not a <CODE>set</CODE> method for the reservationSoap property.
      * 
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
-     *    getUserSoap().add(newItem);
+     *    getReservationSoap().add(newItem);
      * </pre>
      * 
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link UserSoap }
+     * {@link ReservationSoap }
      * 
      * 
      */
-    public List<UserSoap> getUserSoap() {
-        if (userSoap == null) {
-            userSoap = new ArrayList<UserSoap>();
+    public List<ReservationSoap> getReservationSoap() {
+        if (reservationSoap == null) {
+            reservationSoap = new ArrayList<ReservationSoap>();
         }
-        return this.userSoap;
+        return this.reservationSoap;
     }
 
 }

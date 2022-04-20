@@ -6,11 +6,10 @@
 //
 
 
-package com.example.applicationsoap.soapmodel.usermodel;
+package com.example.applicationsoap.soapmodel.reservationmodel;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
@@ -24,9 +23,6 @@ import javax.xml.bind.annotation.XmlType;
  * &lt;complexType&gt;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
- *       &lt;sequence&gt;
- *         &lt;element name="UserSoap" type="{http://example.com/applicationsoap/soapmodel/usermodel}UserSoap"/&gt;
- *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
@@ -35,37 +31,9 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "userSoap"
-})
-@XmlRootElement(name = "deactivateUserResponse")
-public class DeactivateUserResponse {
+@XmlType(name = "")
+@XmlRootElement(name = "ReadAllReservationRequest")
+public class ReadAllReservationRequest {
 
-    @XmlElement(name = "UserSoap", required = true)
-    protected UserSoap userSoap;
-
-    /**
-     * Gets the value of the userSoap property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link UserSoap }
-     *     
-     */
-    public UserSoap getUserSoap() {
-        return userSoap;
-    }
-
-    /**
-     * Sets the value of the userSoap property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link UserSoap }
-     *     
-     */
-    public void setUserSoap(UserSoap value) {
-        this.userSoap = value;
-    }
 
 }

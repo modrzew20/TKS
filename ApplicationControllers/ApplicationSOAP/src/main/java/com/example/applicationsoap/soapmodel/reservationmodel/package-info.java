@@ -5,5 +5,5 @@
 // Generated on: 2022.04.20 at 11:23:43 PM CEST 
 //
 
-@javax.xml.bind.annotation.XmlSchema(namespace = "http://example.com/applicationsoap/soapmodel/usermodel", elementFormDefault = javax.xml.bind.annotation.XmlNsForm.QUALIFIED)
-package com.example.applicationsoap.soapmodel.usermodel;
+@javax.xml.bind.annotation.XmlSchema(namespace = "http://example.com/applicationsoap/soapmodel/reservationmodel", elementFormDefault = javax.xml.bind.annotation.XmlNsForm.QUALIFIED)
+package com.example.applicationsoap.soapmodel.reservationmodel;

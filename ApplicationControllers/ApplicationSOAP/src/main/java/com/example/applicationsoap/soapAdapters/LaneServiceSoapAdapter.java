@@ -1,6 +1,7 @@
 package com.example.applicationsoap.soapAdapters;//package com.example.applicationsoapapi.soapAdapters;
 
 import ServicePort.LaneServicePort;
+import com.example.applicationsoap.soapConverters.LaneSoapConverter;
 import com.example.applicationsoap.soapmodel.lanemodel.LaneSoap;
 import model.LANE_TYPE;
 import model.Lane;
@@ -13,7 +14,6 @@ import java.util.List;
 import java.util.UUID;
 
 import static com.example.applicationsoap.soapConverters.LaneSoapConverter.convertFromLane;
-import static com.example.applicationsoap.soapConverters.LaneSoapConverter.convertFromLaneList;
 
 
 @Service
@@ -24,7 +24,7 @@ public class LaneServiceSoapAdapter implements LaneServicePort<LaneSoap> {
 
     @Override
     public List<LaneSoap> readAllLane() {
-        return convertFromLaneList(laneService.readAllLane());
+        return laneService.readAllLane().stream().map(LaneSoapConverter :: convertFromLane).toList();
     }
 
     @Override

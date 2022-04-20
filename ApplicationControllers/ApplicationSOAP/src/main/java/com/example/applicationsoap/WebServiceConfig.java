@@ -52,6 +52,21 @@ public class WebServiceConfig {
         return new SimpleXsdSchema(new ClassPathResource("user.xsd"));
     }
 
+    @Bean(name = "reservationmodel")
+    public DefaultWsdl11Definition reservationWsdl11Definition(XsdSchema reservationSchema) {
+        DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
+        wsdl11Definition.setPortTypeName("Reservation");
+        wsdl11Definition.setLocationUri("/ws");
+        wsdl11Definition.setTargetNamespace("http://example.com/applicationsoap/soapmodel/reservationmodel");
+        wsdl11Definition.setSchema(reservationSchema);
+        return wsdl11Definition;
+    }
+
+    @Bean
+    public XsdSchema reservationSchema() {
+        return new SimpleXsdSchema(new ClassPathResource("reservation.xsd"));
+    }
+
 
 
 
