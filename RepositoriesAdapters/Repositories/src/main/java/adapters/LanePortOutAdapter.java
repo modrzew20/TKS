@@ -12,7 +12,7 @@ import java.util.UUID;
 import static converters.LaneConverter.convertToLane;
 import static converters.LaneConverter.convertToLaneList;
 
-@Component()
+@Component
 public class LanePortOutAdapter implements ReadLanePort {
 
     @Autowired

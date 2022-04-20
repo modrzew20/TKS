@@ -1,9 +1,9 @@
 package applicationcontroller.api;
 
-import adapters.LaneServiceAdapters;
+import applicationcontroller.adapters.LaneServiceAdapters;
 import exceptions.LoginInUseException;
-import modelView.LANE_TYPE_View;
-import modelView.LaneView;
+import applicationcontroller.modelRest.modelView.LANE_TYPE_View;
+import applicationcontroller.modelRest.modelView.LaneView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;

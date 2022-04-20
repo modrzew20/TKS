@@ -1,12 +1,14 @@
 package applicationcontroller.api;
 
-import adapters.UserServiceAdapters;
+import applicationcontroller.adapters.UserServiceAdapters;
 import exceptions.LoginInUseException;
 import model.AccessLevel;
-import modelView.UserView;
+import applicationcontroller.modelRest.modelView.UserView;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
@@ -39,8 +41,17 @@ public class UserController {
     @PostMapping(value = "/add", produces = MediaType.APPLICATION_JSON_VALUE)
     public UserView addUser(@RequestParam("accessLevel") @NotBlank @Pattern(regexp = "Administrator|Client|ResourceAdministrator", message = "Field accessLevel must be Administrator|Client|ResourceAdministrator.") String accessLevel,
                             @RequestParam("login") @NotBlank String login,
-                            @RequestParam("password") @NotBlank String password) throws LoginInUseException {
-        return userServiceAdapters.addUser(AccessLevel.valueOf(accessLevel), login, password);
+                            @RequestParam("password") @NotBlank String password){
+        UserView userView;
+        try {
+            userView = userServiceAdapters.addUser(AccessLevel.valueOf(accessLevel), login, password);
+        } catch (LoginInUseException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+        if (userView == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+        return userView;
     }
 
     @PostMapping(value = "/update", produces = MediaType.APPLICATION_JSON_VALUE)

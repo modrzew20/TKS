@@ -6,6 +6,7 @@ import modelEnt.LANE_TYPE_Ent;
 public class LaneTypeConverter {
 
     public static LANE_TYPE_Ent convertFromType(LANE_TYPE lane_type) {
+        if (lane_type == null) return null;
         switch (lane_type) {
             case normal -> {
                 return LANE_TYPE_Ent.normal;
@@ -23,6 +24,7 @@ public class LaneTypeConverter {
     }
 
     public static LANE_TYPE convertToType(LANE_TYPE_Ent lane_type_ent) {
+        if (lane_type_ent == null) return null;
         switch (lane_type_ent) {
             case normal -> {
                 return LANE_TYPE.normal;

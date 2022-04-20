@@ -1,10 +1,12 @@
 package applicationcontroller.api;
 
-import adapters.ReservationServiceAdapters;
-import modelView.ReservationView;
+import applicationcontroller.adapters.ReservationServiceAdapters;
+import applicationcontroller.modelRest.modelView.ReservationView;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
@@ -43,7 +45,11 @@ public class ReservationController {
                                                   "[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}") String start,
                                           @RequestParam @NotBlank @Pattern(regexp =
                                                   "[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}") String end) {
-        return reservationServiceAdapters.addReservation(UUID.fromString(clientsUUID), UUID.fromString(laneUUID), LocalDateTime.parse(start), LocalDateTime.parse(end));
+        ReservationView reservation = reservationServiceAdapters.addReservation(UUID.fromString(clientsUUID), UUID.fromString(laneUUID), LocalDateTime.parse(start), LocalDateTime.parse(end));
+        if (reservation == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+        return reservation;
     }
 
 
@@ -82,7 +88,11 @@ public class ReservationController {
 
     @DeleteMapping(value = "/delete/{param}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ReservationView deleteReservation(@PathVariable("param") @NotBlank @Pattern(regexp = "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}") String uuid) {
-        return reservationServiceAdapters.delete(UUID.fromString(uuid));
+        ReservationView reservation = reservationServiceAdapters.delete(UUID.fromString(uuid));
+        if (reservation == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+        return reservation;
     }
 
 }

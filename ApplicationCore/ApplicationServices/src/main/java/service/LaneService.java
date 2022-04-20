@@ -9,6 +9,7 @@ import Port.Out.ReadLanePort;
 import model.LANE_TYPE;
 import model.Lane;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

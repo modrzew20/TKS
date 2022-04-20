@@ -16,9 +16,6 @@
     <modules>
         <module>ApplicationREST</module>
         <module>ApplicationSOAP</module>
-        <module>ApplicationModel</module>
-        <module>ApplicationConverters</module>
-        <module>ApplicationAdapters</module>
     </modules>
 
     <properties>
