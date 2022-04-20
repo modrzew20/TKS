@@ -3,23 +3,32 @@ package applicationcontroller;
 
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.web.server.LocalServerPort;
+
+import javax.annotation.PostConstruct;
 
 import static org.hamcrest.Matchers.equalTo;
 
-@SpringBootTest
-public class UserControllerTest {
+public class UserControllerTest implements SpringTest {
 
-    private final String URL = "http://localhost:8080/";
+    @LocalServerPort
+    private int port;
+
+    private String URL;
+
+    @PostConstruct
+    private void init() {
+        URL = BASE_URL + port + "/";
+    }
 
     @Test
     public void create() {
         // create user
         RestAssured.given()
                 .contentType("application/x-www-form-urlencoded; charset=utf-8")
-                .formParam("accessLevel","Client")
-                .formParam("login","login5")
-                .formParam("password","password5")
+                .formParam("accessLevel", "Client")
+                .formParam("login", "login5")
+                .formParam("password", "password5")
                 .when().post(URL + "user/add")
                 .then()
                 .assertThat()
@@ -34,9 +43,9 @@ public class UserControllerTest {
         // create user
         String uuid = RestAssured.given()
                 .contentType("application/x-www-form-urlencoded; charset=utf-8")
-                .formParam("accessLevel","Administrator")
-                .formParam("login","login6")
-                .formParam("password","password6")
+                .formParam("accessLevel", "Administrator")
+                .formParam("login", "login6")
+                .formParam("password", "password6")
                 .when().post(URL + "user/add")
                 .then()
                 .assertThat()
@@ -59,9 +68,9 @@ public class UserControllerTest {
         // create user
         String uuid = RestAssured.given()
                 .contentType("application/x-www-form-urlencoded; charset=utf-8")
-                .formParam("accessLevel","ResourceAdministrator")
-                .formParam("login","login7")
-                .formParam("password","password7")
+                .formParam("accessLevel", "ResourceAdministrator")
+                .formParam("login", "login7")
+                .formParam("password", "password7")
                 .when().post(URL + "user/add")
                 .then()
                 .assertThat()
@@ -71,9 +80,9 @@ public class UserControllerTest {
         // update user
         RestAssured.given()
                 .contentType("application/x-www-form-urlencoded; charset=utf-8")
-                .formParam("id",uuid)
-                .formParam("login","updatedUser3")
-                .formParam("password","password7")
+                .formParam("id", uuid)
+                .formParam("login", "updatedUser3")
+                .formParam("password", "password7")
                 .when().post(URL + "user/update")
                 .then()
                 .assertThat()
@@ -89,9 +98,9 @@ public class UserControllerTest {
         // create user
         String uuid = RestAssured.given()
                 .contentType("application/x-www-form-urlencoded; charset=utf-8")
-                .formParam("accessLevel","ResourceAdministrator")
-                .formParam("login","login8")
-                .formParam("password","password8")
+                .formParam("accessLevel", "ResourceAdministrator")
+                .formParam("login", "login8")
+                .formParam("password", "password8")
                 .when().post(URL + "user/add")
                 .then()
                 .assertThat()
@@ -101,8 +110,8 @@ public class UserControllerTest {
         // update user
         RestAssured.given()
                 .contentType("application/x-www-form-urlencoded; charset=utf-8")
-                .formParam("id",uuid)
-                .formParam("login","")
+                .formParam("id", uuid)
+                .formParam("login", "")
                 .when().post(URL + "user/update")
                 .then()
                 .assertThat()
@@ -114,9 +123,9 @@ public class UserControllerTest {
         // create user
         RestAssured.given()
                 .contentType("application/x-www-form-urlencoded; charset=utf-8")
-                .formParam("accessLevel","ResourceAdministrator")
-                .formParam("login","login12")
-                .formParam("password","password12")
+                .formParam("accessLevel", "ResourceAdministrator")
+                .formParam("login", "login12")
+                .formParam("password", "password12")
                 .when().post(URL + "user/add")
                 .then()
                 .assertThat()
@@ -124,9 +133,9 @@ public class UserControllerTest {
         // create user with same login
         RestAssured.given()
                 .contentType("application/x-www-form-urlencoded; charset=utf-8")
-                .formParam("accessLevel","ResourceAdministrator")
-                .formParam("login","login12")
-                .formParam("password","testPassword5")
+                .formParam("accessLevel", "ResourceAdministrator")
+                .formParam("login", "login12")
+                .formParam("password", "testPassword5")
                 .when().post(URL + "user/add")
                 .then()
                 .assertThat()
@@ -138,9 +147,9 @@ public class UserControllerTest {
         // create user with empty login
         RestAssured.given()
                 .contentType("application/x-www-form-urlencoded; charset=utf-8")
-                .formParam("accessLevel","ResourceAdministrator")
-                .formParam("login","")
-                .formParam("password","testPassword5")
+                .formParam("accessLevel", "ResourceAdministrator")
+                .formParam("login", "")
+                .formParam("password", "testPassword5")
                 .when().post(URL + "user/add")
                 .then()
                 .assertThat()
@@ -152,9 +161,9 @@ public class UserControllerTest {
         // create user
         String uuid = RestAssured.given()
                 .contentType("application/x-www-form-urlencoded; charset=utf-8")
-                .formParam("accessLevel","ResourceAdministrator")
-                .formParam("login","login13")
-                .formParam("password","password13")
+                .formParam("accessLevel", "ResourceAdministrator")
+                .formParam("login", "login13")
+                .formParam("password", "password13")
                 .when().post(URL + "user/add")
                 .then()
                 .assertThat()

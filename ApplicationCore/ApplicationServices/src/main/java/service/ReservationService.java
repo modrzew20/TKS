@@ -54,7 +54,7 @@ public class ReservationService {
             return null;
         synchronized (lock) {
             Reservation reservation = new Reservation(UUID.randomUUID(), lane, client, start, end);
-            createReservationPort.create(reservation);
+            reservation = createReservationPort.create(reservation);
             return reservation;
         }
     }

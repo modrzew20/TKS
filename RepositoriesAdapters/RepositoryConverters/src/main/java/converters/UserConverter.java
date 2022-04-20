@@ -15,6 +15,7 @@ import java.util.List;
 public class UserConverter {
 
     public static User convertToUser(UserEnt userEnt) {
+        if (userEnt == null) return null;
         switch (userEnt.getAccessLevel()) {
             case Administrator -> {
                 return new Administrator(userEnt.getUuid(), userEnt.getLogin(), userEnt.getPassword(), userEnt.getActive());
@@ -41,6 +42,7 @@ public class UserConverter {
 
 
     public static UserEnt convertFromUser(User user) {
+        if (user == null) return null;
         switch (user.getAccessLevel()) {
             case Administrator -> {
                 return new AdministratorEnt(user.getUuid(), user.getLogin(), user.getPassword(), user.getActive());

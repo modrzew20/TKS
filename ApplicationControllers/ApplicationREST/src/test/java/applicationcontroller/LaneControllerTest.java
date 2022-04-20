@@ -5,15 +5,26 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.parsing.Parser;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
-import java.util.List;
-import static io.restassured.RestAssured.given;
-import static org.hamcrest.core.Is.is;
-import static org.hamcrest.Matchers.equalTo;
+import org.springframework.boot.web.server.LocalServerPort;
 
-@SpringBootTest
-public class LaneControllerTest {
-    private final String URL = "http://localhost:8080/";
+import javax.annotation.PostConstruct;
+import java.util.List;
+
+import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.core.Is.is;
+
+public class LaneControllerTest implements SpringTest {
+
+    @LocalServerPort
+    private int port;
+
+    private String URL;
+
+    @PostConstruct
+    private void init() {
+        URL = BASE_URL + port + "/";
+    }
 
     public static io.restassured.response.Response doGetRequest(String endpoint) {
         RestAssured.defaultParser = Parser.JSON;
@@ -24,7 +35,6 @@ public class LaneControllerTest {
                         then().contentType(ContentType.JSON).extract().response();
     }
 
-
     @Test
     void addLane() {
         io.restassured.response.Response response = doGetRequest(URL + "lane");
@@ -33,14 +43,14 @@ public class LaneControllerTest {
 
         RestAssured.given()
                 .contentType("application/x-www-form-urlencoded; charset=utf-8")
-                .formParam("type","vip")
+                .formParam("type", "vip")
                 .when().post(URL + "lane/add")
                 .then()
                 .assertThat()
                 .statusCode(200);
 
         RestAssured.given().contentType("application/x-www-form-urlencoded; charset=utf-8").get(URL + "lane").then().assertThat()
-                .statusCode(200).body("size()", is(size+1));
+                .statusCode(200).body("size()", is(size + 1));
 
     }
 
@@ -50,7 +60,7 @@ public class LaneControllerTest {
         //create
         String uuid = RestAssured.given()
                 .contentType("application/x-www-form-urlencoded; charset=utf-8")
-                .formParam("type","vip")
+                .formParam("type", "vip")
                 .when().post(URL + "lane/add")
                 .then()
                 .assertThat()
@@ -59,7 +69,7 @@ public class LaneControllerTest {
 
         RestAssured.given()
                 .contentType("application/x-www-form-urlencoded; charset=utf-8")
-                .formParam("id",uuid)
+                .formParam("id", uuid)
                 .formParam("type", "normal")
                 .when().post(URL + "lane/update")
                 .then()
@@ -83,7 +93,7 @@ public class LaneControllerTest {
         //create
         String uuid = RestAssured.given()
                 .contentType("application/x-www-form-urlencoded; charset=utf-8")
-                .formParam("type","vip")
+                .formParam("type", "vip")
                 .when().post(URL + "lane/add")
                 .then()
                 .assertThat()
@@ -102,7 +112,7 @@ public class LaneControllerTest {
                 .statusCode(200);
 
         RestAssured.given().contentType("application/x-www-form-urlencoded; charset=utf-8").get(URL + "lane").then().assertThat()
-                .statusCode(200).body("size()", is(size-1));
+                .statusCode(200).body("size()", is(size - 1));
 
     }
 }
