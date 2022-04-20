@@ -1,4 +1,4 @@
-package producingwebservice;
+package com.producingwebservice.soap;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
@@ -28,7 +28,7 @@ public class WebServiceConfig {
         DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
         wsdl11Definition.setPortTypeName("LanePort");
         wsdl11Definition.setLocationUri("/ws");
-        wsdl11Definition.setTargetNamespace("http://spring.io/guides/gs-producing-web-service");
+        wsdl11Definition.setTargetNamespace("http://producingwebservice.com/soap/soapModel/laneModel");
         wsdl11Definition.setSchema(laneSchema);
         return wsdl11Definition;
     }

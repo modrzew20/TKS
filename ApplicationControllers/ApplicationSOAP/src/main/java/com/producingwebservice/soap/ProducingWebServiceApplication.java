@@ -1,12 +1,13 @@
-package producingwebservice;
+package com.producingwebservice.soap;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication(scanBasePackages = {
-        "producingwebservice.soapAdapters",
-        "producingwebservice.soapConverters",
-        "producingwebservice.soapEndpoints",
+        "com.producingwebservice.soap.soapAdapters",
+        "com.producingwebservice.soap.soapConverters",
+        "com.producingwebservice.soap.soapEndpoints",
+        "com.producingwebservice.soap.soapmodel",
         "service",
         "repository",
         "model",

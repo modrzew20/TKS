@@ -1,7 +1,8 @@
-package producingwebservice.soapAdapters;
+package com.producingwebservice.soap.soapAdapters;
 
 import ServicePort.LaneServicePort;
-import io.spring.guides.gs_producing_web_service.LaneSoap;
+
+import com.producingwebservice.soap.soapmodel.lanemodel.LaneSoap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import service.LaneService;
@@ -9,7 +10,7 @@ import service.LaneService;
 import java.util.List;
 import java.util.UUID;
 
-import static producingwebservice.soapConverters.LaneSoapConverter.convertFromLane;
+import static com.producingwebservice.soap.soapConverters.LaneSoapConverter.convertFromLane;
 
 @Service
 public class LaneServiceSoapAdapter implements LaneServicePort<LaneSoap> {

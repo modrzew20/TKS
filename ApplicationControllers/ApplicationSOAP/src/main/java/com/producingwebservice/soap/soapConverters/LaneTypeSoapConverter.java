@@ -1,6 +1,7 @@
-package producingwebservice.soapConverters;
+package com.producingwebservice.soap.soapConverters;
 
-import io.spring.guides.gs_producing_web_service.LANETYPESoap;
+
+import com.producingwebservice.soap.soapmodel.lanemodel.LANETYPESoap;
 import model.LANE_TYPE;
 
 public class LaneTypeSoapConverter {

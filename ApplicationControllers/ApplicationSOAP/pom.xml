@@ -72,6 +72,8 @@
                     <sources>
                         <source>${project.basedir}/src/main/resources/lanes.xsd</source>
                     </sources>
+                    <outputDirectory>${project.basedir}/src/main/java</outputDirectory>
+                    <clearOutputDir>false</clearOutputDir>
                 </configuration>
             </plugin>
         </plugins>
