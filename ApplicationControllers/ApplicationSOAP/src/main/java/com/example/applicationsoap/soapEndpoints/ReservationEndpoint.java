@@ -2,6 +2,7 @@ package com.example.applicationsoap.soapEndpoints;
 
 import com.example.applicationsoap.soapAdapters.ReservationServiceSoapAdapter;
 import com.example.applicationsoap.soapmodel.reservationmodel.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
@@ -14,6 +15,7 @@ import java.util.UUID;
 public class ReservationEndpoint {
     private static final String URI = "http://example.com/applicationsoap/soapmodel/reservationmodel";
 
+    @Autowired
     ReservationServiceSoapAdapter reservationServiceSoapAdapter;
 
     @PayloadRoot(namespace = URI, localPart = "ReadAllReservationRequest")
