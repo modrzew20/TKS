@@ -3,7 +3,6 @@ package com.example.applicationsoap;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import org.hamcrest.Matchers;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.w3c.dom.Document;
@@ -16,7 +15,6 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import java.io.IOException;
 
-import static org.hamcrest.core.Is.is;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class LaneSOAPTest implements SpringSOAPTest {
