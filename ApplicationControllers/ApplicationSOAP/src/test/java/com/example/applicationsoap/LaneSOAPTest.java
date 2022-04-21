@@ -12,83 +12,22 @@ import javax.annotation.PostConstruct;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 public class LaneSOAPTest implements SpringSOAPTest {
 
     @LocalServerPort
     int port;
-
+    String basicLaneType = "vip";
     private String URL;
 
     @PostConstruct
     private void init() {
         URL = "http://localhost:" + port + "/ws";
     }
-
-    String readAllLanesRequest = """
-            <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
-                    xmlns:gs="http://example.com/applicationsoap/soapmodel/lanemodel">
-                <soapenv:Header/>
-                <soapenv:Body>
-                    <gs:ReadAllLaneRequest>
-                    </gs:ReadAllLaneRequest>
-                </soapenv:Body>
-            </soapenv:Envelope>
-            """;
-    String addLaneRequest = """
-            <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
-                    xmlns:gs="http://example.com/applicationsoap/soapmodel/lanemodel">
-                <soapenv:Header/>
-                <soapenv:Body>
-                    <gs:CreateLaneRequest>
-                        <gs:lane_type>%s</gs:lane_type>
-                    </gs:CreateLaneRequest>
-                </soapenv:Body>
-            </soapenv:Envelope>
-            """;
-
-    String updateLaneRequest = """
-            <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
-                    xmlns:gs="http://example.com/applicationsoap/soapmodel/lanemodel">
-                <soapenv:Header/>
-                <soapenv:Body>
-                    <gs:UpdateLaneRequest>
-                        <gs:uuid>%s</gs:uuid>
-                        <gs:lane_type>%s</gs:lane_type>
-                    </gs:UpdateLaneRequest>
-                </soapenv:Body>
-            </soapenv:Envelope>
-            """;
-
-    String readOneLaneRequest = """
-            <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
-                    xmlns:gs="http://example.com/applicationsoap/soapmodel/lanemodel">
-                <soapenv:Header/>
-                <soapenv:Body>
-                    <gs:ReadOneLaneRequest>
-                        <gs:uuid>%s</gs:uuid>
-                    </gs:ReadOneLaneRequest>
-                </soapenv:Body>
-            </soapenv:Envelope>
-            """;
-
-    String DeleteLaneRequest = """
-            <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
-                    xmlns:gs="http://example.com/applicationsoap/soapmodel/lanemodel">
-                <soapenv:Header/>
-                <soapenv:Body>
-                    <gs:DeleteLaneRequest>
-                        <gs:uuid>%s</gs:uuid>
-                    </gs:DeleteLaneRequest>
-                </soapenv:Body>
-            </soapenv:Envelope>
-            """;
-
-    String basicLaneType = "vip";
 
     private String addLaneRequest(String laneType) {
         return RestAssured.given()
