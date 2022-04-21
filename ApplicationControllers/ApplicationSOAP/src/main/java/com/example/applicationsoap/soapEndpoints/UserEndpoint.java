@@ -16,6 +16,7 @@ import java.util.UUID;
 public class UserEndpoint {
     private static final String URI = "http://example.com/applicationsoap/soapmodel/usermodel";
 
+    @Autowired
     UserServiceSoapAdapter userServiceSoapAdapter;
 
     @PayloadRoot(namespace = URI, localPart = "ReadAllUserRequest")
