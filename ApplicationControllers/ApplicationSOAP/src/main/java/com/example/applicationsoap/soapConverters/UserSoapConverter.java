@@ -17,8 +17,8 @@ public class UserSoapConverter {
             case ResourceAdministrator -> userSoap.setAccessLevel(AccessLevelType.RESOURCE_ADMINISTRATOR);
         }
         userSoap.setLogin(user.getLogin());
-        userSoap.setPassword(userSoap.getPassword());
-        userSoap.setUuid(userSoap.getUuid());
+        userSoap.setPassword(user.getPassword());
+        userSoap.setUuid(user.getUuid().toString());
         userSoap.setIsActive(user.getActive());
         return userSoap;
     }
