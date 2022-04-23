@@ -3,6 +3,7 @@ package com.example.applicationsoap.soapAdapters;
 import ServicePort.UserServicePort;
 import com.example.applicationsoap.soapConverters.UserSoapConverter;
 import com.example.applicationsoap.soapmodel.usermodel.UserSoap;
+import exceptions.ItemNotFound;
 import exceptions.LoginInUseException;
 import model.AccessLevel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,12 +30,12 @@ public class UserServiceSoapAdapter implements UserServicePort<UserSoap> {
     }
 
     @Override
-    public UserSoap updateUser(UUID uuid, String login, String password) throws LoginInUseException {
+    public UserSoap updateUser(UUID uuid, String login, String password) throws LoginInUseException, ItemNotFound {
         return UserSoapConverter.convertFromUser(userService.updateUser(uuid,login,password));
     }
 
     @Override
-    public UserSoap readOneUser(UUID uuid) {
+    public UserSoap readOneUser(UUID uuid) throws ItemNotFound {
         return UserSoapConverter.convertFromUser(userService.readOneUser(uuid));
     }
 
@@ -44,12 +45,12 @@ public class UserServiceSoapAdapter implements UserServicePort<UserSoap> {
     }
 
     @Override
-    public UserSoap deactivateUser(UUID uuid) {
+    public UserSoap deactivateUser(UUID uuid) throws ItemNotFound {
         return UserSoapConverter.convertFromUser(userService.deactivateUser(uuid));
     }
 
     @Override
-    public UserSoap activateUser(UUID uuid) {
+    public UserSoap activateUser(UUID uuid) throws ItemNotFound {
         return UserSoapConverter.convertFromUser(userService.activateUser(uuid));
     }
 }

@@ -1,5 +1,6 @@
 package Port.Out;
 
+import exceptions.ItemNotFound;
 import model.User;
 
 import java.util.List;
@@ -9,7 +10,7 @@ public interface ReadUserPort {
 
     List<User> readAll();
 
-    User readById(UUID uuid);
+    User readById(UUID uuid) throws ItemNotFound;
 
     List<User> readManyByLogin(String login);
 }

@@ -3,6 +3,8 @@ package adapters;
 import Port.In.CreateReservationPort;
 import Port.In.DeleteReservationPort;
 import Port.In.UpdateReservationPort;
+import exceptions.CannotDeleteItem;
+import exceptions.ItemNotFound;
 import model.Reservation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -26,7 +28,7 @@ public class ReservationPortInAdapter implements CreateReservationPort, DeleteRe
     }
 
     @Override
-    public Reservation delete(UUID uuid) {
+    public Reservation delete(UUID uuid) throws ItemNotFound, CannotDeleteItem {
         return convertToReservation(reservationRepository.delete(uuid));
     }
 

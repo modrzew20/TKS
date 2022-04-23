@@ -2,6 +2,9 @@ package com.example.applicationsoap.soapEndpoints;
 
 import com.example.applicationsoap.soapAdapters.ReservationServiceSoapAdapter;
 import com.example.applicationsoap.soapmodel.reservationmodel.*;
+import exceptions.CannotCreateItem;
+import exceptions.CannotDeleteItem;
+import exceptions.ItemNotFound;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
@@ -28,7 +31,7 @@ public class ReservationEndpoint {
 
     @PayloadRoot(namespace = URI, localPart = "ReadOneReservationRequest")
     @ResponsePayload
-    public ReadOneReservationResponse readOneReservationResponse(@RequestPayload ReadOneReservationRequest request) {
+    public ReadOneReservationResponse readOneReservationResponse(@RequestPayload ReadOneReservationRequest request) throws ItemNotFound {
         ReadOneReservationResponse response = new ReadOneReservationResponse();
         response.setReservationSoap(reservationServiceSoapAdapter.readOneReservation(UUID.fromString(request.getUuid())));
         return response;
@@ -36,7 +39,7 @@ public class ReservationEndpoint {
 
     @PayloadRoot(namespace = URI, localPart = "CreateReservationRequest")
     @ResponsePayload
-    public CreateReservationResponse createReservationResponse(@RequestPayload CreateReservationRequest request) {
+    public CreateReservationResponse createReservationResponse(@RequestPayload CreateReservationRequest request) throws ItemNotFound, CannotCreateItem {
         CreateReservationResponse response = new CreateReservationResponse();
         response.setReservationSoap(reservationServiceSoapAdapter.addReservation(UUID.fromString(request.getUserUuid()),
                 UUID.fromString(request.getLaneUuid()), LocalDateTime.parse(request.getStartReservation()),
@@ -55,7 +58,7 @@ public class ReservationEndpoint {
 
     @PayloadRoot(namespace = URI, localPart = "DeleteReservationRequest")
     @ResponsePayload
-    public DeleteReservationResponse deleteReservationResponse(@RequestPayload DeleteReservationRequest request) {
+    public DeleteReservationResponse deleteReservationResponse(@RequestPayload DeleteReservationRequest request) throws ItemNotFound, CannotDeleteItem {
         DeleteReservationResponse response = new DeleteReservationResponse();
         response.setReservationSoap(reservationServiceSoapAdapter.delete(UUID.fromString(request.getUuid())));
         return response;

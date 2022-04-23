@@ -3,6 +3,7 @@ package com.example.applicationsoap.soapEndpoints;
 import com.example.applicationsoap.soapAdapters.UserServiceSoapAdapter;
 import com.example.applicationsoap.soapConverters.UserSoapConverter;
 import com.example.applicationsoap.soapmodel.usermodel.*;
+import exceptions.ItemNotFound;
 import exceptions.LoginInUseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
@@ -29,7 +30,7 @@ public class UserEndpoint {
 
     @PayloadRoot(namespace = URI, localPart = "ReadOneUserRequest")
     @ResponsePayload
-    public ReadOneUserResponse readOneUserResponse(@RequestPayload ReadOneUserRequest request) {
+    public ReadOneUserResponse readOneUserResponse(@RequestPayload ReadOneUserRequest request) throws ItemNotFound {
         ReadOneUserResponse response = new ReadOneUserResponse();
         response.setUserSoap(userServiceSoapAdapter.readOneUser(UUID.fromString(request.getUuid())));
         return response;
@@ -53,7 +54,7 @@ public class UserEndpoint {
 
     @PayloadRoot(namespace = URI, localPart = "UpdateUserRequest")
     @ResponsePayload
-    public UpdateUserResponse updateUserResponse(@RequestPayload UpdateUserRequest request) throws LoginInUseException {
+    public UpdateUserResponse updateUserResponse(@RequestPayload UpdateUserRequest request) throws LoginInUseException, ItemNotFound {
         UpdateUserResponse response = new UpdateUserResponse();
         response.setUserSoap(userServiceSoapAdapter.updateUser(UUID.fromString(request.getUuid()), request.getLogin(), request.getPassword()));
         return response;
@@ -61,7 +62,7 @@ public class UserEndpoint {
 
     @PayloadRoot(namespace = URI, localPart = "DeactivateUserRequest")
     @ResponsePayload
-    public DeactivateUserResponse deactivateUserResponse(@RequestPayload DeactivateUserRequest request) {
+    public DeactivateUserResponse deactivateUserResponse(@RequestPayload DeactivateUserRequest request) throws ItemNotFound {
         DeactivateUserResponse response = new DeactivateUserResponse();
         response.setUserSoap(userServiceSoapAdapter.deactivateUser(UUID.fromString(request.getUuid())));
         return response;
@@ -69,7 +70,7 @@ public class UserEndpoint {
 
     @PayloadRoot(namespace = URI, localPart = "ActivateUserRequest")
     @ResponsePayload
-    public ActivateUserResponse activateUserResponse(@RequestPayload ActivateUserRequest request) {
+    public ActivateUserResponse activateUserResponse(@RequestPayload ActivateUserRequest request) throws ItemNotFound {
         ActivateUserResponse response = new ActivateUserResponse();
         response.setUserSoap(userServiceSoapAdapter.activateUser(UUID.fromString(request.getUuid())));
         return response;

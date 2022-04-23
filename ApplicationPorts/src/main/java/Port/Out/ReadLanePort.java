@@ -1,5 +1,6 @@
 package Port.Out;
 
+import exceptions.ItemNotFound;
 import model.Lane;
 
 import java.util.List;
@@ -9,5 +10,5 @@ public interface ReadLanePort {
 
     List<Lane> readAll();
 
-    Lane readById(UUID uuid);
+    Lane readById(UUID uuid) throws ItemNotFound;
 }

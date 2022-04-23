@@ -1,9 +1,10 @@
 package applicationcontroller.api;
 
 import applicationcontroller.adapters.UserServiceAdapters;
+import applicationcontroller.modelRest.modelView.UserView;
+import exceptions.ItemNotFound;
 import exceptions.LoginInUseException;
 import model.AccessLevel;
-import applicationcontroller.modelRest.modelView.UserView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -35,32 +36,35 @@ public class UserController {
     @GetMapping(value = "/{uuid}", produces = MediaType.APPLICATION_JSON_VALUE)
     public UserView readUser(@PathVariable("uuid") @NotBlank @Pattern(regexp =
             "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}") String uuid) {
-        return userServiceAdapters.readOneUser(UUID.fromString(uuid));
+        try {
+            return userServiceAdapters.readOneUser(UUID.fromString(uuid));
+        } catch (ItemNotFound e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
     }
 
     @PostMapping(value = "/add", produces = MediaType.APPLICATION_JSON_VALUE)
     public UserView addUser(@RequestParam("accessLevel") @NotBlank @Pattern(regexp = "Administrator|Client|ResourceAdministrator", message = "Field accessLevel must be Administrator|Client|ResourceAdministrator.") String accessLevel,
                             @RequestParam("login") @NotBlank String login,
-                            @RequestParam("password") @NotBlank String password){
-        UserView userView;
+                            @RequestParam("password") @NotBlank String password) {
         try {
-            userView = userServiceAdapters.addUser(AccessLevel.valueOf(accessLevel), login, password);
+            return userServiceAdapters.addUser(AccessLevel.valueOf(accessLevel), login, password);
         } catch (LoginInUseException e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
-        if (userView == null) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
-        }
-        return userView;
     }
 
     @PostMapping(value = "/update", produces = MediaType.APPLICATION_JSON_VALUE)
     public UserView updateUser(@RequestParam("id") @NotBlank @Pattern(regexp =
             "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}") String uuid,
                                @RequestParam("login") String login,
-                               @RequestParam("password") String password) throws LoginInUseException {
+                               @RequestParam("password") String password) {
 
-        return userServiceAdapters.updateUser(UUID.fromString(uuid), login, password);
+        try {
+            return userServiceAdapters.updateUser(UUID.fromString(uuid), login, password);
+        } catch (LoginInUseException | ItemNotFound e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
     }
 
     @GetMapping(value = "/readMany/{login}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -71,13 +75,21 @@ public class UserController {
     @PostMapping(value = "/deactivate/{uuid}", produces = MediaType.APPLICATION_JSON_VALUE)
     public UserView deactivateUser(@PathVariable @NotBlank @Pattern(regexp =
             "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}") String uuid) {
-        return userServiceAdapters.deactivateUser(UUID.fromString(uuid));
+        try {
+            return userServiceAdapters.deactivateUser(UUID.fromString(uuid));
+        } catch (ItemNotFound e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
     }
 
     @PostMapping(value = "/activate/{uuid}", produces = MediaType.APPLICATION_JSON_VALUE)
     public UserView activateUser(@PathVariable @NotBlank @Pattern(regexp =
             "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}") String uuid) {
-        return userServiceAdapters.activateUser(UUID.fromString(uuid));
+        try {
+            return userServiceAdapters.activateUser(UUID.fromString(uuid));
+        } catch (ItemNotFound e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
     }
 
 }

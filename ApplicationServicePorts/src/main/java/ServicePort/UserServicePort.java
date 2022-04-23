@@ -1,7 +1,9 @@
 package ServicePort;
 
+import exceptions.ItemNotFound;
 import exceptions.LoginInUseException;
 import model.AccessLevel;
+
 import java.util.List;
 import java.util.UUID;
 
@@ -11,13 +13,13 @@ public interface UserServicePort<T> {
     T addUser(AccessLevel accessLevel, String login, String password) throws LoginInUseException;
 
     T updateUser(UUID uuid, String login, String password) throws
-            LoginInUseException;
+            LoginInUseException, ItemNotFound;
 
-    T readOneUser(UUID uuid);
+    T readOneUser(UUID uuid) throws ItemNotFound;
 
     List<T> readManyUser(String login);
 
-    T deactivateUser(UUID uuid);
+    T deactivateUser(UUID uuid) throws ItemNotFound;
 
-    T activateUser(UUID uuid);
+    T activateUser(UUID uuid) throws ItemNotFound;
 }

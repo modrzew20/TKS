@@ -6,10 +6,10 @@ import Port.In.DeleteLanePort;
 import Port.In.UpdateLanePort;
 import Port.Out.LanesReservationPort;
 import Port.Out.ReadLanePort;
+import exceptions.ItemNotFound;
 import model.LANE_TYPE;
 import model.Lane;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -46,20 +46,20 @@ public class LaneService {
         }
     }
 
-    public Lane updateLane(UUID uuid, String lane_type) {
+    public Lane updateLane(UUID uuid, String lane_type) throws ItemNotFound {
         if (reservationPortOut.presentLaneReservations(uuid).size() != 0) return null;
         synchronized (lock) {
             return updateLanePort.update(new Lane(uuid, LANE_TYPE.valueOf(lane_type)));
         }
     }
 
-    public Lane readOneLane(UUID uuid) {
+    public Lane readOneLane(UUID uuid) throws ItemNotFound {
         synchronized (lock) {
             return readLanePort.readById(uuid);
         }
     }
 
-    public Lane deleteLine(UUID uuid) {
+    public Lane deleteLine(UUID uuid) throws ItemNotFound {
         if (reservationPortOut.presentLaneReservations(uuid).size() != 0) return null;
         synchronized (lock) {
             return deleteLanePort.delete(uuid);

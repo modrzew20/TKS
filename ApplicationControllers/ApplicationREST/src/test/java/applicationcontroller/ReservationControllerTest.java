@@ -21,11 +21,6 @@ public class ReservationControllerTest implements SpringTest {
 
     private String URL;
 
-    @PostConstruct
-    private void init() {
-        URL = BASE_URL + port + "/";
-    }
-
     public static Response doGetRequest(String endpoint) {
         RestAssured.defaultParser = Parser.JSON;
 
@@ -35,6 +30,10 @@ public class ReservationControllerTest implements SpringTest {
                         then().contentType(ContentType.JSON).extract().response();
     }
 
+    @PostConstruct
+    private void init() {
+        URL = BASE_URL + port + "/";
+    }
 
     @Test
     public void addReservationTest() {

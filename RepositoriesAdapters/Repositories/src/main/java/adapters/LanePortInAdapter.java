@@ -4,6 +4,7 @@ package adapters;
 import Port.In.CreateLanePort;
 import Port.In.DeleteLanePort;
 import Port.In.UpdateLanePort;
+import exceptions.ItemNotFound;
 import model.Lane;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -26,12 +27,12 @@ public class LanePortInAdapter implements CreateLanePort, DeleteLanePort, Update
     }
 
     @Override
-    public Lane delete(UUID uuid) {
+    public Lane delete(UUID uuid) throws ItemNotFound {
         return convertToLane(laneRepository.delete(uuid));
     }
 
     @Override
-    public Lane update(Lane lane) {
+    public Lane update(Lane lane) throws ItemNotFound {
         return convertToLane(laneRepository.update(convertFromLane(lane)));
     }
 }

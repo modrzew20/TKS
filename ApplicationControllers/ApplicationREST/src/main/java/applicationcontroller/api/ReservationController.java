@@ -2,6 +2,9 @@ package applicationcontroller.api;
 
 import applicationcontroller.adapters.ReservationServiceAdapters;
 import applicationcontroller.modelRest.modelView.ReservationView;
+import exceptions.CannotCreateItem;
+import exceptions.CannotDeleteItem;
+import exceptions.ItemNotFound;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -33,10 +36,13 @@ public class ReservationController {
 
     @GetMapping(value = "/{uuid}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ReservationView readOneReservation(@PathVariable("uuid") @NotBlank @Pattern(regexp = "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}") String uuid) {
-        return reservationServiceAdapters.readOneReservation(UUID.fromString(uuid));
+        try {
+            return reservationServiceAdapters.readOneReservation(UUID.fromString(uuid));
+        } catch (ItemNotFound e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
 
     }
-
 
     @PostMapping(value = "/add", produces = MediaType.APPLICATION_JSON_VALUE)
     public ReservationView addReservation(@RequestParam @NotBlank @Pattern(regexp = "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}") String clientsUUID,
@@ -45,13 +51,13 @@ public class ReservationController {
                                                   "[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}") String start,
                                           @RequestParam @NotBlank @Pattern(regexp =
                                                   "[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}") String end) {
-        ReservationView reservation = reservationServiceAdapters.addReservation(UUID.fromString(clientsUUID), UUID.fromString(laneUUID), LocalDateTime.parse(start), LocalDateTime.parse(end));
-        if (reservation == null) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        try {
+            return reservationServiceAdapters.addReservation(UUID.fromString(clientsUUID), UUID.fromString(laneUUID), LocalDateTime.parse(start), LocalDateTime.parse(end));
+        } catch (ItemNotFound | CannotCreateItem e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
-        return reservation;
-    }
 
+    }
 
     @GetMapping(value = "/pastClientReservations/{uuid}", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<ReservationView> pastClientReservations(@PathVariable("uuid") @NotBlank @Pattern(regexp = "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}") String uuid) {
@@ -88,11 +94,11 @@ public class ReservationController {
 
     @DeleteMapping(value = "/delete/{param}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ReservationView deleteReservation(@PathVariable("param") @NotBlank @Pattern(regexp = "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}") String uuid) {
-        ReservationView reservation = reservationServiceAdapters.delete(UUID.fromString(uuid));
-        if (reservation == null) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        try {
+            return reservationServiceAdapters.delete(UUID.fromString(uuid));
+        } catch (ItemNotFound | CannotDeleteItem e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
-        return reservation;
     }
 
 }

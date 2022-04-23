@@ -21,11 +21,6 @@ public class LaneControllerTest implements SpringTest {
 
     private String URL;
 
-    @PostConstruct
-    private void init() {
-        URL = BASE_URL + port + "/";
-    }
-
     public static io.restassured.response.Response doGetRequest(String endpoint) {
         RestAssured.defaultParser = Parser.JSON;
 
@@ -33,6 +28,11 @@ public class LaneControllerTest implements SpringTest {
                 given().headers("Content-Type", ContentType.JSON, "Accept", ContentType.JSON).
                         when().get(endpoint).
                         then().contentType(ContentType.JSON).extract().response();
+    }
+
+    @PostConstruct
+    private void init() {
+        URL = BASE_URL + port + "/";
     }
 
     @Test

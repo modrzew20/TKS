@@ -1,4 +1,9 @@
 package ServicePort;
+
+import exceptions.CannotCreateItem;
+import exceptions.CannotDeleteItem;
+import exceptions.ItemNotFound;
+
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
@@ -6,9 +11,9 @@ import java.util.UUID;
 public interface ReservationServicePort<T> {
     List<T> readAllReservation();
 
-    T addReservation(UUID clientsUUID, UUID laneUUID, LocalDateTime start, LocalDateTime end);
+    T addReservation(UUID clientsUUID, UUID laneUUID, LocalDateTime start, LocalDateTime end) throws ItemNotFound, CannotCreateItem;
 
-    T readOneReservation(UUID uuid);
+    T readOneReservation(UUID uuid) throws ItemNotFound;
 
     List<T> pastClientReservations(UUID clientsUUID);
 
@@ -20,5 +25,5 @@ public interface ReservationServicePort<T> {
 
     T endReservation(UUID uuid, LocalDateTime localDateTime);
 
-    T delete(UUID uuid);
+    T delete(UUID uuid) throws ItemNotFound, CannotDeleteItem;
 }

@@ -3,6 +3,7 @@ package com.example.applicationsoap.soapEndpoints;
 import com.example.applicationsoap.soapAdapters.LaneServiceSoapAdapter;
 import com.example.applicationsoap.soapmodel.lanemodel.*;
 
+import exceptions.ItemNotFound;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
@@ -28,7 +29,7 @@ public class LaneEndpoint {
 
     @PayloadRoot(namespace = URI, localPart = "ReadOneLaneRequest")
     @ResponsePayload
-    public ReadOneLaneResponse readOneLaneResponse(@RequestPayload ReadOneLaneRequest request) {
+    public ReadOneLaneResponse readOneLaneResponse(@RequestPayload ReadOneLaneRequest request) throws ItemNotFound {
         ReadOneLaneResponse response = new ReadOneLaneResponse();
         response.setLaneSoap(laneServiceSoapAdapter.readOneLane(UUID.fromString(request.getUuid())));
         return response;
@@ -44,7 +45,7 @@ public class LaneEndpoint {
 
     @PayloadRoot(namespace = URI, localPart = "UpdateLaneRequest")
     @ResponsePayload
-    public UpdateLaneResponse updateLaneResponse(@RequestPayload UpdateLaneRequest request) {
+    public UpdateLaneResponse updateLaneResponse(@RequestPayload UpdateLaneRequest request) throws ItemNotFound {
         UpdateLaneResponse response = new UpdateLaneResponse();
         response.setLaneSoap(laneServiceSoapAdapter.updateLane(UUID.fromString(request.getUuid()),request.getLaneType().value()));
         return response;
@@ -52,7 +53,7 @@ public class LaneEndpoint {
 
     @PayloadRoot(namespace = URI, localPart = "DeleteLaneRequest")
     @ResponsePayload
-    public DeleteLaneResponse deleteLaneResponse(@RequestPayload DeleteLaneRequest request) {
+    public DeleteLaneResponse deleteLaneResponse(@RequestPayload DeleteLaneRequest request) throws ItemNotFound {
         DeleteLaneResponse response = new DeleteLaneResponse();
         response.setLaneSoap(laneServiceSoapAdapter.deleteLine(UUID.fromString(request.getUuid())));
         return response;
