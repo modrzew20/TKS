@@ -1,6 +1,8 @@
 package repository;
 
 
+import exceptions.CannotDeleteItem;
+import exceptions.ItemNotFound;
 import modelEnt.ReservationEnt;
 import org.springframework.stereotype.Repository;
 
@@ -24,8 +26,8 @@ public class ReservationRepository implements RepositoryInterface<ReservationEnt
     }
 
     @Override
-    public ReservationEnt readById(UUID uuid) {
-        return reservationList.stream().filter(reservation1 -> uuid.equals(reservation1.getUuid())).findFirst().orElse(null);
+    public ReservationEnt readById(UUID uuid) throws ItemNotFound {
+        return reservationList.stream().filter(reservation1 -> uuid.equals(reservation1.getUuid())).findFirst().orElseThrow(() -> new ItemNotFound("No reservation with UUID found"));
     }
 
     @Override
@@ -40,18 +42,16 @@ public class ReservationRepository implements RepositoryInterface<ReservationEnt
     }
 
     @Override
-    public ReservationEnt delete(UUID uuid) {
+    public ReservationEnt delete(UUID uuid) throws ItemNotFound, CannotDeleteItem {
+        ReservationEnt reservation = readById(uuid);
         LocalDateTime time = LocalDateTime.now();
-        for (int i = 0; i < reservationList.size(); i++) {
-            if (reservationList.get(i).getUuid().equals(uuid)
-                    && (reservationList.get(i).getEndReservation().isBefore(time)
-                    || reservationList.get(i).getEndReservation() == null)) {
-                ReservationEnt reservation = reservationList.get(i);
-                reservationList.remove(i);
-                return reservation;
-            }
+        if ((reservation.getEndReservation().isBefore(time)
+                || reservation.getEndReservation() == null)) {
+            reservationList.remove(reservation);
+            return reservation;
+        } else {
+            throw new CannotDeleteItem();
         }
-        return null;
     }
 
     @Override

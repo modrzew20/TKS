@@ -29,6 +29,7 @@
         <module>RepositoriesAdapters</module>
         <module>ApplicationServicePorts</module>
         <module>ApplicationControllers</module>
+        <module>Exceptions</module>
     </modules>
 
     <dependencyManagement>

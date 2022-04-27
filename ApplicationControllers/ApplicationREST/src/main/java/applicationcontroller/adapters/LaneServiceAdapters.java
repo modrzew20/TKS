@@ -4,9 +4,11 @@ package applicationcontroller.adapters;
 import ServicePort.LaneServicePort;
 import applicationcontroller.converters.LaneViewConverter;
 import applicationcontroller.modelRest.modelView.LaneView;
+import exceptions.ItemNotFound;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import service.LaneService;
+
 import java.util.List;
 import java.util.UUID;
 
@@ -27,17 +29,17 @@ public class LaneServiceAdapters implements LaneServicePort<LaneView> {
     }
 
     @Override
-    public LaneView updateLane(UUID uuid, String lane_type) {
+    public LaneView updateLane(UUID uuid, String lane_type) throws ItemNotFound {
         return LaneViewConverter.convertFromLane(laneService.updateLane(uuid, lane_type));
     }
 
     @Override
-    public LaneView readOneLane(UUID uuid) {
+    public LaneView readOneLane(UUID uuid) throws ItemNotFound {
         return LaneViewConverter.convertFromLane(laneService.readOneLane(uuid));
     }
 
     @Override
-    public LaneView deleteLine(UUID uuid) {
+    public LaneView deleteLine(UUID uuid) throws ItemNotFound {
         return LaneViewConverter.convertFromLane(laneService.deleteLine(uuid));
     }
 }

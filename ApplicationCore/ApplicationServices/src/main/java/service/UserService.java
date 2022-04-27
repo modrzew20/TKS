@@ -5,10 +5,10 @@ import Port.In.CreateUserPort;
 import Port.In.DeleteUserPort;
 import Port.In.UpdateUserPort;
 import Port.Out.ReadUserPort;
+import exceptions.ItemNotFound;
 import exceptions.LoginInUseException;
 import model.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -57,7 +57,7 @@ public class UserService {
     }
 
     public User updateUser(UUID uuid, String login, String password) throws
-            LoginInUseException {
+            LoginInUseException, ItemNotFound {
         synchronized (lock) {
             User user = readUserPort.readById(uuid);
             switch (user.getAccessLevel()) {
@@ -78,7 +78,7 @@ public class UserService {
     }
 
 
-    public User readOneUser(UUID uuid) {
+    public User readOneUser(UUID uuid) throws ItemNotFound {
         synchronized (lock) {
             return readUserPort.readById(uuid);
         }
@@ -91,13 +91,13 @@ public class UserService {
     }
 
 
-    public User deactivateUser(UUID uuid) {
+    public User deactivateUser(UUID uuid) throws ItemNotFound {
         synchronized (lock) {
             return updateUserPort.deactivate(uuid);
         }
     }
 
-    public User activateUser(UUID uuid) {
+    public User activateUser(UUID uuid) throws ItemNotFound {
         synchronized (lock) {
             return updateUserPort.activate(uuid);
         }

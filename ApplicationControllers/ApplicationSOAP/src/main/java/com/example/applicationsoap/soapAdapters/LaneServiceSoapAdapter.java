@@ -3,6 +3,7 @@ package com.example.applicationsoap.soapAdapters;//package com.example.applicati
 import ServicePort.LaneServicePort;
 import com.example.applicationsoap.soapConverters.LaneSoapConverter;
 import com.example.applicationsoap.soapmodel.lanemodel.LaneSoap;
+import exceptions.ItemNotFound;
 import model.LANE_TYPE;
 import model.Lane;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,17 +34,17 @@ public class LaneServiceSoapAdapter implements LaneServicePort<LaneSoap> {
     }
 
     @Override
-    public LaneSoap updateLane(UUID uuid, String lane_type) {
+    public LaneSoap updateLane(UUID uuid, String lane_type) throws ItemNotFound {
         return convertFromLane(laneService.updateLane(uuid,lane_type));
     }
 
     @Override
-    public LaneSoap readOneLane(UUID uuid) {
+    public LaneSoap readOneLane(UUID uuid) throws ItemNotFound {
         return convertFromLane(laneService.readOneLane(uuid));
     }
 
     @Override
-    public LaneSoap deleteLine(UUID uuid) {
+    public LaneSoap deleteLine(UUID uuid) throws ItemNotFound {
         return convertFromLane(laneService.deleteLine(uuid));
     }
 }

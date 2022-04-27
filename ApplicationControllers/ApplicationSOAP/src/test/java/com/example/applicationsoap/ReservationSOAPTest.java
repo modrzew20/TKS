@@ -15,7 +15,7 @@ public class ReservationSOAPTest implements SpringSOAPTest {
     int port;
 
     String accessLevel = "Client";
-    String login = "login5";
+    String login = "loginxas6";
     String password = "password5";
     String laneType = "vip";
     String start = "2021-12-13T12:10:31";
@@ -33,10 +33,11 @@ public class ReservationSOAPTest implements SpringSOAPTest {
         String clientUUID = RestAssured.given()
                 .header("Content-Type", "text/xml")
                 .header("SOAPAction", "http://example.com/applicationsoap/soapmodel/usermodel")
-                .body(String.format(CreateUserRequest, accessLevel, login, password))
+                .body(String.format(CreateUserRequest, accessLevel, login + "b", password))
                 .post(URL)
                 .then()
                 .assertThat()
+                .log().body()
                 .statusCode(200)
                 .extract().xmlPath().getString("Envelope.Body.CreateUserResponse.UserSoap.uuid");
 
@@ -78,7 +79,7 @@ public class ReservationSOAPTest implements SpringSOAPTest {
         String clientUUID = RestAssured.given()
                 .header("Content-Type", "text/xml")
                 .header("SOAPAction", "http://example.com/applicationsoap/soapmodel/usermodel")
-                .body(String.format(CreateUserRequest, accessLevel, login, password))
+                .body(String.format(CreateUserRequest, accessLevel, login + "a", password))
                 .post(URL)
                 .then()
                 .assertThat()
@@ -130,7 +131,7 @@ public class ReservationSOAPTest implements SpringSOAPTest {
                 .post(URL)
                 .then()
                 .assertThat()
-                .statusCode(200)
+                .statusCode(500)
                 .extract().response();
     }
 

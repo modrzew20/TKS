@@ -1,6 +1,7 @@
 package repository;
 
 
+import exceptions.ItemNotFound;
 import modelEnt.LANE_TYPE_Ent;
 import modelEnt.LaneEnt;
 import org.springframework.stereotype.Repository;
@@ -35,8 +36,8 @@ public class LaneRepository implements RepositoryInterface<LaneEnt> {
     }
 
     @Override
-    public LaneEnt readById(UUID uuid) {
-        return laneList.stream().filter(lane1 -> uuid.equals(lane1.getUuid())).findFirst().orElse(null);
+    public LaneEnt readById(UUID uuid) throws ItemNotFound {
+        return laneList.stream().filter(lane1 -> uuid.equals(lane1.getUuid())).findFirst().orElseThrow((() -> new ItemNotFound("No lane with UUID found")));
     }
 
     @Override
@@ -53,18 +54,18 @@ public class LaneRepository implements RepositoryInterface<LaneEnt> {
     }
 
     @Override
-    public LaneEnt delete(UUID uuid) {
+    public LaneEnt delete(UUID uuid) throws ItemNotFound {
         Optional<LaneEnt> optional = laneList.stream().filter(lane -> uuid.equals(lane.getUuid())).findFirst();
-        LaneEnt lane = optional.orElse(null);
+        LaneEnt lane = optional.orElseThrow(() -> new ItemNotFound("No lane with UUID found"));
         if (lane != null) laneList.remove(lane);
         return lane;
     }
 
     @Override
-    public LaneEnt update(LaneEnt object) {
+    public LaneEnt update(LaneEnt object) throws ItemNotFound {
         UUID uuid = object.getUuid();
         Optional<LaneEnt> optional = laneList.stream().filter(lane -> uuid.equals(lane.getUuid())).findFirst();
-        LaneEnt lane = optional.orElse(null);
+        LaneEnt lane = optional.orElseThrow(() -> new ItemNotFound("No lane with UUID found"));
         if (lane != null) lane.setType(object.getType());
         return lane;
     }

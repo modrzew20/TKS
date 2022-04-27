@@ -3,6 +3,7 @@ package adapters;
 import Port.Out.ClientsReservationPort;
 import Port.Out.LanesReservationPort;
 import Port.Out.ReadReservationPort;
+import exceptions.ItemNotFound;
 import model.Reservation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -26,7 +27,7 @@ public class ReservationPortOutAdapter implements LanesReservationPort, ReadRese
     }
 
     @Override
-    public Reservation readById(UUID uuid) {
+    public Reservation readById(UUID uuid) throws ItemNotFound {
         return convertToReservation(reservationRepository.readById(uuid));
     }
 

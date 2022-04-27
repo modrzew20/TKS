@@ -5,6 +5,10 @@ import Port.In.CreateReservationPort;
 import Port.In.DeleteReservationPort;
 import Port.In.UpdateReservationPort;
 import Port.Out.*;
+import exceptions.ApplicationException;
+import exceptions.CannotCreateItem;
+import exceptions.CannotDeleteItem;
+import exceptions.ItemNotFound;
 import model.Lane;
 import model.Reservation;
 import model.User;
@@ -46,12 +50,12 @@ public class ReservationService {
         }
     }
 
-    public Reservation addReservation(UUID clientsUUID, UUID laneUUID, LocalDateTime start, LocalDateTime end) {
+    public Reservation addReservation(UUID clientsUUID, UUID laneUUID, LocalDateTime start, LocalDateTime end) throws ItemNotFound, CannotCreateItem {
 
         Lane lane = readLanePort.readById(laneUUID);
         User client = readUserPort.readById(clientsUUID);
-        if (!readUserPort.readById(clientsUUID).getActive() || createReservationPort.reservedLine(laneUUID, start, end) || lane == null || client == null)
-            return null;
+        if (!readUserPort.readById(clientsUUID).getActive() || createReservationPort.reservedLine(laneUUID, start, end))
+            throw new CannotCreateItem("Cannot create reservation");
         synchronized (lock) {
             Reservation reservation = new Reservation(UUID.randomUUID(), lane, client, start, end);
             reservation = createReservationPort.create(reservation);
@@ -59,7 +63,7 @@ public class ReservationService {
         }
     }
 
-    public Reservation readOneReservation(UUID uuid) {
+    public Reservation readOneReservation(UUID uuid) throws ItemNotFound {
         synchronized (lock) {
             return readReservationPort.readById(uuid);
         }
@@ -95,7 +99,7 @@ public class ReservationService {
         }
     }
 
-    public Reservation delete(UUID uuid) {
+    public Reservation delete(UUID uuid) throws ItemNotFound, CannotDeleteItem {
         synchronized (lock) {
             return deleteReservationPort.delete(uuid);
         }

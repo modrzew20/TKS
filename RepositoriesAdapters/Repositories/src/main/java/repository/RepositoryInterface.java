@@ -1,7 +1,9 @@
 package repository;
 
 
-import exceptionsEnt.LoginInUseExceptionEnt;
+import exceptions.CannotDeleteItem;
+import exceptions.ItemNotFound;
+import exceptions.LoginInUseException;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -13,12 +15,12 @@ public interface RepositoryInterface<T> {
 
     List<T> readAll();
 
-    T readById(UUID uuid);
+    T readById(UUID uuid) throws ItemNotFound;
 
-    T create(T object) throws LoginInUseExceptionEnt;
+    T create(T object) throws LoginInUseException;
 
-    T delete(UUID uuid);
+    T delete(UUID uuid) throws ItemNotFound, CannotDeleteItem;
 
-    T update(T object) throws LoginInUseExceptionEnt;
+    T update(T object) throws LoginInUseException, ItemNotFound;
 
 }

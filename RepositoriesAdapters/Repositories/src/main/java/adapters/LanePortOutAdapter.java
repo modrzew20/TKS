@@ -1,6 +1,7 @@
 package adapters;
 
 import Port.Out.ReadLanePort;
+import exceptions.ItemNotFound;
 import model.Lane;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -24,7 +25,7 @@ public class LanePortOutAdapter implements ReadLanePort {
     }
 
     @Override
-    public Lane readById(UUID uuid) {
+    public Lane readById(UUID uuid) throws ItemNotFound {
         return convertToLane(laneRepository.readById(uuid));
     }
 }
