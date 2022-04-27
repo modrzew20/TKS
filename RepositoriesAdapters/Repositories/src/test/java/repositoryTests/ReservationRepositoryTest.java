@@ -1,4 +1,4 @@
-package repository;
+package repositoryTests;
 
 import exceptions.CannotDeleteItem;
 import exceptions.ItemNotFound;
@@ -6,6 +6,9 @@ import exceptions.LoginInUseException;
 import modelEnt.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import repository.LaneRepository;
+import repository.ReservationRepository;
+import repository.UserRepository;
 
 import java.time.LocalDateTime;
 import java.util.List;
